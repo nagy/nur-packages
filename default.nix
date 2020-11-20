@@ -7,4 +7,6 @@
   luaPackages.tl = pkgs.callPackage ./pkgs/teal.nix { } ;
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
+
+  passphrase2pgp = pkgs.callPackage ./passphrase2pgp.nix {};
 }
