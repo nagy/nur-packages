@@ -1,0 +1,14 @@
+* Nur-packages
+
+My personal [[https://github.com/nix-community/NUR][NUR]] repository.
+
+it contains packages for:
+  - [[http://www.lispworks.com/documentation/HyperSpec/Front/index.htm][hyperspec]]
+  - schemaorg (https://schema.org)
+  - fennel
+  - passphrase2pgp
+  - teal
+
+* License
+  
+MIT License
