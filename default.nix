@@ -8,5 +8,5 @@
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
-  passphrase2pgp = pkgs.callPackage ./passphrase2pgp.nix {};
+  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
 }
