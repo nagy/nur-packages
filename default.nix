@@ -9,4 +9,6 @@
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
   passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
+
+  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
 }
