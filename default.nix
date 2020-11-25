@@ -10,5 +10,7 @@
 
   passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
 
+  apertium = pkgs.callPackage ./pkgs/apertium.nix {};
+
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
 }
