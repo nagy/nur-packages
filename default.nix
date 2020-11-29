@@ -13,4 +13,6 @@
   apertium = pkgs.callPackage ./pkgs/apertium.nix {};
 
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
+
+  ruffle = pkgs.callPackage ./pkgs/ruffle {};
 }
