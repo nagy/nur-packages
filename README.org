@@ -10,6 +10,7 @@ it contains packages/attributes for:
   - passphrase2pgp (https://github.com/skeeto/passphrase2pgp)
   - apertium (https://github.com/apertium/apertium)
   - lttoolbox (https://github.com/apertium/lttoolbox)
+  - ruffle (https://ruffle.rs/)
   - lunasvg (https://github.com/sammycage/lunasvg/)
 
 * License
