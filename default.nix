@@ -15,4 +15,6 @@
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
 
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
+
+  lunasvg = pkgs.callPackage ./pkgs/lunasvg.nix {};
 }
