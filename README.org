@@ -21,6 +21,9 @@ It contains packages/attributes for:
   - gemget (https://github.com/makeworld-the-better-one/gemget)
   - cpp-httplib (https://github.com/yhirose/cpp-httplib)
   - cxxtimer (https://github.com/andremaravilha/cxxtimer)
+  - px
+  - earcut
+  - skybolt (https://github.com/Piraxus/skybolt/)
 
 * License
   

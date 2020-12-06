@@ -47,4 +47,11 @@ rec {
 
   cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
 
+  earcut = pkgs.callPackage ./pkgs/earcut.nix {};
+
+  px = pkgs.callPackage ./pkgs/px.nix {};
+
+  skybolt = pkgs.callPackage ./pkgs/skybolt.nix {
+    inherit cxxtimer px cpp-httplib earcut;
+  };
 }
