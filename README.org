@@ -2,7 +2,7 @@
 
 My personal [[https://github.com/nix-community/NUR][NUR]] repository.
 
-it contains packages/attributes for:
+It contains packages/attributes for:
   - hyperspec ([[http://www.lispworks.com/documentation/HyperSpec/Front/index.htm][Common Lisp HyperSpec]])
   - schemaorg (https://schema.org)
   - luaPackages.fennel (https://fennel-lang.org/)
