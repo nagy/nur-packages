@@ -1,4 +1,4 @@
-{ stdenv, lua53Packages, fetchurl, makeWrapper }:
+{ stdenv, lua53Packages, fetchurl }:
 let
   inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
 in buildLuarocksPackage rec {
