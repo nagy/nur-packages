@@ -17,4 +17,7 @@
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
 
   lunasvg = pkgs.callPackage ./pkgs/lunasvg.nix {};
+
+  lispPackages.vacietis = pkgs.callPackage ./pkgs/vacietis {};
+
 }

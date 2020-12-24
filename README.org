@@ -12,6 +12,7 @@ it contains packages/attributes for:
   - lttoolbox (https://github.com/apertium/lttoolbox)
   - ruffle (https://ruffle.rs/)
   - lunasvg (https://github.com/sammycage/lunasvg/)
+  - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
 
 * License
   
