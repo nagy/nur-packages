@@ -1,20 +1,20 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, lispPackages, fetchFromGitHub }:
 
-pkgs.lispPackages.buildLispPackage rec {
+lispPackages.buildLispPackage rec {
   baseName = "vacietis";
   version = "2012-11-29";
 
   buildSystems = [ "vacietis" ];
 
   description = "C to Common Lisp compiler";
-  deps = with pkgs.lispPackages; [
+  deps = with lispPackages; [
     named-readtables
     anaphora
     babel
     cl-ppcre
     cl-fad
   ];
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "vsedach";
     repo = "Vacietis";
     rev = "50c1b82a9f906c270cd8cbc7a1fe7f7281ebad2f";
