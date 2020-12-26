@@ -18,5 +18,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "schema.org";
     homepage = "schema.org";
+    changelog = "https://schema.org/docs/releases.html";
   };
 }
