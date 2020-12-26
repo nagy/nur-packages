@@ -1,4 +1,4 @@
-{ stdenv, lua53Packages, fetchurl, fetchFromGitHub, makeWrapper }:
+{ stdenv, lua53Packages, fetchurl }:
 
 with lua53Packages;
 buildLuarocksPackage rec {
