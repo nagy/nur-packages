@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p "$out/share/schema.org/"
-    cp -r "data/releases/${version}/" "$out/share/schema.org/"
+    cp -r "data/releases/${version}/." "$out/share/schema.org/"
   '';
 
   meta = {
