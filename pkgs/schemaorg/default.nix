@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "schema.org";
     homepage = "schema.org";
+    license = stdenv.lib.licenses.asl20;
     changelog = "https://schema.org/docs/releases.html";
   };
 }
