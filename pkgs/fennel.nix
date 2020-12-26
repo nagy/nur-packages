@@ -9,15 +9,15 @@ buildLuarocksPackage rec {
     sha256 = "0kybik5lbli47xnm0cw9b9zlvldpqvgq0l59iicsflmqw30v5x0p";
   };
 
-  propagatedBuildInputs =  [ lua ];
+  propagatedBuildInputs = [ lua ];
 
   postInstall = ''
-      install -D fennel.1 $out/share/man/man1/fennel.1
+    install -D fennel.1 $out/share/man/man1/fennel.1
   '';
 
   meta = with stdenv.lib; {
     description = "Fennel (formerly fnl) is a lisp that compiles to Lua";
-    homepage = https://fennel-lang.org/;
+    homepage = "https://fennel-lang.org/";
     license = licenses.mit;
   };
 }
