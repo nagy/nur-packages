@@ -1,26 +1,15 @@
-{ stdenv, luaPackages, fetchurl, fetchFromGitHub, makeWrapper }:
+{ stdenv, lua53Packages, fetchurl, fetchFromGitHub, makeWrapper }:
 
-let
-  inherit (luaPackages) lua buildLuaPackage;
-in buildLuaPackage rec {
-  name = "fennel";
-  version = "0.7.0";
+with lua53Packages;
+buildLuarocksPackage rec {
+  pname = "fennel";
+  version = "0.7.0-1";
   src = fetchurl {
-    url = "https://fennel-lang.org/downloads/fennel-${version}";
-    sha256 = "1j521x3qqxvrfard26abb1hpvfh9y245ha0kn4hz0cpmyqsw92q6";
+    url = "mirror://luarocks/fennel-${version}.src.rock";
+    sha256 = "0kybik5lbli47xnm0cw9b9zlvldpqvgq0l59iicsflmqw30v5x0p";
   };
-  unpackPhase = "true";
-  buildPhase = "true";
 
-  nativeBuildInputs = [ makeWrapper ];
-
-  installPhase = ''
-    install -Dp $src $out/lib/lua/${lua.luaversion}/fennel.lua
-
-    install -D $src $out/bin/fennel
-    wrapProgram $out/bin/fennel \
-      --prefix LUA_PATH ";" "$out/lib/lua/${lua.luaversion}/?.lua"
-  '';
+  propagatedBuildInputs =  [ lua ];
 
   meta = with stdenv.lib; {
     description = "Fennel (formerly fnl) is a lisp that compiles to Lua";
