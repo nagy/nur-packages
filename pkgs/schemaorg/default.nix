@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "schemaorg";
   version = "10.0";
@@ -6,14 +6,14 @@ stdenv.mkDerivation rec {
     description = "schema.org";
     homepage = "schema.org";
   };
-  src = fetchurl {
-    url = "https://github.com/schemaorg/schemaorg/archive/V${version}-release.tar.gz";
-    sha256 = "18k9py6wncka9xd14x83klb3nhkyz58hb0wggwbjp4p1rf32ydxy";
+  src = fetchFromGitHub {
+    owner = "schemaorg";
+    repo = "schemaorg";
+    rev = "V${version}-release";
+    sha256 = "15p11fq0v51rk804wwz6z48zwd9r22m470ly9qly9gpjb30x47j4";
   };
-  # we skip the unpackPhase
-  unpackPhase = "true";
   installPhase = ''
       mkdir -p "$out/share/schema.org/"
-      tar -C "$out/share/schema.org/" --strip-components=4 -xzvf $src "schemaorg-${version}-release/data/releases/${version}/"
+      cp -r "data/releases/${version}/" $out/share/schema.org/
   '';
 }
