@@ -1,13 +1,13 @@
 { stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "schemaorg";
-  version = "10.0";
+  version = "11.0";
 
   src = fetchFromGitHub {
     owner = "schemaorg";
     repo = "schemaorg";
-    rev = "V${version}-release";
-    sha256 = "15p11fq0v51rk804wwz6z48zwd9r22m470ly9qly9gpjb30x47j4";
+    rev = "v${version}-release";
+    sha256 = "03viqwkvpzkh2hln5b85xic7ssjjydaklnql21kijr7brykkmzf9";
   };
 
   installPhase = ''
