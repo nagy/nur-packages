@@ -5,7 +5,7 @@ in buildLuarocksPackage rec {
   pname = "tl";
   version = "0.9.0-1";
   src = fetchurl {
-    url = "https://luarocks.org/manifests/hisham/tl-0.9.0-1.src.rock";
+    url = "mirror://luarocks/tl-${version}.src.rock";
     sha256 = "012ma153fprx0k8dh8pr01232wcgslwp1gycj53zlbrizldf36gd";
   };
   disabled = (luaOlder "5.3") || (luaAtLeast "5.5");
