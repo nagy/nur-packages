@@ -15,7 +15,7 @@ rec {
 
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
 
-  apertium = pkgs.callPackage ./pkgs/apertium.nix { inherit lttoolbox; };
+  apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
 
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
 
