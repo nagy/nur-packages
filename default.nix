@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs> {}  }:
-{
+rec {
   hyperspec = pkgs.callPackage ./pkgs/hyperspec { } ;
 
   luaPackages = pkgs.recurseIntoAttrs {
@@ -13,9 +13,9 @@
 
   passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
 
-  apertium = pkgs.callPackage ./pkgs/apertium.nix {};
-
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
+
+  apertium = pkgs.callPackage ./pkgs/apertium.nix { inherit lttoolbox; };
 
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
 
