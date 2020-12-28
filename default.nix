@@ -4,7 +4,7 @@ rec {
 
   luaPackages = pkgs.recurseIntoAttrs {
 
-    fennel = pkgs.callPackage ./pkgs/fennel.nix { } ;
+    fennel = pkgs.callPackage ./pkgs/fennel { } ;
     tl = pkgs.callPackage ./pkgs/teal { } ;
 
   };
