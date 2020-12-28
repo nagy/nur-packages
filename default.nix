@@ -19,7 +19,7 @@ rec {
 
   ruffle = pkgs.callPackage ./pkgs/ruffle {};
 
-  lunasvg = pkgs.callPackage ./pkgs/lunasvg.nix {};
+  lunasvg = pkgs.callPackage ./pkgs/lunasvg {};
 
   lispPackages = pkgs.recurseIntoAttrs {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
