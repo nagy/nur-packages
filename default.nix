@@ -2,9 +2,12 @@
 {
   hyperspec = pkgs.callPackage ./pkgs/hyperspec { } ;
 
-  luaPackages.fennel = pkgs.callPackage ./pkgs/fennel.nix { } ;
+  luaPackages = pkgs.recurseIntoAttrs {
 
-  luaPackages.tl = pkgs.callPackage ./pkgs/teal.nix { } ;
+    fennel = pkgs.callPackage ./pkgs/fennel.nix { } ;
+    tl = pkgs.callPackage ./pkgs/teal.nix { } ;
+
+  };
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
@@ -18,6 +21,8 @@
 
   lunasvg = pkgs.callPackage ./pkgs/lunasvg.nix {};
 
-  lispPackages.vacietis = pkgs.callPackage ./pkgs/vacietis {};
+  lispPackages = pkgs.recurseIntoAttrs {
+    vacietis = pkgs.callPackage ./pkgs/vacietis {};
+  };
 
 }
