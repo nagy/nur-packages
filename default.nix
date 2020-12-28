@@ -13,7 +13,7 @@ rec {
 
   passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp {};
 
-  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
+  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox {};
 
   apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
 
