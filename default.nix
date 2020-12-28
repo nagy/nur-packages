@@ -11,7 +11,7 @@ rec {
 
   schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
 
-  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp.nix {};
+  passphrase2pgp = pkgs.callPackage ./pkgs/passphrase2pgp {};
 
   lttoolbox = pkgs.callPackage ./pkgs/lttoolbox.nix {};
 
