@@ -1,5 +1,5 @@
-{ stdenv, fetchurl }:
-stdenv.mkDerivation {
+{ stdenvNoCC, fetchurl }:
+stdenvNoCC.mkDerivation {
   pname = "hyperspec";
   version = "7.0";
   meta = {
