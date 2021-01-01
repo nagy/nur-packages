@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub }:
-stdenv.mkDerivation rec {
+{ stdenvNoCC, fetchFromGitHub }:
+stdenvNoCC.mkDerivation rec {
   pname = "schemaorg";
   version = "11.0";
 
