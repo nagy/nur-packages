@@ -1,4 +1,4 @@
-{ stdenv, lib, lua53Packages, fetchurl }:
+{ lib, lua53Packages, fetchurl }:
 
 with lua53Packages;
 buildLuarocksPackage rec {

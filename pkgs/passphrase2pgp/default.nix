@@ -1,4 +1,4 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{ lib, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "passphrase2pgp";
   version = "1.1.0";
