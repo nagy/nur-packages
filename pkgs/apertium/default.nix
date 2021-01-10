@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitHub, callPackage, autoconf, automake, libtool, libxml2
-, libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox }:
+, libxslt, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook }:
 stdenv.mkDerivation rec {
   pname = "apertium";
   version = "3.7.1";
@@ -11,13 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "02cvf9dhg13ml1031apkfaygbm1qvcgh9v1k7j9yr3c7iww3hywf";
   };
 
+  nativeBuildInputs = [ autoreconfHook ];
+
   buildInputs = [ autoconf automake libtool libxml2 libxslt flex pkg-config pcre pcre-cpp icu
                   lttoolbox ];
-
-  preConfigure= ''
-    patchShebangs autogen.sh
-    ./autogen.sh
-  '';
 
   meta = with lib; {
     description = "A free/open-source machine translation platform";
