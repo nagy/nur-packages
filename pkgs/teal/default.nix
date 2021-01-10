@@ -1,4 +1,4 @@
-{ stdenv, lua53Packages, fetchurl }:
+{ stdenv, lib, lua53Packages, fetchurl }:
 let
   inherit (lua53Packages) lua luaOlder luaAtLeast buildLuarocksPackage;
 in buildLuarocksPackage rec {
@@ -13,7 +13,7 @@ in buildLuarocksPackage rec {
 
   propagatedBuildInputs = with lua53Packages ; [ compat53 argparse luafilesystem ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A typed Lua that compiles to Lua";
     homepage = "https://github.com/teal-language/tl/";
     license = licenses.mit;
