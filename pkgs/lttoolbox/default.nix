@@ -11,9 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "1fybcfwmwnddldkmzrqivdjymw1gajw7zsw6c0m21dhfgq9f1l6l";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pkg-config pcre pcre-cpp ];
+  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp ];
 
   meta = with lib; {
     description = "Finite state compiler, processor and helper tools used by apertium";
