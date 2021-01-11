@@ -11,9 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "02cvf9dhg13ml1031apkfaygbm1qvcgh9v1k7j9yr3c7iww3hywf";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pkg-config pcre pcre-cpp icu
+  buildInputs = [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp icu
                   lttoolbox ];
 
   meta = with lib; {
