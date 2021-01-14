@@ -2,6 +2,8 @@
 rec {
   hyperspec = pkgs.callPackage ./pkgs/hyperspec { } ;
 
+  cppreference = pkgs.callPackage ./pkgs/cppreference { } ;
+
   luaPackages = pkgs.recurseIntoAttrs {
 
     fennel = pkgs.callPackage ./pkgs/fennel { } ;
