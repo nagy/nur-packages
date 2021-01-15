@@ -94,4 +94,6 @@ in rec {
   snid = callPackage ./pkgs/snid { };
 
   npt = callPackage ./pkgs/npt { };
+
+  gumbo-gq = pkgs.callPackage ./pkgs/gumbo-gq {};
 }
