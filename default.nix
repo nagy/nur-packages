@@ -23,4 +23,5 @@ rec {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
   };
 
+  gumbo-gq = pkgs.callPackage ./pkgs/gumbo-gq {};
 }
