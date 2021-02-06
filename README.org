@@ -15,6 +15,7 @@ It contains packages/attributes for:
   - ticker (https://github.com/achannarasappa/ticker)
   - colorpedia (https://github.com/joowani/colorpedia)
   - rustfilt (https://github.com/luser/rustfilt)
+  - mmtc (https://github.com/figsoda/mmtc)
 
 * License
   

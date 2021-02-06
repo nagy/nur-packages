@@ -32,4 +32,6 @@ rec {
   };
 
   rustfilt = pkgs.callPackage ./pkgs/rustfilt {};
+
+  mmtc = pkgs.callPackage ./pkgs/mmtc {};
 }
