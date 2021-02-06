@@ -30,4 +30,6 @@ rec {
     setuptools_scm = pkgs.python3Packages.setuptools_scm;
     fire = pkgs.python3Packages.fire;
   };
+
+  veloren = pkgs.callPackage ./pkgs/veloren {};
 }
