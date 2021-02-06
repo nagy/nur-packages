@@ -16,6 +16,7 @@ It contains packages/attributes for:
   - colorpedia (https://github.com/joowani/colorpedia)
   - rustfilt (https://github.com/luser/rustfilt)
   - mmtc (https://github.com/figsoda/mmtc)
+  - warctools (https://github.com/internetarchive/warctools)
 
 * License
   
