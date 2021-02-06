@@ -32,4 +32,6 @@ rec {
   };
 
   rustfilt = pkgs.callPackage ./pkgs/rustfilt {};
+
+  dovecot-ceph-plugin = pkgs.callPackage ./pkgs/dovecot-ceph-plugin {};
 }
