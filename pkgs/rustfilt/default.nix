@@ -16,6 +16,6 @@ rustPlatform.buildRustPackage rec {
     description = "Demangle Rust symbols";
     homepage = "https://github.com/luser/rustfilt";
     maintainers = with maintainers; [ ];
-    license = with licenses; [ asl2 ];
+    license = with licenses; [ asl20 ];
   };
 }
