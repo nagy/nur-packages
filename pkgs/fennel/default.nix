@@ -14,6 +14,8 @@ buildLuarocksPackage rec {
 
   propagatedBuildInputs = [ lua ];
 
+  outputs = [ "out" "man" ];
+
   postInstall = ''
     installManPage fennel.1
   '';
