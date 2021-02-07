@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Command-line tool for looking up colors and palettes";
-    homepage = "https://github.com/joowani/colorpedia";
+    homepage = "https://joowani.github.io/colorpedia/";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ ];
