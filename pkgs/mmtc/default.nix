@@ -2,16 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mmtc";
-  version = "0.2.11";
+  version = "0.2.12";
 
   src = fetchFromGitHub {
     owner = "figsoda";
     repo = pname;
     rev = "v${version}";
-    sha256 = "02gvic8prpxhdbv68aw0ppaparvp23qfh0s2ydmmxia646xdj0ww";
+    sha256 = "1chcnv8wql6v2vckpzvq6sxgpss7mnxaj008jdm8xalhw9d496s4";
   };
 
-  cargoSha256 = "1wkhckyj8jj7qi14x76hphws9d8i2nvp0vmnajzlg2znk59xdl42";
+  cargoSha256 = "06b0hag3s5irvi57n0hc97agfw4sw783lkkl1b26iap6mfbvrqma";
 
   meta = with lib; {
     description = "Minimal mpd terminal client that aims to be simple yet highly configurable";
