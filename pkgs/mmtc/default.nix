@@ -18,5 +18,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/figsoda/mmtc";
     license = licenses.mpl20;
     maintainers = [ ];
+    changelog = "https://raw.githubusercontent.com/figsoda/mmtc/v${version}/CHANGELOG.md";
   };
 }
