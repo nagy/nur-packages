@@ -45,4 +45,6 @@ rec {
 
   cpp-httplib = pkgs.callPackage ./pkgs/cpp-httplib {};
 
+  cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
+
 }
