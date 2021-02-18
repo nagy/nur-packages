@@ -7,6 +7,7 @@ It contains packages/attributes for:
   - schemaorg (https://schema.org)
   - luaPackages.fennel (https://fennel-lang.org/)
   - luaPackages.tl (https://github.com/teal-language/tl)
+  - luaPackages.lua-curl (https://github.com/Lua-cURL/Lua-cURLv3)
   - passphrase2pgp (https://github.com/skeeto/passphrase2pgp)
   - apertium (https://github.com/apertium/apertium)
   - lttoolbox (https://github.com/apertium/lttoolbox)

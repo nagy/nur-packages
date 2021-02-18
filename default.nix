@@ -6,6 +6,7 @@ rec {
 
     fennel = pkgs.callPackage ./pkgs/fennel { } ;
     tl = pkgs.callPackage ./pkgs/teal { } ;
+    lua-curl = pkgs.callPackage ./pkgs/lua-curl {};
 
   };
 
