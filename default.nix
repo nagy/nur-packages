@@ -24,8 +24,6 @@ rec {
     vacietis = pkgs.callPackage ./pkgs/vacietis {};
   };
 
-  ticker = pkgs.callPackage ./pkgs/ticker {};
-
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {
     setuptools = pkgs.python3Packages.setuptools;
     setuptools_scm = pkgs.python3Packages.setuptools_scm;

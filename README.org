@@ -13,7 +13,6 @@ It contains packages/attributes for:
   - lttoolbox (https://github.com/apertium/lttoolbox)
   - lunasvg (https://github.com/sammycage/lunasvg/)
   - lispPackages.vacietis (https://github.com/vsedach/Vacietis)
-  - ticker (https://github.com/achannarasappa/ticker)
   - colorpedia (https://github.com/joowani/colorpedia)
   - rustfilt (https://github.com/luser/rustfilt)
   - mmtc (https://github.com/figsoda/mmtc)
