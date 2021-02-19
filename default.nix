@@ -46,4 +46,8 @@ rec {
 
   cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
 
+  aqbanking-fixhome = pkgs.callPackage ./pkgs/aqbanking-fixhome {};
+
+  gnucash-fixhome = pkgs.callPackage ./pkgs/aqbanking-fixhome/gnucash.nix {};
+
 }
