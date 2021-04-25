@@ -22,6 +22,7 @@ It contains packages/attributes for:
   - cxxmatrix (https://github.com/akinomyoga/cxxmatrix)
   - piecash (https://github.com/sdementen/piecash)
   - hackernews-tui (https://github.com/aome510/hackernews-TUI)
+  - har-tools (https://github.com/outersky/har-tools)
 
 * Mirrors of this repo
  * https://github.com/nagy/nur-packages

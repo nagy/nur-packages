@@ -40,6 +40,7 @@ rec {
 
   piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
-
   hackernews-tui = pkgs.callPackage ./pkgs/hackernews-tui {};
+
+  har-tools = pkgs.callPackage ./pkgs/har-tools {};
 }
