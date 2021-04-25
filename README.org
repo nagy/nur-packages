@@ -29,6 +29,7 @@ It contains packages/attributes for:
   - piecash (https://github.com/sdementen/piecash)
   - hackernews-tui (https://github.com/aome510/hackernews-TUI)
   - har-tools (https://github.com/outersky/har-tools)
+  - ksuid (https://github.com/segmentio/ksuid)
 
 * Mirrors of this repo
  * https://github.com/nagy/nur-packages
