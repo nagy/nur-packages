@@ -24,9 +24,9 @@ It contains packages/attributes for:
   - hackernews-tui (https://github.com/aome510/hackernews-TUI)
 
 * Mirrors of this repo
-- https://github.com/nagy/nur-packages
-- https://gitlab.com/_nagy_/nur-packages
-- https://sr.ht/nagy/nur-packages
+ * https://github.com/nagy/nur-packages
+ * https://gitlab.com/_nagy_/nur-packages
+ * https://git.sr.ht/~nagy/nur-packages.git
 
 * License
   
