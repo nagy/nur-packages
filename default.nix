@@ -1,50 +1,53 @@
 { pkgs ? import <nixpkgs> {}  }:
+let
+  inherit (pkgs) callPackage recurseIntoAttrs;
+in
 rec {
-  hyperspec = pkgs.callPackage ./pkgs/hyperspec { } ;
+  hyperspec = callPackage ./pkgs/hyperspec { } ;
 
-  luaPackages = pkgs.recurseIntoAttrs {
+  luaPackages = recurseIntoAttrs {
 
-    fennel = pkgs.callPackage ./pkgs/fennel { } ;
-    tl = pkgs.callPackage ./pkgs/teal { } ;
-    lua-curl = pkgs.callPackage ./pkgs/lua-curl {};
+    fennel = callPackage ./pkgs/fennel { } ;
+    tl = callPackage ./pkgs/teal { } ;
+    lua-curl = callPackage ./pkgs/lua-curl {};
 
   };
 
-  schemaorg = pkgs.callPackage ./pkgs/schemaorg { } ;
+  schemaorg = callPackage ./pkgs/schemaorg { } ;
 
-  lttoolbox = pkgs.callPackage ./pkgs/lttoolbox {};
+  lttoolbox = callPackage ./pkgs/lttoolbox {};
 
-  apertium = pkgs.callPackage ./pkgs/apertium { inherit lttoolbox; };
+  apertium = callPackage ./pkgs/apertium { inherit lttoolbox; };
 
-  lunasvg = pkgs.callPackage ./pkgs/lunasvg {};
+  lunasvg = callPackage ./pkgs/lunasvg {};
 
-  lispPackages = pkgs.recurseIntoAttrs {
-    vacietis = pkgs.callPackage ./pkgs/vacietis {};
+  lispPackages =recurseIntoAttrs {
+    vacietis = callPackage ./pkgs/vacietis {};
   };
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
-  rustfilt = pkgs.callPackage ./pkgs/rustfilt {};
+  rustfilt = callPackage ./pkgs/rustfilt {};
 
   warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
 
-  bollux = pkgs.callPackage ./pkgs/bollux {};
+  bollux = callPackage ./pkgs/bollux {};
 
-  gemget = pkgs.callPackage ./pkgs/gemget {};
+  gemget = callPackage ./pkgs/gemget {};
 
-  cpp-httplib = pkgs.callPackage ./pkgs/cpp-httplib {};
+  cpp-httplib = callPackage ./pkgs/cpp-httplib {};
 
-  cxxtimer = pkgs.callPackage ./pkgs/cxxtimer {};
+  cxxtimer = callPackage ./pkgs/cxxtimer {};
 
-  cxxmatrix = pkgs.callPackage ./pkgs/cxxmatrix {};
+  cxxmatrix = callPackage ./pkgs/cxxmatrix {};
 
   piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
-  hackernews-tui = pkgs.callPackage ./pkgs/hackernews-tui {};
+  hackernews-tui = callPackage ./pkgs/hackernews-tui {};
 
-  har-tools = pkgs.callPackage ./pkgs/har-tools {};
+  har-tools = callPackage ./pkgs/har-tools {};
 
-  ksuid = pkgs.callPackage ./pkgs/ksuid {};
+  ksuid = callPackage ./pkgs/ksuid {};
 
   lib = {
 
@@ -60,9 +63,9 @@ rec {
 
   };
 
-  ceph-doc-html = pkgs.callPackage (lib.mkCephDocDrv {}) {};
-  ceph-doc-text = pkgs.callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "text"; };
-  ceph-doc-dirhtml = pkgs.callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "dirhtml"; };
+  ceph-doc-html = callPackage (lib.mkCephDocDrv {}) {};
+  ceph-doc-text = callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "text"; };
+  ceph-doc-dirhtml = callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "dirhtml"; };
 
   overlays = with lib; {
     man-pages = (self: super: {
