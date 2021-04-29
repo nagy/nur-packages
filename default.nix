@@ -45,4 +45,23 @@ rec {
   har-tools = pkgs.callPackage ./pkgs/har-tools {};
 
   ksuid = pkgs.callPackage ./pkgs/ksuid {};
+
+  lib = {
+
+    # A function, which adds "man" to a packages output if it is not already
+    # there. This can help to separate packages man pages to make it possible to
+    # only install the man page not not the package itself.
+    addManOutput = pkg: pkg.overrideAttrs (old:{
+      outputs = if builtins.elem "man" old.outputs then old.outputs
+                else old.outputs ++ ["man"];
+    });
+
+  };
+
+  overlays = with lib; {
+    man-pages = (self: super: {
+      # these packages dont have separate man-page outputs
+      tor = addManOutput super.tor;
+    });
+  };
 }
