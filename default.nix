@@ -56,7 +56,13 @@ rec {
                 else old.outputs ++ ["man"];
     });
 
+    mkCephDocDrv = import ./lib/mk-ceph-doc-drv.nix;
+
   };
+
+  ceph-doc-html = pkgs.callPackage (lib.mkCephDocDrv {}) {};
+  ceph-doc-text = pkgs.callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "text"; };
+  ceph-doc-dirhtml = pkgs.callPackage (lib.mkCephDocDrv {}) { sphinx-doc-type = "dirhtml"; };
 
   overlays = with lib; {
     man-pages = (self: super: {
