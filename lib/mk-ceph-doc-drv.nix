@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    inherit (ceph) homepage license;
+    inherit (ceph.meta) homepage license;
     description = "Ceph documentation in ${sphinx-doc-type} format";
     broken = true;
   };
