@@ -5,13 +5,11 @@ in
 rec {
   hyperspec = callPackage ./pkgs/hyperspec { } ;
 
-  luaPackages = recurseIntoAttrs {
-
-    fennel = callPackage ./pkgs/fennel { } ;
-    tl = callPackage ./pkgs/teal { } ;
-    lua-curl = callPackage ./pkgs/lua-curl {};
-
-  };
+  # luaPackages = recurseIntoAttrs {
+  #   fennel = callPackage ./pkgs/fennel { } ;
+  #   tl = callPackage ./pkgs/teal { } ;
+  #   lua-curl = callPackage ./pkgs/lua-curl {};
+  # };
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
 
@@ -21,9 +19,9 @@ rec {
 
   lunasvg = callPackage ./pkgs/lunasvg {};
 
-  lispPackages =recurseIntoAttrs {
-    vacietis = callPackage ./pkgs/vacietis {};
-  };
+  # lispPackages =recurseIntoAttrs {
+  #   vacietis = callPackage ./pkgs/vacietis {};
+  # };
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
@@ -49,30 +47,30 @@ rec {
 
   har-tools = callPackage ./pkgs/har-tools {};
 
-  ksuid = callPackage ./pkgs/ksuid {};
+  # ksuid = callPackage ./pkgs/ksuid {};
 
-  lib = {
+  # lib = {
 
-    # A function, which adds "man" to a packages output if it is not already
-    # there. This can help to separate packages man pages to make it possible to
-    # only install the man page not not the package itself.
-    addManOutput = pkg: pkg.overrideAttrs (old:{
-      outputs = if builtins.elem "man" old.outputs then old.outputs
-                else old.outputs ++ ["man"];
-    });
+  #   # A function, which adds "man" to a packages output if it is not already
+  #   # there. This can help to separate packages man pages to make it possible to
+  #   # only install the man page not not the package itself.
+  #   addManOutput = pkg: pkg.overrideAttrs (old:{
+  #     outputs = if builtins.elem "man" old.outputs then old.outputs
+  #               else old.outputs ++ ["man"];
+  #   });
 
-    mkCephDocDrv = import ./lib/mk-ceph-doc-drv.nix;
+  #   mkCephDocDrv = import ./lib/mk-ceph-doc-drv.nix;
 
-  };
+  # };
 
-  ceph-doc-html = callPackage (lib.mkCephDocDrv {}) {};
-  ceph-doc-text = callPackage (lib.mkCephDocDrv { sphinx-doc-type = "text"; }) {};
-  ceph-doc-dirhtml = callPackage (lib.mkCephDocDrv { sphinx-doc-type = "dirhtml"; }) {};
+  # ceph-doc-html = callPackage (lib.mkCephDocDrv {}) {};
+  # ceph-doc-text = callPackage (lib.mkCephDocDrv { sphinx-doc-type = "text"; }) {};
+  # ceph-doc-dirhtml = callPackage (lib.mkCephDocDrv { sphinx-doc-type = "dirhtml"; }) {};
 
-  overlays = with lib; {
-    man-pages = (self: super: {
-      # these packages dont have separate man-page outputs
-      tor = addManOutput super.tor;
-    });
-  };
+  # overlays = with lib; {
+  #   man-pages = (self: super: {
+  #     # these packages dont have separate man-page outputs
+  #     tor = addManOutput super.tor;
+  #   });
+  # };
 }
