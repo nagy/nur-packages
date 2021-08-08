@@ -24,5 +24,6 @@ buildLuarocksPackage rec {
     description = "A lisp that compiles to Lua";
     homepage = "https://fennel-lang.org/";
     license = licenses.mit;
+    changelog = "https://git.sr.ht/~technomancy/fennel/tree/${version}/item/changelog.md";
   };
 }
