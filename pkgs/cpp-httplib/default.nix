@@ -18,7 +18,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/yhirose/cpp-httplib";
 
     license = licenses.mit;
-    maintainers = [  ];
     platforms = platforms.all;
   };
 }
