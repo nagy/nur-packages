@@ -6,11 +6,8 @@ rec {
   hyperspec = callPackage ./pkgs/hyperspec { } ;
 
   luaPackages = recurseIntoAttrs {
-
-    fennel = callPackage ./pkgs/fennel { } ;
     tl = callPackage ./pkgs/teal { } ;
     lua-curl = callPackage ./pkgs/lua-curl {};
-
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
