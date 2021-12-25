@@ -30,6 +30,8 @@ rec {
 
   convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors {  };
 
+  pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting {  };
+
   rembg = pkgs.python3Packages.callPackage ./pkgs/rembg { inherit pymatting; };
 
   rustfilt = callPackage ./pkgs/rustfilt {};
