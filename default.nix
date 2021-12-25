@@ -24,6 +24,8 @@ rec {
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
+  extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
+
   rustfilt = callPackage ./pkgs/rustfilt {};
 
   warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
