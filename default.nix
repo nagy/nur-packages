@@ -12,6 +12,8 @@ rec {
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
 
+  libetc = callPackage ./pkgs/libetc { } ;
+
   lttoolbox = callPackage ./pkgs/lttoolbox {};
 
   apertium = callPackage ./pkgs/apertium { inherit lttoolbox; };
