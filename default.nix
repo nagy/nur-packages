@@ -26,6 +26,8 @@ rec {
 
   colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
+  dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
+
   extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
 
   convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors {  };
