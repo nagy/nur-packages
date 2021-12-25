@@ -62,6 +62,8 @@ rec {
 
   htmlq = callPackage ./pkgs/htmlq { };
 
+  s-dot = callPackage ./pkgs/s-dot {};
+
   tinmop = callPackage ./pkgs/tinmop {};
 
   ksv = callPackage ./pkgs/ksv { };
