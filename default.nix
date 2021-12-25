@@ -50,6 +50,8 @@ rec {
 
   pigo = callPackage ./pkgs/pigo {};
 
+  htmlq = callPackage ./pkgs/htmlq { };
+
   lib = {
 
     # A function, which adds "man" to a packages output if it is not already
