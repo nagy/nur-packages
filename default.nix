@@ -56,6 +56,8 @@ rec {
 
   htmlq = callPackage ./pkgs/htmlq { };
 
+  tinmop = callPackage ./pkgs/tinmop {};
+
   lib = {
 
     # A function, which adds "man" to a packages output if it is not already
