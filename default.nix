@@ -28,6 +28,8 @@ rec {
 
   extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
 
+  convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors {  };
+
   rustfilt = callPackage ./pkgs/rustfilt {};
 
   warctools = pkgs.python3Packages.callPackage ./pkgs/warctools {  };
