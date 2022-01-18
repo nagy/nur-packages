@@ -64,6 +64,8 @@ rec {
 
   htmlq = callPackage ./pkgs/htmlq { };
 
+  libvosk = callPackage ./pkgs/libvosk { };
+
   s-dot = callPackage ./pkgs/s-dot {};
 
   s-dot2 = callPackage ./pkgs/s-dot2 {};
