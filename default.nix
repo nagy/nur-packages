@@ -13,6 +13,7 @@ rec {
   python3Packages = recurseIntoAttrs {
     vosk = pkgs.python3Packages.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
     dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
+    colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
@@ -25,11 +26,9 @@ rec {
 
   lunasvg = callPackage ./pkgs/lunasvg {};
 
-  lispPackages =recurseIntoAttrs {
+  lispPackages = recurseIntoAttrs {
     vacietis = callPackage ./pkgs/vacietis {};
   };
-
-  colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
 
   extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
 
