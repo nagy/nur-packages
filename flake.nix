@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-utils.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -9,6 +10,6 @@
       in with pkgs; rec {
         packages =
           builtins.removeAttrs (import self { inherit pkgs; })
-            [ "lib" "overlays" "luaPackages" "lispPackages" ];
+            [ "lib" "overlays" "luaPackages" "lispPackages" "python3Packages" ];
       });
 }
