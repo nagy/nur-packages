@@ -8,8 +8,6 @@
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in with pkgs; rec {
-        packages =
-          builtins.removeAttrs (import self { inherit pkgs; })
-            [ "lib" "overlays" "luaPackages" "lispPackages" "python3Packages" ];
+        legacyPackages = import self { inherit pkgs; } ;
       });
 }
