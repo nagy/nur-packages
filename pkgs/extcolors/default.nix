@@ -1,7 +1,7 @@
-{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm, installShellFiles, pillow, convcolors
+{ lib, fetchPypi, buildPythonApplication, setuptools_scm, installShellFiles, pillow, convcolors
 }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "extcolors";
   version = "1.0.0";
 

@@ -32,9 +32,9 @@ rec {
 
   extcolors = pkgs.python3Packages.callPackage ./pkgs/extcolors { inherit convcolors; };
 
-  convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors {  };
+  convcolors = pkgs.python3Packages.callPackage ./pkgs/convcolors { };
 
-  pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting {  };
+  pymatting = pkgs.python3Packages.callPackage ./pkgs/pymatting { };
 
   rembg = pkgs.python3Packages.callPackage ./pkgs/rembg { inherit pymatting; };
 
@@ -89,7 +89,7 @@ rec {
   };
 
   overlays = with lib; {
-    man-pages = (self: super: {
+    man-pages = (_self: super: {
       # these packages dont have separate man-page outputs
       tor = addManOutput super.tor;
     });

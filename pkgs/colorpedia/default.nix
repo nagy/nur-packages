@@ -1,7 +1,7 @@
-{ lib, fetchPypi, python3Packages, setuptools, setuptools_scm, fire, toml
+{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools_scm, fire, toml
 , installShellFiles }:
 
-python3Packages.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "colorpedia";
   version = "1.2.3";
 
