@@ -14,6 +14,7 @@ rec {
     vosk = pkgs.python3Packages.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
     dbussy = pkgs.python3Packages.callPackage ./pkgs/dbussy { };
     colorpedia = pkgs.python3Packages.callPackage ./pkgs/colorpedia {  };
+    ssort = pkgs.python3Packages.callPackage ./pkgs/ssort {  };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { } ;
