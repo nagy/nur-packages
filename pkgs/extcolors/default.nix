@@ -1,5 +1,5 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools_scm, installShellFiles, pillow, convcolors
-}:
+{ lib, fetchPypi, buildPythonApplication, setuptools_scm, installShellFiles
+, pillow, convcolors }:
 
 buildPythonApplication rec {
   pname = "extcolors";
@@ -17,6 +17,7 @@ buildPythonApplication rec {
   propagatedBuildInputs = [ pillow convcolors ];
 
   meta = with lib; {
+    homepage = "https://github.com/CairX/extract-colors-py";
     license = licenses.mit;
     platforms = platforms.unix;
   };
