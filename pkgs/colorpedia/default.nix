@@ -1,4 +1,4 @@
-{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools_scm, fire, toml
+{ lib, fetchPypi, buildPythonApplication, setuptools, setuptools_scm, fire
 , installShellFiles }:
 
 buildPythonApplication rec {
@@ -12,7 +12,9 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ setuptools_scm installShellFiles ];
 
-  propagatedBuildInputs = [ fire toml setuptools ];
+  propagatedBuildInputs = [ fire setuptools ];
+
+  pythonImportsCheck = [ "colorpedia" ];
 
   postInstall = ''
     installShellCompletion --cmd color \
