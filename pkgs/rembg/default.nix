@@ -1,27 +1,50 @@
-{ lib, fetchFromGitHub, python3Packages, setuptools_scm, pymatting, filetype
-, scikitimage, installShellFiles, pillow
-# my fork does not need these packages
-# , flask
-# , tqdm
-# , waitress
-# , requests
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools_scm, pymatting
+, filetype, scikitimage, installShellFiles, pillow
+, flask
+, tqdm
+, waitress
+, requests
+, fastapi
+, gdown
+, numpy
+, uvicorn
+, flatbuffers
+, asyncer
+, onnxruntime
+, coloredlogs
+, sympy
 , pytorch, torchvision }:
 
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   pname = "rembg";
-  version = "unstable-2021-12-25";
+  version = "2.0.21";
 
   src = fetchFromGitHub {
-    #   owner = "danielgatis";
-    owner = "nagy";
+    owner = "danielgatis";
     repo = "rembg";
-    rev = "d16d0fa1930d3ea09e2563519b36b3d007cfbe53";
-    sha256 = "sha256-RJDvvSkmk2H+KrbOa79DewfaTq+0rHQorIuKTP+u2hQ=";
+    rev = "v${version}";
+    sha256 = "sha256-/xYl3uB80skRYv2dS0d2HjSIPYq/sjfWM6QReSXVBaI=";
   };
 
   pythonImportsCheck = [ "rembg" ];
 
+  doCheck = false;
+
   nativeBuildInputs = [ setuptools_scm installShellFiles ];
+
+  prePatch = ''
+    substituteInPlace requirements-gpu.txt --replace "==" ">="
+    substituteInPlace requirements.txt \
+       --replace numpy==1.22.3        numpy==1.23.1 \
+       --replace scikit-image==0.19.1 scikit-image==0.18.3
+    substituteInPlace requirements.txt --replace "==" ">="
+    substituteInPlace setup.py --replace "~=" ">="
+  '';
+
+  # to fix failing imports check
+  preBuild = ''
+    export NUMBA_CACHE_DIR=$TMPDIR
+  '';
 
   propagatedBuildInputs = [
     pymatting
@@ -30,16 +53,25 @@ python3Packages.buildPythonPackage rec {
     pytorch
     torchvision
 
-    # my fork does not need these packages
-    # requests
-    # flask
-    # tqdm
-    # waitress
+    requests
+    flask
+    tqdm
+    waitress
+    fastapi
+    gdown
+    pillow
+    numpy
+    uvicorn
+    asyncer
 
+    onnxruntime
+    flatbuffers
+    sympy
+    coloredlogs
   ];
 
   meta = with lib; {
-    description = "A tool to remove images background";
+    description = "Tool to remove images background";
     license = licenses.mit;
     platforms = platforms.unix;
   };
