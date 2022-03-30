@@ -26,6 +26,7 @@ in rec {
     };
     warctools = pkgs.python3Packages.callPackage ./pkgs/warctools { };
     blender-file = pkgs.python3Packages.callPackage ./pkgs/blender-file { };
+    piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
   };
 
   schemaorg = callPackage ./pkgs/schemaorg { };
@@ -53,7 +54,6 @@ in rec {
 
   cxxmatrix = callPackage ./pkgs/cxxmatrix { };
 
-  piecash = pkgs.python3Packages.callPackage ./pkgs/piecash { };
 
   hackernews-tui = callPackage ./pkgs/hackernews-tui { };
 
