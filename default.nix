@@ -77,6 +77,8 @@ in rec {
 
   cl-opengl = callPackage ./pkgs/cl-opengl { };
 
+  cl-raylib = callPackage ./pkgs/cl-raylib { };
+
   ksv = callPackage ./pkgs/ksv { };
 
   lib = pkgs.lib.dontRecurseIntoAttrs {
