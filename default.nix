@@ -75,6 +75,8 @@ in rec {
 
   tinmop = callPackage ./pkgs/tinmop { };
 
+  cl-opengl = callPackage ./pkgs/cl-opengl { };
+
   ksv = callPackage ./pkgs/ksv { };
 
   lib = pkgs.lib.dontRecurseIntoAttrs {
