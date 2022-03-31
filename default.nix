@@ -4,9 +4,11 @@ let inherit (pkgs) callPackage recurseIntoAttrs;
 in rec {
   hyperspec = callPackage ./pkgs/hyperspec { };
 
-  luaPackages = recurseIntoAttrs {
-    tl = callPackage ./pkgs/teal { };
-    lua-curl = callPackage ./pkgs/lua-curl { };
+  luaPackages = lua53Packages;
+
+  lua53Packages = recurseIntoAttrs {
+    tl = pkgs.lua53Packages.callPackage ./pkgs/teal { };
+    lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
   };
 
   python3Packages = recurseIntoAttrs {
