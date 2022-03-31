@@ -15,6 +15,10 @@ in buildLuarocksPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
+  preBuild = ''
+     cd Lua-cURLv3-*/
+  '';
+
   meta = with lib; {
     description = "Lua binding to libcurl";
     homepage = "https://github.com/Lua-cURL/Lua-cURLv3";
