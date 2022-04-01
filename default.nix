@@ -62,6 +62,8 @@ in rec {
 
   ksuid = callPackage ./pkgs/ksuid { };
 
+  wagi = callPackage ./pkgs/wagi { };
+
   bindle = callPackage ./pkgs/bindle { };
 
   pigo = callPackage ./pkgs/pigo { };
