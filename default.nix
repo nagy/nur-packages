@@ -64,8 +64,6 @@ in rec {
 
   pigo = callPackage ./pkgs/pigo { };
 
-  hcl2json = callPackage ./pkgs/hcl2json { };
-
   htmlq = callPackage ./pkgs/htmlq { };
 
   libvosk = callPackage ./pkgs/libvosk { };
