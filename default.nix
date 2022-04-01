@@ -62,6 +62,8 @@ in rec {
 
   ksuid = callPackage ./pkgs/ksuid { };
 
+  bindle = callPackage ./pkgs/bindle { };
+
   pigo = callPackage ./pkgs/pigo { };
 
   htmlq = callPackage ./pkgs/htmlq { };
