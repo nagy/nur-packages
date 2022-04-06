@@ -1,6 +1,6 @@
 { stdenv, lib, fetchFromGitHub, autoreconfHook, cyrus_sasl, pkgs, ... }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "sasl2-oauth";
   version = "unstable-2021-01-27";
   src = fetchFromGitHub {
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ cyrus_sasl ];
   meta = with lib; {
-    inherit (meta) homepage;
+    inherit (src) homepage;
     description = "desc An OAuth plugin for libsasl2";
     license = with licenses; [ mit ];
   };
