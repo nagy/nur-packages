@@ -24,7 +24,7 @@ in stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description =
       "A tool to fetch oauth2 tokens from the Microsoft identity endpoint.";
-    inherit (src) homepage;
+    inherit (src.meta) homepage;
     license = licenses.asl20;
   };
 }
