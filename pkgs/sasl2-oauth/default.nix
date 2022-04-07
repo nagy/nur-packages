@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ cyrus_sasl ];
   meta = with lib; {
-    inherit (src) homepage;
+    inherit (src.meta) homepage;
     description = "desc An OAuth plugin for libsasl2";
     license = with licenses; [ mit ];
   };
