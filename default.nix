@@ -44,8 +44,10 @@ in rec {
 
   lunasvg = callPackage ./pkgs/lunasvg { };
 
-  lispPackages =
-    recurseIntoAttrs { vacietis = callPackage ./pkgs/vacietis { }; };
+  lispPackages = recurseIntoAttrs {
+    vacietis = callPackage ./pkgs/vacietis { };
+    dbus = callPackage ./pkgs/cl-dbus/default.nix { };
+  };
 
   rustfilt = callPackage ./pkgs/rustfilt { };
 
