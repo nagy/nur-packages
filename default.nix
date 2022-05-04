@@ -91,4 +91,6 @@ in rec {
   q = callPackage ./pkgs/q { };
 
   snid = callPackage ./pkgs/snid { };
+
+  npt = callPackage ./pkgs/npt { };
 }
