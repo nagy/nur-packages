@@ -15,6 +15,7 @@ in rec {
 
   python3Packages = recurseIntoAttrs
     (pkgs.lib.makeScope pkgs.python3Packages.newScope (py3: {
+      asyncer = py3.callPackage ./pkgs/asyncer { };
       vosk = py3.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
       dbussy = py3.callPackage ./pkgs/dbussy { };
       colorpedia = py3.callPackage ./pkgs/colorpedia { };
