@@ -98,4 +98,6 @@ in rec {
   rust-u2f = callPackage ./pkgs/rust-u2f { };
 
   u8strings = callPackage ./pkgs/u8strings { };
+
+  bzip3 = callPackage ./pkgs/bzip3 { };
 }
