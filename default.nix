@@ -9,7 +9,6 @@ in rec {
   luaPackages = lua53Packages;
 
   lua53Packages = recurseIntoAttrs {
-    tl = pkgs.lua53Packages.callPackage ./pkgs/teal { };
     lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
   };
 
