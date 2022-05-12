@@ -96,4 +96,6 @@ in rec {
   npt = callPackage ./pkgs/npt { };
 
   rust-u2f = callPackage ./pkgs/rust-u2f { };
+
+  u8strings = callPackage ./pkgs/u8strings { };
 }
