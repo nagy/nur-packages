@@ -1,20 +1,21 @@
 { stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, libxml2, libxslt
-, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook }:
+, pkg-config, flex, pcre, pcre-cpp, icu, lttoolbox, autoreconfHook, utf8cpp }:
 
 stdenv.mkDerivation rec {
   pname = "apertium";
-  version = "3.7.1";
+  version = "3.8.2";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
     rev = "v${version}";
-    sha256 = "02cvf9dhg13ml1031apkfaygbm1qvcgh9v1k7j9yr3c7iww3hywf";
+    sha256 = "sha256-F8VJoh/9tQw9R+SLlty6UeiafmMmoR+W4+kofpanH/E=";
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
+    utf8cpp
     autoconf
     automake
     libtool
@@ -26,6 +27,17 @@ stdenv.mkDerivation rec {
     icu
     lttoolbox
   ];
+
+  LDFLAGS = [
+    "-std=c++17"
+  ];
+
+  postPatch = ''
+    for file in apertium/*.h apertium/*.cc ; do
+      substituteInPlace $file \
+          --replace "<utf8.h>" "<utf8cpp/utf8.h>"
+    done
+  '';
 
   meta = with lib; {
     description = "A free/open-source machine translation platform";
