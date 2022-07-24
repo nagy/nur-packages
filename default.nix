@@ -1,7 +1,14 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, callPackage ? pkgs.callPackage
+, recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
-let inherit (pkgs) callPackage recurseIntoAttrs;
-in rec {
+let
+  nixFiles = lib.filterAttrs (k: v: (v == "regular") && lib.hasSuffix ".nix" k)
+    (builtins.readDir ./pkgs);
+  thePackages = lib.mapAttrs' (k: v:
+    lib.nameValuePair (lib.removeSuffix ".nix" k)
+    (callPackage (./pkgs + ("/" + k)) { })) nixFiles;
+in (thePackages // rec {
+
   lib = callPackage ./lib.nix { };
 
   hyperspec = callPackage ./pkgs/hyperspec { };
@@ -42,7 +49,7 @@ in rec {
 
   lispPackages = recurseIntoAttrs {
     vacietis = callPackage ./pkgs/vacietis { };
-    dbus = callPackage ./pkgs/cl-dbus/default.nix { };
+    dbus = callPackage ./pkgs/cl-dbus { };
   };
 
   rustfilt = callPackage ./pkgs/rustfilt { };
@@ -100,4 +107,4 @@ in rec {
   u8strings = callPackage ./pkgs/u8strings { };
 
   bzip3 = callPackage ./pkgs/bzip3 { };
-}
+})
