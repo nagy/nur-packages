@@ -39,6 +39,8 @@ buildPythonPackage rec {
        --replace scikit-image==0.19.1 scikit-image==0.18.3
     substituteInPlace requirements.txt --replace "==" ">="
     substituteInPlace setup.py --replace "~=" ">="
+    # remove warning for newer pythons
+    substituteInPlace rembg/__init__.py --replace "and sys.version_info.minor == 9" ""
   '';
 
   # to fix failing imports check
