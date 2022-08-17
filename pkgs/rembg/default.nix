@@ -13,17 +13,18 @@
 , onnxruntime
 , coloredlogs
 , sympy
+, opencv4
 , pytorch, torchvision }:
 
 buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.21";
+  version = "2.0.23";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-/xYl3uB80skRYv2dS0d2HjSIPYq/sjfWM6QReSXVBaI=";
+    sha256 = "sha256-UGVrt8tLThyJMKlstq4s/IdDJHcy4vlOWUzrppoPEM4=";
   };
 
   pythonImportsCheck = [ "rembg" ];
@@ -36,6 +37,7 @@ buildPythonPackage rec {
     substituteInPlace requirements-gpu.txt --replace "==" ">="
     substituteInPlace requirements.txt \
        --replace numpy==1.22.3        numpy==1.23.1 \
+       --replace opencv-python-headless==4.6.0.66        opencv \
        --replace scikit-image==0.19.1 scikit-image==0.18.3
     substituteInPlace requirements.txt --replace "==" ">="
     substituteInPlace setup.py --replace "~=" ">="
@@ -70,6 +72,7 @@ buildPythonPackage rec {
     flatbuffers
     sympy
     coloredlogs
+    opencv4
   ];
 
   meta = with lib; {
