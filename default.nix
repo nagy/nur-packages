@@ -33,6 +33,7 @@ in thePackages // rec {
       blender-asset-tracer = py3.callPackage ./pkgs/blender-asset-tracer { };
       jtbl = py3.callPackage ./pkgs/jtbl { };
       git-remote-rclone = py3.callPackage ./pkgs/git-remote-rclone { };
+      oauth2token = py3.callPackage ./pkgs/oauth2token { };
     }));
 
   lttoolbox = callPackage ./pkgs/lttoolbox { };
