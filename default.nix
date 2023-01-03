@@ -9,13 +9,15 @@ makeScope pkgs.newScope (self:
     lib =
       extend (self: super: pkgs.callPackage ./lib.nix { inherit (super) lib; });
 
-    luaPackages = lua53Packages;
-
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
-    lua53Packages = recurseIntoAttrs {
-      lua-curl = pkgs.lua53Packages.callPackage ./pkgs/lua-curl { };
-    };
+    lua52Packages =
+      recurseIntoAttrs (pkgs.lua5_2.pkgs.callPackage ./pkgs/luaPackages { });
+    lua53Packages =
+      recurseIntoAttrs (pkgs.lua5_3.pkgs.callPackage ./pkgs/luaPackages { });
+    lua54Packages =
+      recurseIntoAttrs (pkgs.lua5_4.pkgs.callPackage ./pkgs/luaPackages { });
+    luaPackages = self.lua54Packages;
 
     python3Packages = recurseIntoAttrs (makeScope pkgs.python3Packages.newScope
       (py3: {
