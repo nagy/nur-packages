@@ -40,10 +40,6 @@ makeScope pkgs.newScope (self:
         imagehash = py3.callPackage ./pkgs/imagehash { };
       }));
 
-    lttoolbox = self.callPackage ./pkgs/lttoolbox { };
-
-    apertium = self.callPackage ./pkgs/apertium { };
-
     lispPackages = recurseIntoAttrs {
       vacietis = pkgs.callPackage ./pkgs/vacietis { };
       dbus = pkgs.callPackage ./pkgs/cl-dbus { };
@@ -58,6 +54,5 @@ makeScope pkgs.newScope (self:
 
     ksv = self.callPackage ./pkgs/ksv { };
 
-    sasl2-oauth = self.callPackage ./pkgs/sasl2-oauth.nix { inherit sasl2-oauth; };
     overlay = composeManyExtensions (importNixFiles ./overlays);
   })
