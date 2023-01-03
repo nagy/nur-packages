@@ -2,6 +2,7 @@
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
 with lib;
+with import ./lib { inherit pkgs; };
 let
   nixFiles = filterAttrs (k: v: (v == "regular") && hasSuffix ".nix" k)
     (builtins.readDir ./pkgs);
@@ -66,6 +67,7 @@ let
       ksv = callPackage ./pkgs/ksv { };
 
       sasl2-oauth = callPackage ./pkgs/sasl2-oauth.nix { inherit sasl2-oauth; };
+      overlay = composeManyExtensions (importNixFiles ./overlays);
     }));
 
 in nagyNurPkgs
