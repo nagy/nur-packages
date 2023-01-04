@@ -22,7 +22,6 @@ makeScope pkgs.newScope (self:
     python3Packages = recurseIntoAttrs (makeScope pkgs.python3Packages.newScope
       (py3: {
         asyncer = py3.callPackage ./pkgs/asyncer { };
-        vosk = py3.callPackage ./pkgs/libvosk/python.nix { inherit libvosk; };
         dbussy = py3.callPackage ./pkgs/dbussy { };
         colorpedia = py3.callPackage ./pkgs/colorpedia { };
         ssort = py3.callPackage ./pkgs/ssort { };
@@ -49,8 +48,6 @@ makeScope pkgs.newScope (self:
       s-dot2 = pkgs.callPackage ./pkgs/s-dot2 { };
       tinmop = pkgs.callPackage ./pkgs/tinmop { };
     };
-
-    libvosk = self.callPackage ./pkgs/libvosk { };
 
     ksv = self.callPackage ./pkgs/ksv { };
 
