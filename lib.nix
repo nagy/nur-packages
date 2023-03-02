@@ -2,24 +2,6 @@
 
 with builtins;
 with lib; rec {
-  gltf-pipeline = callPackage (fetchFromGitHub {
-    githubBase = "gist.github.com";
-    owner = "nagy";
-    repo = "053eb914dcbf8270e6d6c1f304ce236e";
-    rev = "master";
-    hash = "sha256-SC5sw3KwCHpc0Or09zLSr6UfrghVGetX9V03/VPbqmo=";
-  }) { };
-
-  mkGlb2Gltf = src:
-    let
-      name = replaceStrings [ ".glb" ] [ ".gltf" ] (toString (baseNameOf src));
-    in pkgs.runCommandLocal name {
-      inherit src;
-      nativeBuildInputs = [ gltf-pipeline ];
-    } ''
-      gltf-pipeline --input $src --output $out
-    '';
-
   mkAvrdudeFlasher = firmware:
     pkgs.writeShellScriptBin "${firmware.name}-flasher" ''
       exec ${pkgs.avrdude}/bin/avrdude \
