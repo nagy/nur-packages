@@ -9,8 +9,7 @@ with import ./lib {
 makeScope pkgs.newScope (self:
   (callNixFiles self.callPackage ./pkgs) // {
 
-    lib = (extend (self: super: pkgs.callPackage ./lib.nix { })).extend
-      (self: super: pkgs.callPackage ./lib { });
+    lib = extend (self: super: pkgs.callPackage ./lib { });
 
     qemuImages = recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
