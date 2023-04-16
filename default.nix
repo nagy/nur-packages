@@ -54,5 +54,7 @@ makeScope pkgs.newScope (self:
 
     ksv = self.callPackage ./pkgs/ksv { };
 
+    rfcs = self.callPackage ./pkgs/rfcs.nix { inherit fetchRFCBulk; };
+
     overlay = composeManyExtensions (importNixFiles ./overlays);
   })

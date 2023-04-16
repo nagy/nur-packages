@@ -6,4 +6,5 @@ lib.foldr lib.recursiveUpdate { } [
   (import ./cargoIndex.nix { inherit pkgs lib; })
   (import ./emacs.nix { inherit pkgs lib; })
   (import ./npm-package.nix { inherit pkgs lib callPackage; })
+  (import ./rfc.nix { inherit pkgs lib callPackage; })
 ]
