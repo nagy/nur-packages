@@ -1,8 +1,7 @@
 { pkgs, lib, fetchurl, fetchFromGitHub, buildPythonPackage, setuptools-scm
-, pymatting, filetype, scikitimage, installShellFiles, pillow, flask, tqdm
-, waitress, requests, fastapi, gdown, numpy, uvicorn, flatbuffers, asyncer
-, onnxruntime, coloredlogs, sympy, opencv4, requireFile, runCommandLocal
-, makeWrapper, rembg, pooch, symlinkJoin, imagehash, testers }:
+, pymatting, filetype, scikitimage, installShellFiles, pillow, tqdm, fastapi
+, numpy, uvicorn, asyncer, onnxruntime, opencv4, requireFile, runCommandLocal
+, makeWrapper, rembg, pooch, watchdog, symlinkJoin, imagehash, testers }:
 
 let
   models = lib.mapAttrsToList (name: hash:
@@ -18,6 +17,8 @@ let
       u2net_cloth_seg =
         "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4="; # cloth segment 168MB
       silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts="; # 42MB
+      isnet-general-use =
+        "sha256-YJIOmcRUZPK6V77irQjJGaUrv4UnOelpR/u0NYwNlko="; # 170MB
     };
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
@@ -27,13 +28,13 @@ let
   };
 in buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.31";
+  version = "2.0.32";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-0zUyWCmd9XGQXRoO6P95tqkBzPmXerp5rsm6LV2pn0w=";
+    sha256 = "sha256-kWj2N17U+Q7bgw2TQgtQeGqFrwT99UfKBm6vmQvRFPc=";
   };
 
   nativeBuildInputs = [ setuptools-scm installShellFiles ];
@@ -48,30 +49,20 @@ in buildPythonPackage rec {
   '';
 
   propagatedBuildInputs = [
-    pymatting
-    filetype
-    scikitimage
-    # pytorch
-    # torchvision
-
-    requests
-    flask
-    tqdm
-    waitress
-    fastapi
-    gdown
-    pillow
-    numpy
-    uvicorn
     asyncer
-
-    onnxruntime
-    flatbuffers
-    sympy
-    coloredlogs
-    opencv4
-    pooch
+    fastapi
+    filetype
     imagehash
+    numpy
+    onnxruntime
+    opencv4
+    pillow
+    pooch
+    pymatting
+    scikitimage
+    tqdm
+    uvicorn
+    watchdog
   ];
 
   makeWrapperArgs = [
