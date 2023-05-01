@@ -2,7 +2,6 @@
 , recurseIntoAttrs ? pkgs.recurseIntoAttrs }:
 
 let
-
   inherit (import ./lib {
     inherit pkgs lib;
     inherit (pkgs) callPackage;
