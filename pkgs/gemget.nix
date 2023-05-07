@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{ lib, fetchFromGitHub, buildGoModule, testers, gemget }:
 
 buildGoModule rec {
   pname = "gemget";
@@ -12,6 +12,11 @@ buildGoModule rec {
   };
 
   vendorSha256 = "sha256-l8UwkFCCNUB5zyhlyu8YC++MhmcR6midnElCgdj50OU=";
+
+  passthru.tests.version = testers.testVersion {
+    package = gemget;
+    version = "v${version}";
+  };
 
   meta = with lib; {
     description = "Command line downloader for the Gemini protocol";
