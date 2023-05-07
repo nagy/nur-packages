@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{ lib, fetchFromGitHub, rustPlatform, testers, hackernews-tui }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hackernews-tui";
@@ -12,6 +12,10 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-Fk/3aWDlyU1J28JBLBknS9GCDClar05Lt3JgWw+uhuw=";
+
+  passthru.tests.version = testers.testVersion {
+    package = hackernews-tui;
+  };
 
   meta = with lib; {
     description = "Terminal UI to browse Hacker News";
