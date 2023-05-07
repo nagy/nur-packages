@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "gemget";
-  version = "1.8.0";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "makeworld-the-better-one";
     repo = pname;
     rev = "v${version}";
-    sha256 = "1ma07wlki4pgmw19yk4dzyxa6blk8ciz3wb46ipbfz7k361lhsry";
+    sha256 = "sha256-P5+yRaf2HioKOclJMMm8bJ8/BtBbNEeYU57TceZVqQ8=";
   };
 
-  vendorSha256 = "1dfv40jljs6m9c4m0njm23lg9anr2lzyzyw20ddi3brfk008g7hj";
+  vendorSha256 = "sha256-l8UwkFCCNUB5zyhlyu8YC++MhmcR6midnElCgdj50OU=";
 
   meta = with lib; {
     description = "Command line downloader for the Gemini protocol";
