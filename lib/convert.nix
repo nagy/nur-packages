@@ -2,6 +2,9 @@
 
 with lib;
 let
+  inherit (pkgs) jq biber;
+  emacs = (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ]));
+
   conversions = {
     directory.evaldir = { src, ... }: {
       __cmd = ''
@@ -22,10 +25,7 @@ let
     };
     org.json = { src, ... }: {
       inherit src;
-      nativeBuildInputs = [
-        (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ]))
-        pkgs.jq
-      ];
+      nativeBuildInputs = [ emacs jq ];
       __cmd = ''
         emacs --batch $src --eval '(princ (json-encode (org-export-get-environment)))' | \
           jq --sort-keys > $out
@@ -34,8 +34,7 @@ let
     org.pdf = { src, wrap, ... }: (wrap src).tex.pdf;
     org.tex = { src, convert, ... }: rec {
       inherit src;
-      nativeBuildInputs =
-        [ (pkgs.emacs-nox.pkgs.withPackages (epkgs: with epkgs; [ org-ref ])) ];
+      nativeBuildInputs = [ emacs ];
       passthru.tangles = convert {
         output = "directory";
         inherit src;
@@ -61,7 +60,7 @@ let
         install -Dm444 *.tex $out
       '';
     };
-    tex.pdf = { src, convert, ... }: {
+    tex.pdf = { src, ... }: {
       inherit src;
       nativeBuildInputs = [
         (pkgs.texlive.combine {
@@ -72,7 +71,7 @@ let
             subfigure floatrow csquotes algorithm2e ifoddpage relsize tcolorbox
             environ tikzfill pdfcol cleveref mathpazo lualatex-math;
         })
-        pkgs.biber
+        biber
       ];
       __cmd = ''
         ${if src ? tangles then "ln -s ${src.tangles}  tangles" else ""}
@@ -121,7 +120,7 @@ in rec {
     in self;
   wrap = src:
     pkgs.stdenvNoCC.mkDerivation {
-      name = if src ? name then src.name else builtins.baseNameOf src;
+      name = src.name or builtins.baseNameOf src;
       buildCommand = "install -Dm444 ${src} $out";
       # these should be limited to what is available in converters
       passthru = listToAttrs ((map
