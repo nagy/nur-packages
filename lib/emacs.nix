@@ -11,8 +11,8 @@
   emacsShouldIgnoreWarnings = { src }:
     (builtins.match ".*NIX-IGNORE-WARNINGS.*" (builtins.readFile src)) != null;
 
-  emacsMakeSingleFilePackage = { src, pname, version ? "unstable", emacs
-    , epkgs ? pkgs.emacsPackagesFor emacs
+  emacsMakeSingleFilePackage = { src, pname, version ? "unstable"
+    , emacs ? pkgs.emacs, epkgs ? pkgs.emacsPackagesFor emacs
     , warnIsError ? !(emacsShouldIgnoreWarnings { inherit src; })
     , packageRequires ? emacsParsePackageSet { inherit emacs src; }, }:
     let
