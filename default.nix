@@ -13,26 +13,8 @@ in lib.makeScope pkgs.newScope (self:
       pkgs.recurseIntoAttrs (self.callPackage ./pkgs/qemu-images { });
 
     python3Packages = pkgs.recurseIntoAttrs
-      (lib.makeScope pkgs.python3Packages.newScope (self: {
-        asyncer = self.callPackage ./pkgs/python3-packages/asyncer { };
-        dbussy = self.callPackage ./pkgs/python3-packages/dbussy { };
-        colorpedia = self.callPackage ./pkgs/python3-packages/colorpedia { };
-        ssort = self.callPackage ./pkgs/python3-packages/ssort { };
-        extcolors = self.callPackage ./pkgs/python3-packages/extcolors { };
-        convcolors = self.callPackage ./pkgs/python3-packages/convcolors { };
-        pymatting = self.callPackage ./pkgs/python3-packages/pymatting { };
-        rembg = self.callPackage ./pkgs/python3-packages/rembg { };
-        warctools = self.callPackage ./pkgs/python3-packages/warctools { };
-        blender-file = self.callPackage ./pkgs/python3-packages/blender-file { };
-        blender-asset-tracer = self.callPackage ./pkgs/python3-packages/blender-asset-tracer { };
-        jtbl = self.callPackage ./pkgs/python3-packages/jtbl { };
-        git-remote-rclone = self.callPackage ./pkgs/python3-packages/git-remote-rclone { };
-        oauth2token = self.callPackage ./pkgs/python3-packages/oauth2token { };
-        images-upload-cli = self.callPackage ./pkgs/python3-packages/images-upload-cli { };
-        imagehash = self.callPackage ./pkgs/python3-packages/imagehash { };
-        pipe21 = self.callPackage ./pkgs/python3-packages/pipe21 { };
-        pystitcher = self.callPackage ./pkgs/python3-packages/pystitcher { };
-      }));
+      (lib.makeScope pkgs.python3Packages.newScope
+        (self: import ./pkgs/python3-packages { inherit (self) callPackage; }));
 
     lispPackages = pkgs.recurseIntoAttrs {
       vacietis = pkgs.callPackage ./pkgs/vacietis { };
