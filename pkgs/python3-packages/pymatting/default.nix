@@ -21,6 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python library for alpha matting";
+    homepage = "https://pymatting.github.io/";
     license = licenses.mit;
     platforms = platforms.unix;
   };
