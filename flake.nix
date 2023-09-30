@@ -32,7 +32,6 @@
               (pkgs.lib.makeScope pkgs.python3Packages.newScope (self:
                 import ./pkgs/python3-packages { inherit (self) callPackage; }));
             lispPackages = pkgs.recurseIntoAttrs {
-              vacietis = pkgs.callPackage ./pkgs/vacietis { };
               dbus = pkgs.callPackage ./pkgs/cl-dbus { };
               cl-opengl = pkgs.callPackage ./pkgs/cl-opengl { };
               cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { };
