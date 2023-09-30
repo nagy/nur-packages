@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "wax";
   version = "unstable-2022-10-01";
 
@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 -t $out/bin/ waxc
+
+    install -Dm755 -t $out/bin/ waxc
+
     runHook postInstall
   '';
 
