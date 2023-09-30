@@ -26,7 +26,6 @@ applied-overlay // {
     dbus = pkgs.callPackage ./pkgs/cl-dbus { };
     cl-opengl = pkgs.callPackage ./pkgs/cl-opengl { };
     cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { };
-    s-dot = pkgs.callPackage ./pkgs/s-dot { };
     s-dot2 = pkgs.callPackage ./pkgs/s-dot2 { };
   };
 })
