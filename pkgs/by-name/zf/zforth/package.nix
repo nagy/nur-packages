@@ -1,6 +1,6 @@
 { lib, stdenv, fetchFromGitHub, readline }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "zforth";
   version = "unstable-2023-06-10";
 
@@ -15,14 +15,17 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 -t $out/bin src/linux/zforth
-    install -Dm444 -t $out/share/zforth/ forth/*
+
+    install -Dm755 -t $out/bin src/linux/zforth
+    install -Dm644 -t $out/share/zforth/ forth/*
+
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "tiny, embeddable, flexible, compact Forth scripting language for embedded systems";
-    inherit (src.meta) homepage;
-    license = with licenses; [ mit ];
+    homepage = "https://github.com/zevv/zForth";
+    license = with lib.licenses; [ mit ];
+    mainProgram = "zforth";
   };
 }
