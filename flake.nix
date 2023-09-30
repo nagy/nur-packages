@@ -38,7 +38,6 @@
               cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { };
               s-dot = pkgs.callPackage ./pkgs/s-dot { };
               s-dot2 = pkgs.callPackage ./pkgs/s-dot2 { };
-              tinmop = pkgs.callPackage ./pkgs/tinmop { };
             };
 
           }));
