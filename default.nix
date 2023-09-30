@@ -1,7 +1,6 @@
 { pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, callPackage ? pkgs.callPackage }:
 
 let
-  thisLib = import ./lib { inherit pkgs lib callPackage; };
   by-name-overlay = pkgs.path + "/pkgs/top-level/by-name-overlay.nix";
   pkgs-overlay = import by-name-overlay ./pkgs/by-name;
   # this line allows packages to call themselves
@@ -32,6 +31,4 @@ applied-overlay // {
     s-dot2 = pkgs.callPackage ./pkgs/s-dot2 { };
     tinmop = pkgs.callPackage ./pkgs/tinmop { };
   };
-
-  overlay = lib.composeManyExtensions (thisLib.importNixFiles ./overlays);
 })

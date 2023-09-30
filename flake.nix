@@ -13,18 +13,24 @@
         # the result an `override` ability.
         (callPackage ./lib { }));
       overlays.default =
-        lib.composeManyExtensions (self.lib.importNixFiles ./overlays);
+        import (pkgs.path + "/pkgs/top-level/by-name-overlay.nix")
+          ./pkgs/by-name;
       nixosModules = self.lib.modules;
-      packages.${system} = flake-utils.lib.flattenTree
-        (lib.makeScope pkgs.newScope (scopeself:
-          {
+      packages.${system} =
+        let
+          pkgsWithSelf = import nixpkgs {
+            system = pkgs.system;
+            overlays = [ self.overlays.default ];
+          };
+          applied-overlay = self.overlays.default pkgsWithSelf pkgs;
+        in
+        flake-utils.lib.flattenTree (lib.makeScope pkgs.newScope (scopeself:
+          applied-overlay // {
             qemuImages = pkgs.recurseIntoAttrs
               (scopeself.callPackage ./pkgs/qemu-images { });
             python3Packages = pkgs.recurseIntoAttrs
-              (self.lib.makeScope pkgs.python3Packages.newScope (self:
-                import ./pkgs/python3-packages {
-                  inherit (self) callPackage;
-                }));
+              (pkgs.lib.makeScope pkgs.python3Packages.newScope (self:
+                import ./pkgs/python3-packages { inherit (self) callPackage; }));
             lispPackages = pkgs.recurseIntoAttrs {
               vacietis = pkgs.callPackage ./pkgs/vacietis { };
               dbus = pkgs.callPackage ./pkgs/cl-dbus { };
@@ -35,11 +41,6 @@
               tinmop = pkgs.callPackage ./pkgs/tinmop { };
             };
 
-            ksv = scopeself.callPackage ./pkgs/ksv { };
-
-            qr2text = scopeself.callPackage ./pkgs/qr2text { };
-
-            urlp = scopeself.callPackage ./pkgs/urlp { };
-          } // (self.lib.callNixFiles scopeself.callPackage ./pkgs)));
+          }));
     };
 }
