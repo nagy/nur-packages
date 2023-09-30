@@ -9,7 +9,7 @@ let
   applied-overlay = pkgs-overlay pkgsWithNur pkgs;
 in
 lib.makeScope pkgs.newScope (self:
-(thisLib.callNixFiles self.callPackage ./pkgs) // applied-overlay // {
+applied-overlay // {
 
   lib = lib.extend (final: prev:
     # this extra callPackage call is needed to give
@@ -32,12 +32,6 @@ lib.makeScope pkgs.newScope (self:
     s-dot2 = pkgs.callPackage ./pkgs/s-dot2 { };
     tinmop = pkgs.callPackage ./pkgs/tinmop { };
   };
-
-  ksv = self.callPackage ./pkgs/ksv { };
-
-  qr2text = self.callPackage ./pkgs/qr2text { };
-
-  urlp = self.callPackage ./pkgs/urlp { };
 
   overlay = lib.composeManyExtensions (thisLib.importNixFiles ./overlays);
 })
