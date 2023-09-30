@@ -2,7 +2,8 @@
 
 let
   python3WithDeps = python3.withPackages (p: [ p.pyxdg p.msal p.python-gnupg ]);
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "oauth2ms";
   version = "unstable-2021-07-10";
 

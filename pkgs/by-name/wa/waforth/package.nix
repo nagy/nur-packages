@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
+    description =
+      "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
     inherit (src.meta) homepage;
     license = with licenses; [ mit ];
   };

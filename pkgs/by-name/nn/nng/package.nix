@@ -11,10 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qbjMLpPk5FxH710Mf8AIraY0mERbaxVVhTT94W0EV+k=";
   };
 
-  nativeBuildInputs = [cmake];
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "nanomsg-next-generation -- light-weight brokerless messaging";
+    description =
+      "nanomsg-next-generation -- light-weight brokerless messaging";
     inherit (src.meta) homepage;
     license = licenses.mit;
     platforms = platforms.unix;

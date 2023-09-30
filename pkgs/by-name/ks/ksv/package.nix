@@ -1,7 +1,7 @@
 { bundlerApp, ... }:
 
 bundlerApp {
-  pname = "kaitai-struct-visualizer" ;
+  pname = "kaitai-struct-visualizer";
   gemdir = ./.;
-  exes = ["ksv"];
+  exes = [ "ksv" ];
 }

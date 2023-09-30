@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, cyrus_sasl, sasl2-oauth, isync
+{ stdenv
+, lib
+, fetchFromGitHub
+, autoreconfHook
+, cyrus_sasl
+, sasl2-oauth
+, isync
 }:
 
 stdenv.mkDerivation rec {

@@ -18,7 +18,8 @@ let
       }
     '';
   };
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "libfastcdc";
   version = "unstable-2023-01-14";
 

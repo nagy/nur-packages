@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-}:
+{ lib, rustPlatform, fetchFromGitHub, fetchpatch }:
 
 rustPlatform.buildRustPackage rec {
   pname = "urlp";
@@ -23,9 +19,7 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     ln -fs ${./Cargo.lock} Cargo.lock

@@ -13,9 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Ti7wMqfKq4nakFV58MXHc2DQ1BXHe+uuH4VYL3xC0zo=";
 
-  passthru.tests.version = testers.testVersion {
-    package = hackernews-tui;
-  };
+  passthru.tests.version = testers.testVersion { package = hackernews-tui; };
 
   meta = with lib; {
     description = "Terminal UI to browse Hacker News";

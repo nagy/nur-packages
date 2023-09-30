@@ -24,30 +24,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-yhva03FX6Yw1yURexYOmf5PtMIHhQd7+JqocWBr9f5g=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libgit2
-    openssl
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ libgit2 openssl zlib ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  env = {
-    OPENSSL_NO_VENDOR = true;
-  };
+  env = { OPENSSL_NO_VENDOR = true; };
 
-  passthru.tests.version = testers.testVersion {
-    package = koji;
-  };
+  passthru.tests.version = testers.testVersion { package = koji; };
 
   meta = with lib; {
     description = "An interactive CLI for creating conventional commits";
     homepage = "https://github.com/its-danny/koji";
-    changelog = "https://github.com/its-danny/koji/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/its-danny/koji/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ nagy ];
   };

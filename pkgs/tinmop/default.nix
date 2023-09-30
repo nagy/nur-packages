@@ -1,4 +1,14 @@
-{ lispPackages, fetchgit, openssl, curl, gnupg, xdg-utils, git, gettext, ncurses, sqlite }:
+{ lispPackages
+, fetchgit
+, openssl
+, curl
+, gnupg
+, xdg-utils
+, git
+, gettext
+, ncurses
+, sqlite
+}:
 
 lispPackages.buildLispPackage {
 

@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, numba, scipy, openssl, installShellFiles
-, pillow }:
+{ lib
+, fetchPypi
+, buildPythonPackage
+, numba
+, scipy
+, openssl
+, installShellFiles
+, pillow
+}:
 
 buildPythonPackage rec {
   pname = "pymatting";
