@@ -1,6 +1,8 @@
-{ lib, stdenv, symlinkJoin, fetchRFCBulk ? lib.fetchRFCBulk }:
+{ stdenv, symlinkJoin, callPackage }:
 
-stdenv.mkDerivation {
+let
+  inherit (callPackage ../../../../lib { }) fetchRFCBulk;
+in stdenv.mkDerivation {
   name = "rfcs";
   src = symlinkJoin {
     name = "rfcs";
