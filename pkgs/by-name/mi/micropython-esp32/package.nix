@@ -32,6 +32,7 @@
       # ];
     }
   ),
+  board ? "ESP32_GENERIC",
 }:
 
 micropython.overrideAttrs (
@@ -50,7 +51,7 @@ micropython.overrideAttrs (
       runHook preBuild
 
       HOME=$PWD \
-        make -C ports/esp32 BOARD=ESP32_GENERIC
+        make -C ports/esp32 BOARD=${board}
 
       runHook postBuild
     '';
@@ -58,7 +59,7 @@ micropython.overrideAttrs (
     installPhase = ''
       runHook preInstall
 
-      install -Dm444 ports/esp32/build-ESP32_GENERIC/firmware.bin -t $out/share/micropython/
+      install -Dm444 ports/esp32/build-${board}/firmware.bin -t $out/share/micropython/
 
       runHook postInstall
     '';
