@@ -39,9 +39,6 @@ lib.makeScope pkgs.newScope (
       )
     );
 
-    lispPackages = pkgs.recurseIntoAttrs {
-      cl-opengl = pkgs.callPackage ./pkgs/cl-opengl { };
-      cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { };
-    };
+    lispPackages = pkgs.recurseIntoAttrs { cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { }; };
   }
 )
