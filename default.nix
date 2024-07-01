@@ -33,7 +33,11 @@ applied-overlay
 
   python3Packages = pkgs.recurseIntoAttrs (
     lib.makeScope pkgs.python3Packages.newScope (
-      self: import ./pkgs/python3-packages { inherit (self) callPackage; }
+      self:
+      import ./pkgs/python3-packages {
+        inherit (self) callPackage;
+        lib = lib;
+      }
     )
   );
 
