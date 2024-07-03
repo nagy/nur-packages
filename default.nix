@@ -5,7 +5,7 @@
 }:
 
 let
-  by-name-overlay = import "${pkgs.path}/pkgs/top-level/by-name-overlay.nix" ./pkgs/by-name;
+  by-name-overlay = import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ./pkgs/by-name;
   # this line allows packages to call themselves
   pkgsWithNur = import pkgs.path {
     inherit (pkgs) system;
