@@ -56,13 +56,13 @@ let
 in
 buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.55";
+  version = "2.0.59";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-2a9lOr2k+G0AoxMafYIlAVbHrnA7SXicne2GPD1Yxqg=";
+    sha256 = "sha256-ESsKsTj0SlzyeLaxyof6lEDJQ5ZiPprEGqDClKfVZWw=";
   };
 
   nativeBuildInputs = [
