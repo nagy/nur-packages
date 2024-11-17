@@ -12,14 +12,20 @@
   hostCpuTargets = [ "xtensa-softmmu" ];
   capstoneSupport = false;
   guestAgentSupport = false;
+  smartcardSupport = false;
+  tpmSupport = false;
+  libiscsiSupport = false;
+  numaSupport = false;
 
   # no need for graphics
   gtkSupport = false;
   vncSupport = false;
   sdlSupport = false;
   openGLSupport = false;
+  spiceSupport = false;
 
   # no need for audio
+  alsaSupport = false;
   pulseSupport = false;
   pipewireSupport = false;
   jackSupport = false;
