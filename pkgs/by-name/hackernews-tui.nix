@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   passthru.tests.version = testers.testVersion {
     package =
       # a substitute for `finalAttrs.package`
-      (callPackage ./package.nix { });
+      (callPackage ./hackernews-tui.nix { });
   };
 
   meta = with lib; {
