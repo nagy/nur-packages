@@ -5,7 +5,7 @@
 }:
 
 let
-  inherit (callPackage ../../../../lib { }) fetchRFCBulk;
+  inherit (callPackage ../../lib { }) fetchRFCBulk;
 in
 stdenv.mkDerivation {
   name = "rfcs";

@@ -4,16 +4,12 @@
   callPackage ? pkgs.callPackage,
 }:
 
-let
-  by-name-overlay = import <nixpkgs/pkgs/top-level/by-name-overlay.nix> ./pkgs/by-name;
-  # this line allows packages to call themselves
-  pkgsWithNur = import pkgs.path {
-    inherit (pkgs) system;
-    overlays = [ by-name-overlay ];
-  };
-  applied-overlay = by-name-overlay pkgsWithNur pkgs;
-in
-applied-overlay
+# The main packages
+(lib.packagesFromDirectoryRecursive {
+  directory = ./pkgs/by-name;
+  callPackage = callPackage;
+})
+# Extras
 // {
 
   lib = lib.extend (
