@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonApplication, rclone, p7zip }:
+{
+  lib,
+  fetchPypi,
+  buildPythonApplication,
+  rclone,
+  p7zip,
+}:
 
 buildPythonApplication rec {
   pname = "git-remote-rclone";
@@ -10,7 +16,10 @@ buildPythonApplication rec {
     sha256 = "sha256-zCOnHWvV74iQleEKrqye54R/QpUzXHL4pEX6uP76rRE=";
   };
 
-  propagatedBuildInputs = [ rclone p7zip ];
+  propagatedBuildInputs = [
+    rclone
+    p7zip
+  ];
 
   meta = with lib; {
     description = "Git remote helper for rclone-supported services";
