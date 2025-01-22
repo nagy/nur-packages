@@ -23,10 +23,10 @@
   # lib.extend (final: prev: newSet);
   ;
 
-  modules = lib.mapAttrs' (
-    filename: _filetype:
-    lib.nameValuePair "${lib.removeSuffix ".nix" filename}" ((import (./modules + "/${filename}")))
-  ) (builtins.readDir ./modules);
+  modules = lib.packagesFromDirectoryRecursive {
+    directory = ./modules;
+    callPackage = (x: _a: import x);
+  };
 
   qemuImages = pkgs.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
