@@ -39,4 +39,9 @@
   );
 
   lispPackages = pkgs.recurseIntoAttrs { cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { }; };
+
+  emacsPackages = lib.packagesFromDirectoryRecursive {
+    directory = ./pkgs/emacs-packages;
+    callPackage = pkgs.emacs.pkgs.callPackage;
+  };
 }
