@@ -4,5 +4,7 @@
     ./dns.nix
     ./ssh.nix
     ./git.nix
+    ./hmconvert.nix
+    ./shortcommands.nix
   ];
 }
