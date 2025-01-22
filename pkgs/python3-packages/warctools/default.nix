@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "warctools";
@@ -15,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/internetarchive/warctools";
-    description =
-      "Command line tools and libraries for handling and manipulating WARC files (and HTTP contents)";
+    description = "Command line tools and libraries for handling and manipulating WARC files (and HTTP contents)";
     license = licenses.mit;
   };
 }
