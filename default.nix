@@ -23,25 +23,40 @@
   # lib.extend (final: prev: newSet);
   ;
 
-  modules = lib.packagesFromDirectoryRecursive {
-    directory = ./modules;
-    callPackage = (x: _a: import x);
-  };
+  modules =
+    (lib.packagesFromDirectoryRecursive {
+      directory = ./modules;
+      callPackage = (x: _a: import x);
+    })
+    // {
+      all = {
+        imports = lib.filesystem.listFilesRecursive ./modules;
+      };
+    };
 
   qemuImages = pkgs.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
   python3Packages = lib.makeScope pkgs.python3Packages.newScope (
     self:
-    (lib.packagesFromDirectoryRecursive {
-      directory = ./pkgs/python3-packages;
-      callPackage = self.callPackage;
-    })
+    pkgs.recurseIntoAttrs (
+      (lib.packagesFromDirectoryRecursive {
+        directory = ./pkgs/python3-packages;
+        callPackage = self.callPackage;
+      })
+    )
   );
 
-  lispPackages = pkgs.recurseIntoAttrs { cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { }; };
+  lispPackages = pkgs.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/lisp-packages;
+      callPackage = callPackage;
+    }
+  );
 
-  emacsPackages = lib.packagesFromDirectoryRecursive {
-    directory = ./pkgs/emacs-packages;
-    callPackage = pkgs.emacs.pkgs.callPackage;
-  };
+  emacsPackages = pkgs.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/emacs-packages;
+      callPackage = pkgs.emacs.pkgs.callPackage;
+    }
+  );
 }
