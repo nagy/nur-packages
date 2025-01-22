@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, scipy, pywavelets, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  scipy,
+  pywavelets,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "imagehash";
@@ -11,7 +18,11 @@ buildPythonPackage rec {
     sha256 = "sha256-cDjRt/ngWFvrPdjAqVbwK5WjRsC18kqejMA+utrwqnA=";
   };
 
-  propagatedBuildInputs = [ scipy pywavelets pillow ];
+  propagatedBuildInputs = [
+    scipy
+    pywavelets
+    pillow
+  ];
 
   doCheck = false;
 
