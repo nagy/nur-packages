@@ -1,10 +1,11 @@
-{ lib
-, fetchPypi
-, buildPythonApplication
-, setuptools-scm
-, installShellFiles
-, pillow
-, convcolors
+{
+  lib,
+  fetchPypi,
+  buildPythonApplication,
+  setuptools-scm,
+  installShellFiles,
+  pillow,
+  convcolors,
 }:
 
 buildPythonApplication rec {
@@ -18,13 +19,18 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "extcolors" ];
 
-  nativeBuildInputs = [ setuptools-scm installShellFiles ];
+  nativeBuildInputs = [
+    setuptools-scm
+    installShellFiles
+  ];
 
-  propagatedBuildInputs = [ pillow convcolors ];
+  propagatedBuildInputs = [
+    pillow
+    convcolors
+  ];
 
   meta = with lib; {
-    description =
-      "Extract colors from an image. Colors are grouped based on visual similarities using the CIE76 formula";
+    description = "Extract colors from an image. Colors are grouped based on visual similarities using the CIE76 formula";
     homepage = "https://github.com/CairX/extract-colors-py";
     license = licenses.mit;
     platforms = platforms.unix;
