@@ -12,12 +12,16 @@
 # Extras
 // {
 
-  lib = lib.extend (
-    final: prev:
-    # this extra callPackage call is needed to give
-    # the result an `override` ability.
-    (callPackage ./lib { })
-  );
+  lib =
+    let
+      filelist = lib.filesystem.listFilesRecursive ./lib;
+      newSet = lib.foldr lib.recursiveUpdate { } (map (x: import x { inherit pkgs; }) filelist);
+      final = newSet;
+    in
+    final
+  # or:
+  # lib.extend (final: prev: newSet);
+  ;
 
   modules = lib.mapAttrs' (
     filename: _filetype:
