@@ -3,31 +3,42 @@
   fetchPypi,
   python3,
   testers,
-  flameshow,
-  iteround,
+  iteround ? python3.pkgs.callPackage ./iteround.nix { },
+  pythonRelaxDepsHook ? python3.pkgs.pythonRelaxDepsHook,
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "flameshow";
-  version = "1.1.0";
+  version = "1.1.3";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-lVDJfm4VPwJ360BuF3olBKmt2WUd91dbZPfRrcPE4W8=";
+    hash = "sha256-EsskI5qgSHuBzmqyEfPgLb1YiXvQyRiEFVGxEUiDH6A=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    python3.pkgs.poetry-core
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     click
     typing-extensions
     textual
-    protobuf
+    protobuf4
     iteround
   ];
 
-  passthru.tests.version = testers.testVersion { package = flameshow; };
+  pythonRelaxDeps = [
+    "iteround"
+  ];
+
+  passthru.tests.version = testers.testVersion {
+    package =
+      # a substitute for `finalAttrs.package`
+      (python3.pkgs.callPackage ./flameshow.nix { });
+  };
 
   pythonImportsCheck = [ "flameshow" ];
 
