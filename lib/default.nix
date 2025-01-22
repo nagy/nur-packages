@@ -1,4 +1,8 @@
-{ pkgs, lib, callPackage }:
+{
+  pkgs,
+  lib,
+  callPackage,
+}:
 
 let
   filterFiles = lib.filterAttrs (name: _: name != "default.nix");
