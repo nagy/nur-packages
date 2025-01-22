@@ -1,4 +1,9 @@
-{ lib, python3, fetchPypi, buildPythonApplication }:
+{
+  lib,
+  python3,
+  fetchPypi,
+  buildPythonApplication,
+}:
 
 buildPythonApplication rec {
   pname = "pipe21";
