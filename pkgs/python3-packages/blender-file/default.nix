@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchgit, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "blender-file";
