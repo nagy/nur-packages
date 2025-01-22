@@ -82,7 +82,7 @@ stdenv.mkDerivation {
       })
       (fetchRFCBulk {
         range = "8501-9000";
-        hash = "sha256-ATcSoCEhcpdWZWDDJPNBsAmdrMj1aBnkYEwy+WK6LVw=";
+        hash = "sha256-Gjae6Pprj/AOiAfNQdof7pw5zlo2HAmI1l9Rqzwf1sA=";
       })
       (fetchRFCBulk {
         range = "9001-9500";
@@ -96,7 +96,7 @@ stdenv.mkDerivation {
         postFetch = ''
           find -not -regex ".*/rfc95[0-9][0-9][0-9]\\.txt" -delete
         '';
-        hash = "sha256-IE+PljP4tMB1q03RntIgRiRXAbpqGvTQLInpM0/D3MA=";
+        hash = "sha256-Tl0wy7cYk5KhwCxGMOtA0vLvLdIgtzrBqkKlU+h7htA=";
       })
     ];
   };
