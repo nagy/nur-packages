@@ -1,16 +1,19 @@
-{ lib
-, python3
-, fetchPypi
+{
+  lib,
+  python3,
+  fetchFromGitHub,
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "iteround";
-  version = "1.0.3";
+  version = "1.0.4";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-5r7WcsrX0LbpxayEdFwHTCLHtBomi9OE915igi5S1A0=";
+  src = fetchFromGitHub {
+    owner = "cgdeboer";
+    repo = "iteround";
+    rev = "v${version}";
+    hash = "sha256-0lHu01MTf+rdrUYuRDR2IUvQQKcw7NZXBOw+nbEmPMc=";
   };
 
   nativeBuildInputs = [
