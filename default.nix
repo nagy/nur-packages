@@ -30,14 +30,12 @@
 
   qemuImages = pkgs.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
-  python3Packages = pkgs.recurseIntoAttrs (
-    lib.makeScope pkgs.python3Packages.newScope (
-      self:
-      import ./pkgs/python3-packages {
-        inherit (self) callPackage;
-        lib = lib;
-      }
-    )
+  python3Packages = lib.makeScope pkgs.python3Packages.newScope (
+    self:
+    (lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/python3-packages;
+      callPackage = self.callPackage;
+    })
   );
 
   lispPackages = pkgs.recurseIntoAttrs { cl-raylib = pkgs.callPackage ./pkgs/cl-raylib { }; };
