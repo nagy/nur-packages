@@ -1,4 +1,9 @@
-{ stdenv, lib, cmake, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  cmake,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nng";
@@ -14,9 +19,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description =
-      "nanomsg-next-generation -- light-weight brokerless messaging";
-    inherit (src.meta) homepage;
+    description = "nanomsg-next-generation -- light-weight brokerless messaging";
+    homepage = "https://github.com/nanomsg/nng";
     license = licenses.mit;
     platforms = platforms.unix;
     mainProgram = "nngcat";
