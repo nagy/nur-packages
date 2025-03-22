@@ -95,7 +95,7 @@
               search path:${pkgs.path} --json "" | jq --sort-keys > $out
           '';
     };
-    nagy.shortcommands = {
+    nagy.shortcommands.commands = {
       # nix
       b = [ "nix-build" ];
       i = [ "nix-instantiate" ];

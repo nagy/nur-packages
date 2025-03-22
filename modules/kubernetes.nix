@@ -24,7 +24,7 @@ in
       pkgs.k9s
     ];
 
-    nagy.shortcommands = {
+    nagy.shortcommands.commands = {
       k = [ "kubectl" ];
       kg = [
         "kubectl"

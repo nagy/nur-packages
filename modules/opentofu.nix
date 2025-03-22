@@ -9,6 +9,8 @@ let
   cfg = config.nagy.opentofu;
 in
 {
+  imports = [ ./shortcommands.nix ];
+
   options.nagy.opentofu = {
     enable = lib.mkEnableOption "opentofu config";
   };
@@ -27,7 +29,7 @@ in
       # pkgs.opentofu-ls
     ];
 
-    nagy.shortcommands = {
+    nagy.shortcommands.commands = {
       # tf = [ "tofu" ];
       tfp = [
         "tofu"
