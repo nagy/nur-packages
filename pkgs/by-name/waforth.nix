@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, wabt, nodejs, wasmtime }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  wabt,
+  nodejs,
+  wasmtime,
+}:
 
 let
   # The compiler, waforthc, requires an older version of wabt.
@@ -12,7 +20,7 @@ let
     };
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "waforth";
   version = "0.19.1";
 
@@ -27,7 +35,10 @@ stdenv.mkDerivation rec {
     patchShebangs src/standalone/../../scripts/bin2h
   '';
 
-  nativeBuildInputs = [ wabt1031 nodejs ];
+  nativeBuildInputs = [
+    wabt1031
+    nodejs
+  ];
 
   makeFlags = [
     "WASMTIME_DIR=${lib.getDev wasmtime}"
@@ -38,15 +49,14 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 -t $out/bin src/standalone/waforth src/waforthc/waforthc
-    install -Dm444 src/standalone/waforth_core.wasm $out/share/waforth/waforth.wasm
+    install -Dm755 -t $out/bin src/standalone/waforth src/waforthc/waforthc
+    install -Dm644 src/standalone/waforth_core.wasm $out/share/waforth/waforth.wasm
     runHook postInstall
   '';
 
-  meta = with lib; {
-    description =
-      "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
-    inherit (src.meta) homepage;
-    license = with licenses; [ mit ];
+  meta = {
+    description = "Small but complete dynamic Forth Interpreter/Compiler for and in WebAssembly";
+    homepage = "https://github.com/remko/waforth";
+    license = with lib.licenses; [ mit ];
   };
-}
+})
