@@ -8,16 +8,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "hackernews-tui";
-  version = "0.13.4";
+  version = "0.13.5";
 
   src = fetchFromGitHub {
     owner = "aome510";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-xmqvR1u4owgrZSEmR81I418MHCwn4Ydp9+O6ijEEJ3A=";
+    hash = "sha256-p2MhVM+dbNiWlhvlSKdwXE37dKEaE2JCmT1Ari3b0WI=";
   };
 
-  cargoHash = "sha256-1lNBKWUM4MclZVJi9fT4as9ayamlzcrfeUX6P4nYxag=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-KuqAyuU/LOFwvvfplHqq56Df4Dkr5PkUK1Fgeaq1REs=";
 
   passthru.tests.version = testers.testVersion {
     package =
