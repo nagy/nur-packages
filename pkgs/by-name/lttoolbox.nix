@@ -11,23 +11,30 @@
 , pcre
 , pcre-cpp
 , autoreconfHook
+, icu
+, utf8cpp
 }:
 
 stdenv.mkDerivation rec {
   pname = "lttoolbox";
-  version = "3.5.4";
+  version = "3.7.6";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "lttoolbox";
     rev = "v${version}";
-    sha256 = "sha256-FK5Stq+fzGCjL0Dq5Wg3vpNzVB9e56QPx/5dOKACjxk=";
+    sha256 = "sha256-T92TEhrWwPYW8e49rc0jfM0C3dmNYtuexhO/l5s+tQ0=";
   };
+
+  postPatch = ''
+    substituteInPlace configure.ac \
+      --replace-fail /usr/include/utf8cpp ${lib.getDev utf8cpp}/include/utf8cpp
+  '';
 
   nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs =
-    [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp ];
+    [ autoconf automake libtool libxml2 libxslt flex pcre pcre-cpp icu utf8cpp ];
 
   meta = with lib; {
     description =
