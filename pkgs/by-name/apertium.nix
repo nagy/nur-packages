@@ -12,19 +12,20 @@
   pcre,
   pcre-cpp,
   icu,
+  utf8cpp,
   lttoolbox,
   autoreconfHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "apertium";
-  version = "3.7.1";
+  version = "3.9.4";
 
   src = fetchFromGitHub {
     owner = "apertium";
     repo = "apertium";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-jns4OI+HjeyTPDPsBB/bONT1vHLzqjBAoHWEB1tymwk=";
+    hash = "sha256-/47A1dYHsFUsIUVPek0pN+bZbANDvwK0elShpIvij78=";
   };
 
   nativeBuildInputs = [
@@ -42,8 +43,17 @@ stdenv.mkDerivation (finalAttrs: {
     pcre
     pcre-cpp
     icu
+    utf8cpp
     lttoolbox
   ];
+
+  enableParallelBuilding = true;
+
+  postPatch = ''
+    substituteInPlace configure.ac \
+      --replace-fail /usr/include/utf8cpp ${lib.getDev utf8cpp}/include/utf8cpp
+    sed -i '/stdc++fs/d' configure.ac
+  '';
 
   meta = {
     description = "Free/open-source machine translation platform";
