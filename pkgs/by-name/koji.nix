@@ -12,14 +12,14 @@
   koji,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "koji";
   version = "3.2.0";
 
   src = fetchFromGitHub {
     owner = "cococonscious";
     repo = "koji";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-+xtq4btFbOfiyFMDHXo6riSBMhAwTLQFuE91MUHtg5Q=";
   };
 
@@ -39,13 +39,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   doCheck = false;
-  passthru.tests.version = testers.testVersion { package = koji; };
+  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
   meta = {
     description = "An interactive CLI for creating conventional commits";
     homepage = "https://github.com/its-danny/koji";
-    changelog = "https://github.com/its-danny/koji/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/its-danny/koji/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
   };
-}
+})
