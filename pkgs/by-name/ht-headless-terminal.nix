@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ht";
   version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "andyk";
     repo = "ht";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-UJAKtdzuzPHc5t67ui8sptzl5Gz+kkrgILkmfstNcJ0=";
   };
 
@@ -25,4 +25,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "ht";
   };
-}
+})
