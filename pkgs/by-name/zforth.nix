@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+}:
 
 stdenv.mkDerivation {
   pname = "zforth";
@@ -23,8 +28,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description =
-      "tiny, embeddable, flexible, compact Forth scripting language for embedded systems";
+    description = "tiny, embeddable, flexible, compact Forth scripting language for embedded systems";
     homepage = "https://github.com/zevv/zForth";
     license = with lib.licenses; [ mit ];
     mainProgram = "zforth";
