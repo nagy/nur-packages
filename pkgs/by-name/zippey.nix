@@ -13,15 +13,15 @@ stdenv.mkDerivation {
     owner = "sippey";
     repo = "zippey";
     rev = "f037ce9e9b968fa053f95cd2804a248021ffcb41";
-    sha256 = "sha256-kFHC1VDh8KI17owOcmOoGlW7v4oxpYYPrkvGuzC4XfA=";
+    hash = "sha256-kFHC1VDh8KI17owOcmOoGlW7v4oxpYYPrkvGuzC4XfA=";
   };
 
   buildInputs = [ python3 ];
 
   installPhase = ''
     runHook preInstall
-    install -Dm555 zippey.py $out/bin/zippey
-    install -Dm444 -t $out/share/doc/zippey README.md
+    install -Dm755 zippey.py $out/bin/zippey
+    install -Dm644 -t $out/share/doc/zippey README.md
     runHook postInstall
   '';
 
