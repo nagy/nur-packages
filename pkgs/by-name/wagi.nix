@@ -6,14 +6,14 @@
   pkg-config,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wagi";
   version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "deislabs";
-    repo = pname;
-    rev = "v${version}";
+    repo = "wagi";
+    rev = "v${finalAttrs.version}";
     sha256 = "sha256-Hy9IDAuLVD1PI6pPFwKTyoACQUOAuINPWgRoXOrYC7I=";
   };
 
@@ -26,9 +26,9 @@ rustPlatform.buildRustPackage rec {
   # tests fail
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/deislabs/wagi";
     description = "Write HTTP handlers in WebAssembly with a minimal amount of work";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
   };
-}
+})
