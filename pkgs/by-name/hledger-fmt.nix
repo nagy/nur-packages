@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hledger-fmt";
   version = "0.2.4";
 
   src = fetchFromGitHub {
     owner = "mondeja";
     repo = "hledger-fmt";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-qzjdTEsFfZyYMqWDy6QgLI3TiAMI1PQfBoEweIj6nkU=";
   };
 
@@ -21,9 +21,9 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "An opinionated hledger's journal files formatter";
     homepage = "https://github.com/mondeja/hledger-fmt";
-    changelog = "https://github.com/mondeja/hledger-fmt/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/mondeja/hledger-fmt/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "hledger-fmt";
   };
-}
+})
