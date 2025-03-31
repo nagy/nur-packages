@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hledger-fmt";
-  version = "0.2.4";
+  version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "mondeja";
     repo = "hledger-fmt";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-qzjdTEsFfZyYMqWDy6QgLI3TiAMI1PQfBoEweIj6nkU=";
+    hash = "sha256-Ox/kWMTleurjVZEgw7EOg/PICkZMr+1FNpdDa4KnSOQ=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-62nPszolS9YtD7k3EcFokkm3d4GBrwbQE5LEvRs8lms=";
+  cargoHash = "sha256-PyMlwdIBUyv28UPf/ku4TfPGHQVN8aQ6hUyJbLX/SRc=";
 
   meta = {
     description = "An opinionated hledger's journal files formatter";
