@@ -1,6 +1,11 @@
-{ stdenv, lib, fetchFromBitbucket, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromBitbucket,
+  python3,
+}:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "zippey";
   version = "unstable-2014-05-28";
 
@@ -16,7 +21,7 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
     install -Dm555 zippey.py $out/bin/zippey
-    install -Dm444 -t $out/share/doc/${pname} README.md
+    install -Dm444 -t $out/share/doc/zippey README.md
     runHook postInstall
   '';
 
