@@ -5,7 +5,6 @@
 }:
 
 let
-  inherit (pkgs) jq biber;
   inherit (lib)
     concatStringsSep
     attrNames
@@ -46,7 +45,7 @@ let
         inherit src;
         nativeBuildInputs = [
           emacs
-          jq
+          pkgs.jq
         ];
         __cmd = ''
           emacs --batch $src --eval '(princ (json-encode (org-export-get-environment)))' | \
@@ -81,7 +80,7 @@ let
                 $src \
                 --eval '(setq default-directory (getenv "PWD"))' \
                 -f org-$ORGCMD-export-to-latex
-          install -Dm444 *.tex $out
+          install -Dm644 *.tex $out
         '';
       };
     tex.pdf =
@@ -128,7 +127,7 @@ let
               lualatex-math
               ;
           })
-          biber
+          pkgs.biber
         ];
         __cmd = ''
           ${if src ? tangles then "ln -s ${src.tangles}  tangles" else ""}
@@ -136,7 +135,7 @@ let
           export TMPDIR=/tmp
           export HOME=/tmp
           latexmk -pdf -halt-on-error --shell-escape $src
-          install -Dm444 *.pdf $out
+          install -Dm644 *.pdf $out
         '';
       };
   };
@@ -192,7 +191,9 @@ rec {
     src:
     pkgs.stdenvNoCC.mkDerivation {
       name = src.name or builtins.baseNameOf src;
-      buildCommand = "install -Dm444 ${src} $out";
+      buildCommand = ''
+        install -Dm644 ${src} $out
+      '';
       # these should be limited to what is available in converters
       passthru = lib.listToAttrs (
         (map (
