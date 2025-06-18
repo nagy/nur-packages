@@ -40,7 +40,6 @@ let
             hash = "sha256-buDciWz8nbf0a8M2IPUZpbyQPHSugZCYDZqwSKIQqFY=";
           };
         };
-        elisp-reader = nur.repos.nagy.emacsPackages.elisp-reader;
         lua = super.lua.override {
           lua = pkgs.lua5_4;
         };
