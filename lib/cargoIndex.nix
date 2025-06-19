@@ -39,8 +39,8 @@ rec {
       }
       ''
         mkdir src .cargo
-        ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml .cargo/
-        ln -s $file Cargo.toml
+        ln -s "${cargoConfigWithLocalRegistry}/.cargo/config.toml" .cargo/
+        ln -s "$file" Cargo.toml
         touch src/main.rs
         cargo generate-lockfile
         mv Cargo.lock $out
@@ -102,4 +102,60 @@ rec {
         CARGO_TARGET_DIR=/tmp/cargotarget \
         ${pkgs.cargo}/bin/cargo watch "$@"
     '';
+
+  mkCargoDoc =
+    {
+      name,
+      version ? "*",
+    }:
+
+    pkgs.stdenv.mkDerivation (finalAttrs: {
+      pname = "cargo-doc-${name}";
+      version = "0-unstable";
+
+      src = pkgs.emptyDirectory;
+
+      nativeBuildInputs = [
+        pkgs.rustPlatform.cargoSetupHook
+        pkgs.rustc
+        pkgs.cargo
+      ];
+
+      cargotoml = pkgs.writeText "Cargo.toml" ''
+        [package]
+        name = "nix-build"
+        version = "0.0.1"
+        edition = "2024"
+
+        [dependencies]
+        ${name} = "${version}"
+      '';
+
+      buildPhase = ''
+        runHook preBuild
+
+        ln -s $cargotoml Cargo.toml
+        mkdir src
+        touch src/main.rs
+        cargo doc --no-deps --package "${name}" --offline
+
+        runHook postBuild
+      '';
+
+      installPhase = ''
+        runHook preInstall
+
+        mv target/doc $out
+
+        runHook postInstall
+      '';
+
+      cargoDeps = pkgs.rustPlatform.importCargoLock {
+        lockFile = mkCargoLock { file = finalAttrs.cargotoml; };
+      };
+
+      postPatch = ''
+        ln -s $cargoDeps/Cargo.lock
+      '';
+    });
 }
