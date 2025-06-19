@@ -5,20 +5,6 @@
 }:
 
 rec {
-  cargoEmptyHome =
-    pkgs.runCommandLocal "cargo-home"
-      {
-        nativeBuildInputs = [
-          pkgs.rustc
-          pkgs.cargo
-          pkgs.cacert
-        ];
-      }
-      ''
-        CARGO_HOME=$out
-        cargo search --limit 0
-      '';
-
   cargoCratesIoRegistryGit = pkgs.fetchgit {
     url = "https://github.com/rust-lang/crates.io-index";
     rev = "79d5c20daee3bf107616e0c802779bd66b80a266";
