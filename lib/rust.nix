@@ -46,63 +46,6 @@ rec {
         mv Cargo.lock $out
       '';
 
-  mkRustScriptDir =
-    {
-      file,
-      pname ? "main",
-    }:
-    pkgs.runCommandLocal "rust-script"
-      {
-        inherit file pname;
-        nativeBuildInputs = [
-          pkgs.rust-script
-          pkgs.cargo
-        ];
-        CARGO_HOME = "/tmp/cargo";
-      }
-      ''
-        mkdir /tmp/cargo $out
-        ln -s ${cargoConfigWithLocalRegistry}/.cargo/config.toml /tmp/cargo/
-        cp -v -- $file $pname.rs
-        rust-script --cargo-output --package --pkg-path . $pname.rs
-        sed -i Cargo.toml -e 's,^name = .*,name = "${pname}",g'
-        sed -i Cargo.toml -e 's,^path = .*,path = "${pname}.rs",g'
-        cargo generate-lockfile
-        mv Cargo.* $pname.rs $out/
-      '';
-
-  mkRustScript =
-    {
-      file,
-      name ? lib.removeSuffix ".rs" (builtins.baseNameOf file),
-    }:
-    pkgs.rustPlatform.buildRustPackage rec {
-      inherit name;
-      src = mkRustScriptDir {
-        inherit file;
-        pname = name;
-      };
-      lockFile = src + "/Cargo.lock";
-      postPatch = ''
-        cp $lockFile Cargo.lock
-      '';
-      cargoLock = { inherit lockFile; };
-      doCheck = false; # dunno
-    };
-
-  mkCargoWatcher =
-    {
-      file,
-      pname ? "main",
-    }:
-    pkgs.writeShellScriptBin "cargo-watcher" ''
-      ln -fs ${mkRustScriptDir { inherit file pname; }}/Cargo.toml
-      ln -fs ${mkRustScriptDir { inherit file pname; }}/Cargo.lock
-      PATH=${pkgs.cargo-watch}/bin/:${pkgs.cargo}/bin/:${pkgs.gcc}/bin:$PATH \
-        CARGO_TARGET_DIR=/tmp/cargotarget \
-        ${pkgs.cargo}/bin/cargo watch "$@"
-    '';
-
   mkCargoDoc =
     {
       name,
