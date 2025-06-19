@@ -7,8 +7,8 @@
 rec {
   cargoCratesIoRegistryGit = pkgs.fetchgit {
     url = "https://github.com/rust-lang/crates.io-index";
-    rev = "79d5c20daee3bf107616e0c802779bd66b80a266";
-    hash = "sha256-mngh0XvY5UBiEKGR9sqS1dddRhQ6RS8titPtGq0cNkY=";
+    rev = "0c42b451acc49c280588f01dd599af738f485664";
+    hash = "sha256-eedG6VoOzcsRVvoLfGrTD8vDjseOxouw56iKUY2FDNk=";
   };
 
   cargoCratesIoRegistry = pkgs.linkFarm "crates.io-index" [
