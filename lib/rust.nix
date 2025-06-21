@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib ? pkgs.lib,
-  ...
-}:
+{ pkgs, ... }:
 
 rec {
   cargoCratesIoRegistryGit = pkgs.fetchgit {
@@ -11,24 +7,26 @@ rec {
     hash = "sha256-eedG6VoOzcsRVvoLfGrTD8vDjseOxouw56iKUY2FDNk=";
   };
 
-  cargoCratesIoRegistry = pkgs.linkFarm "crates.io-index" [
-    {
-      name = "index";
-      path = cargoCratesIoRegistryGit;
-    }
-  ];
-
-  cargoConfigWithLocalRegistry = pkgs.writeTextFile {
-    name = "cargo_config";
-    destination = "/.cargo/config.toml";
-    text = ''
-      [source]
-      [source.crates-io]
-      replace-with = "local-copy"
-      [source.local-copy]
-      local-registry = "${cargoCratesIoRegistry}"
-    '';
-  };
+  cargoConfigWithLocalRegistry =
+    let
+      linkfarm = pkgs.linkFarm "crates.io-index" [
+        {
+          name = "index";
+          path = cargoCratesIoRegistryGit;
+        }
+      ];
+    in
+    pkgs.writeTextFile {
+      name = "cargo_config";
+      destination = "/config.toml";
+      text = ''
+        [source]
+        [source.crates-io]
+        replace-with = "local-copy"
+        [source.local-copy]
+        local-registry = "${linkfarm}"
+      '';
+    };
 
   mkCargoLock =
     { file }:
@@ -36,14 +34,14 @@ rec {
       {
         inherit file;
         nativeBuildInputs = [ pkgs.cargo ];
+        CARGO_HOME = cargoConfigWithLocalRegistry;
       }
       ''
-        mkdir src .cargo
-        ln -s "${cargoConfigWithLocalRegistry}/.cargo/config.toml" .cargo/
+        mkdir src
         ln -s "$file" Cargo.toml
         touch src/main.rs
         cargo generate-lockfile
-        mv Cargo.lock $out
+        cp Cargo.lock $out
       '';
 
   mkCargoDoc =
@@ -53,8 +51,7 @@ rec {
     }:
 
     pkgs.stdenv.mkDerivation (finalAttrs: {
-      pname = "cargo-doc-${name}";
-      version = "0-unstable";
+      name = "cargo-doc-${name}";
 
       src = pkgs.emptyDirectory;
 
@@ -69,7 +66,6 @@ rec {
         name = "nix-build"
         version = "0.0.1"
         edition = "2024"
-
         [dependencies]
         ${name} = "${version}"
       '';
