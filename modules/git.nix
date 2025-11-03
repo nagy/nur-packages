@@ -11,6 +11,11 @@ in
 {
   imports = [ ./shortcommands.nix ];
 
+  environment.sessionVariables = {
+    # cleaner git repos without the hooks
+    GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+  };
+
   programs.git = {
     config = {
       alias = {
@@ -210,6 +215,11 @@ in
       "git"
       "clone"
       "--depth=1"
+    ];
+    gcl2 = [
+      "git"
+      "clone"
+      "--depth=2"
     ];
     gf = [
       "git"
