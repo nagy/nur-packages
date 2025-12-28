@@ -16,9 +16,10 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.systemPackages = [
-      pkgs.nodejs
+      # pkgs.nodejs
       pkgs.deno
-      pkgs.bun
+      # pkgs.bun
+      pkgs.typescript
       pkgs.typescript-language-server
       pkgs.svelte-language-server
     ];
