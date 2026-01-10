@@ -20,8 +20,8 @@ in
       pkgs.deno
       # pkgs.bun
       pkgs.typescript
-      pkgs.typescript-language-server
-      pkgs.svelte-language-server
+      # pkgs.typescript-language-server
+      # pkgs.svelte-language-server
     ];
 
   };
