@@ -46,6 +46,23 @@ let
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+        nix-mode = super.nix-mode.overrideAttrs (
+          {
+            packageRequires ? [ ],
+            ...
+          }:
+          {
+            src = pkgs.fetchFromGitHub {
+              owner = "nagy";
+              repo = "nix-mode";
+              rev = "511b48de3f2aad8d34d029c6fa2f5aa7acf52492";
+              hash = "sha256-rUzBsIA5v7xzwBq6U2VCl4cu2aP14qA9tjc46KO9enc=";
+            };
+            packageRequires = packageRequires ++ [ super.dash ];
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          }
+        );
         lua = super.lua.override {
           lua = pkgs.lua5_4;
           preferLocalBuild = true;
