@@ -75,10 +75,10 @@ let
     )
   );
   mkDirectoryPackagesValues =
-    path: epkgs:
+    paths: epkgs:
     (lib.attrValues (
       nur.repos.nagy.lib.emacsMakeDirectoryScope {
-        inherit path epkgs;
+        inherit paths epkgs;
       }
     ));
 in
@@ -100,7 +100,7 @@ in
       (customEmacsPackages.emacs.pkgs.withPackages (
         epkgs:
         [ epkgs.treesit-grammars.with-all-grammars ]
-        ++ (lib.flatten (map (it: mkDirectoryPackagesValues it epkgs) cfg.packageDirectories))
+        ++ (mkDirectoryPackagesValues cfg.packageDirectories epkgs)
       ))
     ];
 
