@@ -1,6 +1,43 @@
 { pkgs, lib, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    jq
+    yq-go
+    socat
+    unzip
+    pv
+    ## Processes
+    killall
+    bubblewrap
+    # Files
+    tree
+    file
+    fd
+    ripgrep
+    lsof
+    # Networking tools
+    mtr
+    dnsutils
+    (rclone.overrideAttrs {
+      patches = pkgs.fetchpatch {
+        url = "https://github.com/rclone/rclone/compare/master...nagy:rclone:mount-readonly.patch";
+        hash = "sha256-KNAIwelGO3tmwKoAhk56gaMj8KDcdG3xpTQwBxhGyTk=";
+      };
+    })
+    dool
+    doggo
+    optipng
+  ];
+
+  # tmpfs on all machines
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "100%";
+  };
+
+  programs.fuse.userAllowOther = true;
+
   environment.shellAliases = {
     mv = "mv --no-clobber";
     smv = "mv --no-clobber";
@@ -27,6 +64,10 @@
     "......" = "cd ../../../../..";
     "......." = "cd ../../../../../..";
   };
+
+  # environment.localBinInPath = true;
+  environment.homeBinInPath = true;
+
   environment.sessionVariables = {
     # Misc
     LESSHISTFILE = "-";
