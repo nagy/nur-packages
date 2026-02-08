@@ -19,12 +19,9 @@ in
 
     environment.systemPackages = [
       (pkgs.opentofu.withPlugins (p: [
-        # p.aws_aws
         p.integrations_github
         p.gitlabhq_gitlab
-        # p.vultr_vultr
         p.hetznercloud_hcloud
-        # p.backblaze_backblaze
       ]))
       # pkgs.opentofu-ls
     ];
