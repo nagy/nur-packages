@@ -49,6 +49,17 @@ in
           Locked = false;
         };
         SearchSuggestEnabled = false;
+        SearchEngines = {
+          Remove = [
+            "Amazon"
+            "Bing"
+            # "Google"
+            "Twitter"
+            "Wikipedia"
+            "Yahoo"
+          ];
+          Default = "Google";
+        };
       };
       preferences = {
         "general.smoothScroll" = false;
@@ -60,6 +71,11 @@ in
         "pdfjs.sidebarViewOnLoad" = 2; # -1 is the default, 1 means thumbnail bar, 2 means outline
         # "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
         "browser.display.background_color.dark" = "#000000";
+
+        # https://support.mozilla.org/en-US/questions/1287625
+        "dom.push.enabled" = false;
+        "dom.webnotifications.enabled" = false;
+        "notification.feature.enabled" = false; # this was not present in about:config
       };
     };
 
