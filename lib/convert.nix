@@ -42,8 +42,9 @@ let
           pkgs.jq
         ];
         __cmd = ''
-          emacs --batch $src --eval '(princ (json-encode (org-export-get-environment)))' | \
-            jq --sort-keys > $out
+          emacs --batch $src \
+            --eval '(princ (json-encode (org-export-get-environment)))' \
+            | jq --sort-keys > $out
         '';
       };
     org.pdf = { src, wrap, ... }: (wrap src).tex.pdf;
@@ -69,11 +70,11 @@ let
             ORGCMD=beamer
           fi
           emacs --batch \
-                -l org-ref \
-                --eval "(setq enable-local-variables :all)" \
-                $src \
-                --eval '(setq default-directory (getenv "PWD"))' \
-                -f org-$ORGCMD-export-to-latex
+            -l org-ref \
+            --eval "(setq enable-local-variables :all)" \
+            $src \
+            --eval '(setq default-directory (getenv "PWD"))' \
+            -f org-$ORGCMD-export-to-latex
           install -Dm644 *.tex $out
         '';
       };
