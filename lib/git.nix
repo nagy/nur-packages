@@ -43,7 +43,6 @@
       {
         nativeBuildInputs = [
           pkgs.git
-          pkgs.cacert
         ];
         # to prevent junk
         env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
