@@ -122,12 +122,12 @@ let
               ;
           })
           pkgs.biber
+          pkgs.writableTmpDirAsHomeHook
         ];
         __cmd = ''
           ${if src ? tangles then "ln -s ${src.tangles}  tangles" else ""}
           ${if src ? etangles then "ln -s ${src.etangles} etangles" else ""}
           export TMPDIR=/tmp
-          export HOME=/tmp
           latexmk -pdf -halt-on-error --shell-escape $src
           install -Dm644 *.pdf $out
         '';
