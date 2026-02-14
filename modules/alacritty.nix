@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -129,21 +128,12 @@ let
     ++ (lib.mapAttrsToList mkAlacrittySwitcher hmmodules)
     ++ [ pkgs.alacritty ];
   };
-
-  cfg = config.nagy.alacritty;
 in
 {
   imports = [ ./shortcommands.nix ];
 
-  options.nagy.alacritty = {
-    enable = lib.mkEnableOption "alacritty config";
-  };
+  environment.systemPackages = [
+    alacrittyCombined
+  ];
 
-  config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [
-      alacrittyCombined
-    ];
-
-  };
 }
