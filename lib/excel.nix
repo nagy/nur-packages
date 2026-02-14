@@ -4,17 +4,15 @@
 }:
 
 rec {
-  importXLSX =
-    filename:
-    lib.importJSON (xlsxToJson {
-      inherit filename;
-    });
-
   xlsxToJson =
     { filename }:
-    pkgs.runCommandLocal "xlsx2json.json" { } (''
-      ${xlsxToJsonWriter}/bin/xlsx2json ${filename} > $out
-    '');
+    pkgs.runCommandLocal "xlsx2json.json"
+      {
+        nativeBuildInputs = [ xlsxToJsonWriter ];
+      }
+      (''
+        xlsx2json ${filename} > $out
+      '');
 
   xlsxToJsonWriter =
     pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; }
@@ -36,4 +34,13 @@ rec {
         json.dump(all_dict, sys.stdout, indent=2)
         print("")  # final newline
       '';
+
+  isXLSXFile = file: (lib.hasSuffix ".xlsx" file);
+
+  importXLSX =
+    filename:
+    lib.importJSON (xlsxToJson {
+      inherit filename;
+    });
+
 }
