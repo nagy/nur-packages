@@ -10,8 +10,6 @@ let
 in
 {
   options.nagy.typst = {
-    enable = lib.mkEnableOption "typst config";
-
     package = lib.mkOption {
       type = lib.types.package;
       default = (
@@ -24,7 +22,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     environment.systemPackages = [
       cfg.package
       pkgs.typstyle
