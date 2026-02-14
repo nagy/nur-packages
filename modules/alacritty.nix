@@ -111,7 +111,7 @@ let
       cfg = hmmodule.programs.alacritty;
       tomlFile = tomlFormat.generate "alacritty.toml" cfg.settings;
     in
-    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.readFile tomlFile));
+    pkgs.writeText "ala-config" (lib.replaceStrings [ "\\\\" ] [ "\\" ] (lib.readFile tomlFile));
   mkAlacrittySwitcher =
     name: hmmodule:
     (pkgs.writeShellScriptBin "ala-${name}" ''
