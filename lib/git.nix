@@ -9,15 +9,17 @@
       {
         inherit src;
         nativeBuildInputs = [ pkgs.git ];
-        GIT_AUTHOR_NAME = src.meta.author or "root";
-        GIT_AUTHOR_EMAIL = src.meta.email or "root@localhost";
-        GIT_COMMITTER_NAME = src.meta.author or "root";
-        GIT_COMMITTER_EMAIL = src.meta.email or "root@localhost";
-        # date -d@100000000 -R
-        GIT_AUTHOR_DATE = "Sat, 03 Mar 1973 09:46:40 +0000";
-        GIT_COMMITTER_DATE = "Sat, 03 Mar 1973 09:46:40 +0000";
-        # cleaner git repos without the hooks
-        GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+        env = {
+          GIT_AUTHOR_NAME = src.meta.author or "root";
+          GIT_AUTHOR_EMAIL = src.meta.email or "root@localhost";
+          GIT_COMMITTER_NAME = src.meta.author or "root";
+          GIT_COMMITTER_EMAIL = src.meta.email or "root@localhost";
+          # date -d@100000000 -R
+          GIT_AUTHOR_DATE = "Sat, 03 Mar 1973 09:46:40 +0000";
+          GIT_COMMITTER_DATE = "Sat, 03 Mar 1973 09:46:40 +0000";
+          # cleaner git repos without the hooks
+          GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+        };
       }
       ''
         mkdir build
@@ -39,13 +41,13 @@
     url:
     pkgs.runCommandLocal "git-mirror"
       {
-        nativeBuildInputs = with pkgs; [
-          git
-          cacert
+        nativeBuildInputs = [
+          pkgs.git
+          pkgs.cacert
         ];
         inherit url;
         # to prevent junk
-        GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+        env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
       }
       ''
         mkdir $out
@@ -62,12 +64,12 @@
     pkgs.runCommandLocal "${baseNameOf url}-clone"
       (
         {
-          nativeBuildInputs = with pkgs; [
-            git
-            cacert
+          nativeBuildInputs = [
+            pkgs.git
+            pkgs.cacert
           ];
           # to prevent junk
-          GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
+          env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
           outputHashMode = "recursive";
           outputHashAlgo = "sha256";
         }
@@ -80,16 +82,12 @@
       '';
 
   mkGitRepoFromBundleFile =
-    {
-      bundlefile,
-      git ? pkgs.git,
-      cacert ? pkgs.cacert,
-    }:
+    { bundlefile }:
     pkgs.runCommandLocal "source"
       {
         nativeBuildInputs = [
-          git
-          cacert
+          pkgs.git
+          pkgs.cacert
         ];
         # to prevent junk
         env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
