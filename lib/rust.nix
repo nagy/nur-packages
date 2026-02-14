@@ -28,16 +28,18 @@ rec {
     { file }:
     pkgs.runCommandLocal "Cargo.lock"
       {
-        inherit file;
         nativeBuildInputs = [ pkgs.cargo ];
-        CARGO_HOME = cargoConfigWithLocalRegistry;
+        env = {
+          CARGO_HOME = cargoConfigWithLocalRegistry;
+          FILE = file;
+        };
       }
       ''
         mkdir src
-        ln -s "$file" Cargo.toml
+        ln -s -- "$FILE" Cargo.toml
         touch src/main.rs
         cargo generate-lockfile
-        cp Cargo.lock $out
+        cp -- Cargo.lock $out
       '';
 
   mkCargoDoc =
@@ -60,22 +62,24 @@ rec {
       ]
       ++ extraNativeBuildInputs;
 
-      cargoTOML = pkgs.writers.writeTOML "Cargo.toml" {
-        package = {
-          name = "nix-build";
-          version = "0.0.1";
-          edition = "2024";
-        };
-        dependencies.${name} = {
-          inherit version;
+      env = {
+        CARGO_NET_OFFLINE = "1";
+        __CARGO_TOML = pkgs.writers.writeTOML "Cargo.toml" {
+          package = {
+            name = "nix-build";
+            version = "0.0.1";
+            edition = "2024";
+          };
+          dependencies.${name} = {
+            inherit version;
+          };
         };
       };
-      env.CARGO_NET_OFFLINE = "1";
 
       buildPhase = ''
         runHook preBuild
 
-        ln -s $cargoTOML Cargo.toml
+        ln -s -- $__CARGO_TOML Cargo.toml
         mkdir src
         touch src/main.rs
         cargo doc --package "${name}"
@@ -92,7 +96,7 @@ rec {
       '';
 
       cargoDeps = pkgs.rustPlatform.importCargoLock {
-        lockFile = mkCargoLock { file = "${finalAttrs.cargoTOML}"; };
+        lockFile = mkCargoLock { file = "${finalAttrs.env.__CARGO_TOML}"; };
       };
 
       postPatch = ''
@@ -115,7 +119,7 @@ rec {
         ];
       }
       ''
-        cp -- ${file} script.rs
+        cp -- "${file}" script.rs
         rust-script --pkg-path . -p script.rs
         sed -i -e 's,/build/script.rs,${file},' Cargo.toml
         cp -- Cargo.toml $out
