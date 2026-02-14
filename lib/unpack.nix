@@ -6,8 +6,8 @@
   unpackFile =
     { src }:
     pkgs.stdenv.mkDerivation {
-      inherit src;
       name = "unpacked";
+      inherit src;
       nativeBuildInputs = [ pkgs.unzip ];
       sourceRoot = ".";
       buildPhase = ''
