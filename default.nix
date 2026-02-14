@@ -5,16 +5,10 @@
 }:
 
 # The main packages
-(lib.removeAttrs
-  (lib.packagesFromDirectoryRecursive {
-    directory = ./pkgs/by-name;
-    callPackage = callPackage;
-  })
-  [
-    # currently broken in nixpkgs upstream due to missing `homepage` and `longDescription` meta attributes.
-    "quake3-wrapped"
-  ]
-)
+(lib.packagesFromDirectoryRecursive {
+  directory = ./pkgs/by-name;
+  callPackage = callPackage;
+})
 # Extras
 // {
 
