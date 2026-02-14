@@ -23,7 +23,7 @@ in
         [line_break]
         disabled = true
         ${lib.pipe "${cfgStarship.package}/share/starship/presets/plain-text-symbols.toml" [
-          builtins.readFile
+          lib.readFile
           # mkDollarPrompt
           (lib.replaceStrings [ ">](bold green)" ] [ "\\\\$](bold green)" ])
           # mkGitBranch
