@@ -1,16 +1,16 @@
 {
   pkgs,
-  fetchzip ? pkgs.fetchzip,
+  lib ? pkgs.lib,
 }:
 
 {
   fetchRFCBulk =
     { range, ... }@args:
-    fetchzip (
+    pkgs.fetchzip (
       {
         url = "https://www.rfc-editor.org/in-notes/tar/RFCs${range}.tar.gz";
         stripRoot = false;
       }
-      // (builtins.removeAttrs args [ "range" ])
+      // (lib.removeAttrs args [ "range" ])
     );
 }
