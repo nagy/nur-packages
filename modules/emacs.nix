@@ -125,14 +125,13 @@ let
 in
 {
   options.nagy.emacs = {
-    enable = lib.mkEnableOption "emacs config";
     packageDirectories = lib.mkOption {
       type = listOf path;
       default = [ ];
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     services.emacs = {
       package = customEmacsPackages.emacs;
     };
