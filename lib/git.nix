@@ -37,24 +37,6 @@
         popd
       '';
 
-  mkGitMirror =
-    url:
-    pkgs.runCommandLocal "git-mirror"
-      {
-        nativeBuildInputs = [
-          pkgs.git
-          pkgs.cacert
-        ];
-        inherit url;
-        # to prevent junk
-        env.GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
-      }
-      ''
-        mkdir $out
-        cd $out
-        git clone --mirror $url .
-      '';
-
   mkGitCloneSingleBranch =
     {
       url,
