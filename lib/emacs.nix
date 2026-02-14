@@ -10,7 +10,7 @@ rec {
       epkgs ? pkgs.emacs.pkgs,
     }:
     lib.pipe src [
-      builtins.readFile
+      lib.readFile
       (
         x:
         (emacsParsePackagesFromPackageRequires x)
@@ -36,13 +36,13 @@ rec {
       (x: lib.lists.remove "use-package" x)
       (x: map (name: epkgs.${name}) x)
     ]
-  # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src))
+  # map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (lib.readFile src))
   ;
 
   emacsMakeSingleFilePackage =
     {
       src,
-      pname ? lib.removeSuffix ".el" (builtins.baseNameOf src),
+      pname ? lib.removeSuffix ".el" (lib.baseNameOf src),
       version ? "0.0.1",
       epkgs ? pkgs.emacs.pkgs,
       packageRequires ? emacsParsePackageSet { inherit src epkgs; },
@@ -78,7 +78,7 @@ rec {
       elFiles = lib.filter (x: lib.hasSuffix ".el" x) allFiles;
       final = lib.listToAttrs (
         map (filepath: {
-          name = lib.removeSuffix ".el" (builtins.baseNameOf filepath);
+          name = lib.removeSuffix ".el" (lib.baseNameOf filepath);
           value = emacsMakeSingleFilePackage {
             src = filepath;
             epkgs = epkgs.overrideScope (_self: _super: final);
@@ -92,27 +92,27 @@ rec {
   emacsParsePackagesFromPackageRequires =
     packageElisp:
     let
-      isStrEmpty = s: (builtins.replaceStrings [ " " ] [ "" ] s) == "";
-      splitString = _sep: _s: builtins.filter (x: builtins.typeOf x == "string") (builtins.split _sep _s);
+      isStrEmpty = s: (lib.replaceStrings [ " " ] [ "" ] s) == "";
+      splitString = _sep: _s: lib.filter (x: lib.typeOf x == "string") (lib.split _sep _s);
       lines = splitString "\r?\n" packageElisp;
       requires = lib.concatMapStrings (
         line:
         let
-          match = builtins.match ";;;* *[pP]ackage-[rR]equires *: *\\((.*)\\) *" line;
+          match = lib.match ";;;* *[pP]ackage-[rR]equires *: *\\((.*)\\) *" line;
         in
-        if match == null then "" else builtins.head match
+        if match == null then "" else lib.head match
       ) lines;
       parseReqList =
         s:
         let
-          matchAndRest = builtins.match " *\\(? *([^ \"\\)]+)( +\"[^\"]+\" *\\)| *\\))?(.*)" s;
+          matchAndRest = lib.match " *\\(? *([^ \"\\)]+)( +\"[^\"]+\" *\\)| *\\))?(.*)" s;
         in
         if isStrEmpty s then
           [ ]
         else if matchAndRest == null then
           throw "Failed to parse package requirements list: ${s}"
         else
-          [ (builtins.head matchAndRest) ] ++ (parseReqList (builtins.elemAt matchAndRest 2));
+          [ (lib.head matchAndRest) ] ++ (parseReqList (lib.elemAt matchAndRest 2));
     in
     parseReqList requires;
 }
