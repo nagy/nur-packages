@@ -5,12 +5,7 @@
 }:
 
 let
-  inherit (lib)
-    concatStringsSep
-    attrNames
-    removeSuffix
-    importJSON
-    ;
+  inherit (lib) removeSuffix;
   emacs = pkgs.emacs-nox.pkgs.withPackages (epkgs: [ epkgs.org-ref ]);
 
   conversions = {
@@ -20,9 +15,9 @@ let
         __cmd = ''
           mkdir $out; cd $out;
         ''
-        + (concatStringsSep "\n" (
+        + (lib.concatStringsSep "\n" (
           map (x: "ln -s ${callPackage "${src}/${x}" { }} ${removeSuffix ".nix" x}") (
-            attrNames (builtins.readDir src)
+            lib.attrNames (lib.readDir src)
           )
         ));
       };
@@ -62,7 +57,7 @@ let
           inherit src;
         };
         passthru.etangles = passthru.tangles.evaldir;
-        passthru.ejson = importJSON (convert {
+        passthru.ejson = lib.importJSON (convert {
           output = "json";
           inherit src;
         });
@@ -144,7 +139,7 @@ rec {
     { src, output, ... }@args:
     let
       fileExtension = lib.last (lib.splitString "." (src.name or (toString src)));
-      fileBase = removeSuffix ".${fileExtension}" (builtins.baseNameOf (src.name or (toString src)));
+      fileBase = removeSuffix ".${fileExtension}" (lib.baseNameOf (src.name or (toString src)));
       entry =
         (conversions.${fileExtension}.${output}
           or (throw "No conversion from ${fileExtension} to ${output} found.")
@@ -189,7 +184,7 @@ rec {
   wrap =
     src:
     pkgs.stdenvNoCC.mkDerivation {
-      name = src.name or builtins.baseNameOf src;
+      name = src.name or lib.baseNameOf src;
       buildCommand = ''
         install -Dm644 ${src} $out
       '';
