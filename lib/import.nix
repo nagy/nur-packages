@@ -11,6 +11,11 @@ let
       test = selflib.isRustFile;
       importer = selflib.importRust;
     }
+    # Excel
+    {
+      test = selflib.isXLSXFile;
+      importer = selflib.importXLSX;
+    }
   ];
 in
 rec {
