@@ -10,11 +10,11 @@ let
   readYggdrasilOutput =
     name:
     if (config.services.yggdrasil.enable && config.services.yggdrasil.settings ? PrivateKeyPath) then
-      (builtins.readFile (
+      (lib.readFile (
         pkgs.runCommandLocal "yggdrasil-output-${name}.txt"
           {
             nativeBuildInputs = [ config.services.yggdrasil.package ];
-            configfile = builtins.toJSON config.services.yggdrasil.settings;
+            configfile = lib.toJSON config.services.yggdrasil.settings;
             passAsFile = [ "configfile" ];
           }
           ''
