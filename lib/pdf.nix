@@ -8,13 +8,14 @@
     {
       file,
       password,
-      pdftk ? pkgs.pdftk,
     }:
     pkgs.runCommandLocal "output.pdf"
       {
         src = lib.cleanSource file;
-        nativeBuildInputs = [ pdftk ];
-        inherit file password;
+        nativeBuildInputs = [ pkgs.pdftk ];
+        env = {
+          inherit file password;
+        };
       }
       ''
         pdftk "$src" output output.pdf user_pw PROMPT <<< "$password"
