@@ -69,6 +69,26 @@
       "dom.push.enabled" = false;
       "dom.webnotifications.enabled" = false;
       "notification.feature.enabled" = false; # this was not present in about:config
+
+      "browser.safebrowsing.enabled" = false;
+      "browser.safebrowsing.downloads.enabled" = false;
+      "browser.safebrowsing.downloads.remote.enabled" = false;
+      "browser.safebrowsing.downloads.remote.url" = "";
+      "browser.safebrowsing.malware.enabled" = false;
+      "browser.safebrowsing.phishing.enabled" = false;
+
+
+      # No more search by url bar typing
+      "keyword.enabled" = false;
+
+      # Disable favicons
+      "browser.chrome.site_icons" = false;
+      # Remove AI chatbot integration (sidebar, context menu):
+      "browser.ml.enabled" = false;
+      "browser.ml.chat.enabled" = false;
+
+      # https://superuser.com/questions/1568072/hide-navigation-bar-in-firefox
+      "full-screen-api.ignore-widgets" = true;
     };
   };
 
@@ -77,7 +97,7 @@
   networking.hosts = {
     "0.0.0.0" = [
       "content-signature-2.cdn.mozilla.net"
-      # maybe this one can still be disabled via `about:config`
+      # Maybe this one can still be disabled via `about:config`
       "firefox.settings.services.mozilla.com"
     ];
   };
