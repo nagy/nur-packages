@@ -1,16 +1,14 @@
 {
   pkgs,
   lib ? pkgs.lib,
-  callPackage ? pkgs.callPackage,
 }:
 
 let
-  inherit (lib) removeSuffix;
   emacs = pkgs.emacs-nox.pkgs.withPackages (epkgs: [ epkgs.org-ref ]);
 
   conversions = {
     org.json =
-      { src, ... }:
+      { src, convert }:
       {
         inherit src;
         nativeBuildInputs = [
@@ -24,7 +22,7 @@ let
         '';
       };
     org.tex =
-      { src, convert, ... }:
+      { src, convert }:
       rec {
         inherit src;
         nativeBuildInputs = [ emacs ];
@@ -54,7 +52,7 @@ let
         '';
       };
     tex.pdf =
-      { src, ... }:
+      { src, convert }:
       {
         inherit src;
         nativeBuildInputs = [
@@ -115,13 +113,13 @@ rec {
     { src, output, ... }@args:
     let
       fileExtension = lib.last (lib.splitString "." (src.name or (toString src)));
-      fileBase = removeSuffix ".${fileExtension}" (lib.baseNameOf (src.name or (toString src)));
+      fileBase = lib.removeSuffix ".${fileExtension}" (lib.baseNameOf (src.name or (toString src)));
       entry =
         (conversions.${fileExtension}.${output}
           or (throw "No conversion from ${fileExtension} to ${output} found.")
         )
           {
-            inherit convert src;
+            inherit src convert;
           };
       convertSelf =
         o:
