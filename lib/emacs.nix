@@ -115,4 +115,42 @@ rec {
           [ (lib.head matchAndRest) ] ++ (parseReqList (lib.elemAt matchAndRest 2));
     in
     parseReqList requires;
+
+  isOrgFile = file: (lib.hasSuffix ".org" file);
+
+  convertOrgToJson = pkgs.writeShellApplication {
+    name = "convert-org-to-json";
+    runtimeInputs = [ pkgs.emacs ];
+    runtimeEnv = {
+      emacsOrgExportJsonCleanup = pkgs.writeText "emacsOrgExportJsonCleanup.org" ''
+        (defun my/org-export-sanitize-value (val)
+          (cond
+           ((bufferp val) (buffer-name val))
+           ((markerp val) (marker-position val))
+           ((listp val)
+            (if (keywordp (car val))
+                (my/org-export-clean-plist val)
+              (mapcar #'my/org-export-sanitize-value val)))
+           ((or (stringp val) (numberp val) (booleanp val) (symbolp val)) val)
+           (t (format "%s" val))))
+        (defun my/org-export-clean-plist (plist)
+          (let (result)
+            (while plist
+              (let ((key (pop plist))
+                    (val (pop plist)))
+                (push key result)
+                (push (my/org-export-sanitize-value val) result)))
+            (nreverse result)))
+      '';
+
+    };
+    text = ''
+      exec emacs -Q -nw -f package-initialize --batch "$@" \
+        --load "$emacsOrgExportJsonCleanup" \
+        --eval "(setq json-encoding-pretty-print t)" \
+        --eval "(setq json-encoding-object-sort-predicate #'string<)" \
+        --eval "(princ (json-encode (my/org-export-clean-plist (org-export-get-environment))))" \
+        --eval "(princ \"\\n\")"
+    '';
+  };
 }
