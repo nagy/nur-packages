@@ -9,30 +9,6 @@ let
   emacs = pkgs.emacs-nox.pkgs.withPackages (epkgs: [ epkgs.org-ref ]);
 
   conversions = {
-    directory.evaldir =
-      { src, ... }:
-      {
-        __cmd = ''
-          mkdir $out; cd $out;
-        ''
-        + (lib.concatStringsSep "\n" (
-          map (x: "ln -s ${callPackage "${src}/${x}" { }} ${removeSuffix ".nix" x}") (
-            lib.attrNames (lib.readDir src)
-          )
-        ));
-      };
-    org.directory =
-      { src, ... }:
-      {
-        inherit src;
-        nativeBuildInputs = [ pkgs.emacs-nox ];
-        __cmd = ''
-          mkdir $out/
-          emacs --batch $src \
-            --eval '(setq default-directory (getenv "out"))' \
-            -f org-babel-tangle
-        '';
-      };
     org.json =
       { src, ... }:
       {
@@ -166,8 +142,6 @@ rec {
                 // {
                   base = src;
                   # these should be limited to what is available in converters
-                  directory = convertSelf "directory";
-                  evaldir = convertSelf "evaldir";
                   tex = convertSelf "tex";
                   pdf = convertSelf "pdf";
                   json = convertSelf "json";
