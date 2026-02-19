@@ -8,6 +8,19 @@ let
 in
 rec {
 
+  allImporters = lib.pipe self.lib [
+    (
+      it:
+      (lib.filterAttrs (
+        name: value:
+        (lib.hasPrefix "import" name)
+        && (lib.stringLength name) > (lib.stringLength "import")
+        && value ? check
+      ) it)
+    )
+    lib.attrValues
+  ];
+
   findImporter =
     file:
     lib.findFirst
@@ -16,11 +29,7 @@ rec {
       # Default value
       builtins.import
       # List to search
-      [
-        self.lib.importOrg
-        self.lib.importRust
-        self.lib.importXLSX
-      ];
+      allImporters;
 
   import = file: (findImporter file) file;
 
