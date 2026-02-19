@@ -4,17 +4,17 @@
 }:
 
 let
-  selflib = (import ./.. { inherit pkgs; }).lib;
+  self = (import ../. { inherit pkgs; });
   conversionList = [
     # Rust
     {
-      test = selflib.isRustFile;
-      importer = selflib.importRust;
+      test = self.lib.isRustFile;
+      importer = self.lib.importRust;
     }
     # Excel
     {
-      test = selflib.isXLSXFile;
-      importer = selflib.importXLSX;
+      test = self.lib.isXLSXFile;
+      importer = self.lib.importXLSX;
     }
   ];
 in
