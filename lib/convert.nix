@@ -47,7 +47,6 @@ let
             | jq --sort-keys > $out
         '';
       };
-    org.pdf = { src, wrap, ... }: (wrap src).tex.pdf;
     org.tex =
       { src, convert, ... }:
       rec {
@@ -146,7 +145,7 @@ rec {
           or (throw "No conversion from ${fileExtension} to ${output} found.")
         )
           {
-            inherit convert src wrap;
+            inherit convert src;
           };
       convertSelf =
         o:
@@ -182,31 +181,4 @@ rec {
           ) entry.__cmd;
     in
     self;
-  wrap =
-    src:
-    pkgs.stdenvNoCC.mkDerivation {
-      name = src.name or lib.baseNameOf src;
-      buildCommand = ''
-        install -Dm644 ${src} $out
-      '';
-      # these should be limited to what is available in converters
-      passthru = lib.listToAttrs (
-        (map (
-          output:
-          lib.nameValuePair output (convert {
-            inherit src output;
-          })
-        ))
-          [
-            "directory"
-            "evaldir"
-            "tex"
-            "pdf"
-            "json"
-          ]
-      );
-
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    };
 }
