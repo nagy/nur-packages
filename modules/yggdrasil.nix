@@ -47,13 +47,13 @@ in
     services.yggdrasil = {
       group = "wheel";
       package = lib.mkDefault (
-        pkgs.yggdrasil.overrideAttrs (old: {
+        pkgs.yggdrasil.overrideAttrs {
           src = pkgs.fetchurl {
             url = "https://github.com/nagy/yggdrasil-go/archive/986e79760532bd602e243feb668982388c31f986.tar.gz";
             hash = "sha256-vBalH6yaxH9jxnxfr6GyR6rMH4/fSo1zO53UChww0i0=";
           };
           vendorHash = "sha256-ksmD8R7yRF4si8D5bX7wfg1JhMu/dzdN7t/5qwNLyN8=";
-        })
+        }
       );
       settings = {
         IfName = "ygg0";
