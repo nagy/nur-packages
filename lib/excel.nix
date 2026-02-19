@@ -35,12 +35,13 @@ rec {
         print("")  # final newline
       '';
 
-  isXLSXFile = file: (lib.hasSuffix ".xlsx" file);
-
-  importXLSX =
-    filename:
-    lib.importJSON (xlsxToJson {
-      inherit filename;
-    });
+  importXLSX = {
+    check = lib.hasSuffix ".xlsx";
+    __functor =
+      _self: filename:
+      lib.importJSON (xlsxToJson {
+        inherit filename;
+      });
+  };
 
 }

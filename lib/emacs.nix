@@ -152,17 +152,18 @@ rec {
     '';
   };
 
-  isOrgFile = file: (lib.hasSuffix ".org" file);
-
-  importOrg =
-    filename:
-    lib.pipe filename [
-      (
-        it:
-        pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ convertOrgToJson ]; } ''
-          convert-org-to-json ${it} > $out
-        ''
-      )
-      lib.importJSON
-    ];
+  importOrg = {
+    check = lib.hasSuffix ".org";
+    __functor =
+      _self: filename:
+      lib.pipe filename [
+        (
+          it:
+          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ convertOrgToJson ]; } ''
+            convert-org-to-json ${it} > $out
+          ''
+        )
+        lib.importJSON
+      ];
+  };
 }

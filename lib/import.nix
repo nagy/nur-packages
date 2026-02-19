@@ -5,36 +5,22 @@
 
 let
   self = (import ../. { inherit pkgs; });
-  conversionList = [
-    # Org mode
-    {
-      test = self.lib.isOrgFile;
-      importer = self.lib.importOrg;
-    }
-    # Rust
-    {
-      test = self.lib.isRustFile;
-      importer = self.lib.importRust;
-    }
-    # Excel
-    {
-      test = self.lib.isXLSXFile;
-      importer = self.lib.importXLSX;
-    }
-  ];
 in
 rec {
 
   findImporter =
     file:
-    (lib.findFirst
+    lib.findFirst
       # Predicate
-      (el: if el.test file then true else false)
+      (el: el.check file)
       # Default value
-      { importer = builtins.import; }
+      builtins.import
       # List to search
-      conversionList
-    ).importer;
+      [
+        self.lib.importOrg
+        self.lib.importRust
+        self.lib.importXLSX
+      ];
 
   import = file: (findImporter file) file;
 

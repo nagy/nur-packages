@@ -125,26 +125,29 @@ rec {
         cp -- Cargo.toml $out
       '';
 
-  isRustFile = file: (lib.hasSuffix ".rs" file);
-
-  importRust = file: rec {
-    tomlString = lib.pipe file [
-      (it: mkRustScriptCargoToml { file = it; })
-      lib.readFile
-      lib.unsafeDiscardStringContext
-    ];
-    cargoTOML =
-      (lib.fromTOML tomlString)
-      //
-      # To repair the string context.
-      {
-        bin = [
-          {
-            name = cargoTOML.package.name;
-            path = "${file}";
-          }
+  importRust = {
+    check = lib.hasSuffix ".rs";
+    __functor =
+      _self: file:
+      let
+        tomlString = lib.pipe file [
+          (it: mkRustScriptCargoToml { file = it; })
+          lib.readFile
+          lib.unsafeDiscardStringContext
         ];
-      };
+        selfTOML = lib.fromTOML tomlString;
+      in
+      selfTOML
+      //
+        # To repair the string context.
+        {
+          bin = [
+            {
+              name = selfTOML.package.name;
+              path = "${file}";
+            }
+          ];
+        };
   };
 
 }
