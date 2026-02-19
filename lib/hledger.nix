@@ -10,10 +10,12 @@
     pkgs.stdenv.mkDerivation {
       name = "journal";
 
-      src = fs.toSource {
-        root = root;
-        fileset = fs.fileFilter (file: file.hasExt "csv" || file.hasExt "CSV" || file.hasExt "rules") root;
-      };
+      src = lib.sourceFilesBySuffices root [
+        "csv"
+        "CSV"
+        "rules"
+        # "journal"
+      ];
 
       nativeBuildInputs = [ pkgs.hledger ];
 
