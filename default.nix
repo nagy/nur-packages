@@ -21,7 +21,7 @@
   modules =
     (lib.listToAttrs (
       map (x: {
-        name = (lib.removeSuffix ".nix" (builtins.baseNameOf x));
+        name = lib.removeSuffix ".nix" (baseNameOf x);
         value = x;
       }) (lib.filesystem.listFilesRecursive ./modules)
     ))
