@@ -21,7 +21,7 @@ rec {
         ++ (
           let
             prefix = ";; NIX-EMACS-PACKAGE: ";
-            lines = (lib.splitString "\n" x);
+            lines = lib.splitString "\n" x;
             filtered = (lib.filter (y: lib.hasPrefix prefix y)) lines;
             mapped = map (z: lib.removePrefix prefix z) filtered;
           in

@@ -10,7 +10,7 @@ let
 in
 {
   environment.sessionVariables.STARSHIP_CONFIG =
-    (pkgs.writeText "starship-config.toml" (''
+    (pkgs.writeText "starship-config.toml" ''
       add_newline=false
       [line_break]
       disabled = true
@@ -21,7 +21,7 @@ in
         # mkGitBranch
         (lib.replaceStrings [ "[git_branch]\n" ] [ "[git_branch]\nignore_branches = ['master', 'main']\n" ])
       ]}
-    '')).outPath;
+    '').outPath;
 
   # Simpler version of starship init script until
   # https://github.com/starship/starship/issues/896 is fixed

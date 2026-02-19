@@ -4,7 +4,7 @@
 }:
 
 let
-  self = (import ../. { inherit pkgs; });
+  self = import ../. { inherit pkgs; };
 in
 rec {
 

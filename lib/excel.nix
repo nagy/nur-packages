@@ -10,9 +10,9 @@ rec {
       {
         nativeBuildInputs = [ xlsxToJsonWriter ];
       }
-      (''
+      ''
         xlsx2json ${filename} > $out
-      '');
+      '';
 
   xlsxToJsonWriter =
     pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; }
