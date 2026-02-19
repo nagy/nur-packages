@@ -8,7 +8,7 @@ let
 
   conversions = {
     org.json =
-      { src, convert }:
+      { src }:
       {
         inherit src;
         nativeBuildInputs = [
@@ -22,21 +22,10 @@ let
         '';
       };
     org.tex =
-      { src, convert }:
-      rec {
+      { src }:
+      {
         inherit src;
         nativeBuildInputs = [ emacs ];
-        passthru.tangles = convert {
-          output = "directory";
-          inherit src;
-        };
-        passthru.etangles = passthru.tangles.evaldir;
-        passthru.ejson = lib.importJSON (convert {
-          output = "json";
-          inherit src;
-        });
-        meta.email = passthru.ejson.email;
-        meta.author = lib.head passthru.ejson.author;
         __cmd = ''
           ORGCMD=latex;
           if [[ "$src" == *presentation.org ]] ; then
@@ -52,7 +41,7 @@ let
         '';
       };
     tex.pdf =
-      { src, convert }:
+      { src }:
       {
         inherit src;
         nativeBuildInputs = [
@@ -99,8 +88,6 @@ let
           pkgs.writableTmpDirAsHomeHook
         ];
         __cmd = ''
-          ${if src ? tangles then "ln -s ${src.tangles}  tangles" else ""}
-          ${if src ? etangles then "ln -s ${src.etangles} etangles" else ""}
           export TMPDIR=/tmp
           latexmk -pdf -halt-on-error --shell-escape $src
           install -Dm644 *.pdf $out
@@ -110,7 +97,7 @@ let
 in
 rec {
   convert =
-    { src, output, ... }@args:
+    { src, output }:
     let
       fileExtension = lib.last (lib.splitString "." (src.name or (toString src)));
       fileBase = lib.removeSuffix ".${fileExtension}" (lib.baseNameOf (src.name or (toString src)));
@@ -119,38 +106,14 @@ rec {
           or (throw "No conversion from ${fileExtension} to ${output} found.")
         )
           {
-            inherit src convert;
+            inherit src;
           };
-      convertSelf =
-        o:
-        convert {
-          src = self;
-          output = o;
-        };
-      self =
-        if lib.isDerivation entry then
-          entry
-        else
-          pkgs.runCommandLocal "${fileBase}.${output}" (
-            entry
-            // {
-              passthru =
-                (src.passthru or { })
-                // (entry.passthru or { })
-                // {
-                  base = src;
-                  # these should be limited to what is available in converters
-                  tex = convertSelf "tex";
-                  pdf = convertSelf "pdf";
-                  json = convertSelf "json";
-                };
-              meta = lib.foldr lib.recursiveUpdate { } [
-                (src.meta or { })
-                (entry.meta or { })
-                (args.meta or { })
-              ];
-            }
-          ) entry.__cmd;
     in
-    self;
+    if lib.isDerivation entry then
+      entry
+    else
+      pkgs.runCommandLocal "${fileBase}.${output}" entry ''
+        ${entry.__cmd}
+      '';
+
 }
