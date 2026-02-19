@@ -21,4 +21,16 @@
         pdftk "$src" output output.pdf user_pw PROMPT <<< "$password"
         install -Dm644 -t "$out" output.pdf
       '';
+
+  convertPdfToText = pkgs.writeShellApplication {
+    name = "convert-pdf-to-text";
+    passthru = {
+      fromSuffix = ".pdf";
+      toSuffix = ".txt";
+    };
+    runtimeInputs = [ pkgs.poppler-utils ];
+    text = ''
+      exec pdftotext -layout -nopgbrk "$@" -
+    '';
+  };
 }
