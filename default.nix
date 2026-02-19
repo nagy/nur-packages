@@ -33,14 +33,12 @@
 
   qemuImages = lib.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
-  python3Packages = lib.makeScope pkgs.python3Packages.newScope (
-    self:
-    lib.recurseIntoAttrs (
-      (lib.packagesFromDirectoryRecursive {
-        directory = ./pkgs/python3-packages;
-        callPackage = self.callPackage;
-      })
-    )
+  python3Packages = lib.recurseIntoAttrs (
+    lib.packagesFromDirectoryRecursive {
+      directory = ./pkgs/python3-packages;
+      callPackage = pkgs.python3Packages.callPackage;
+      newScope = pkgs.python3Packages.newScope;
+    }
   );
 
   lispPackages = lib.recurseIntoAttrs (
