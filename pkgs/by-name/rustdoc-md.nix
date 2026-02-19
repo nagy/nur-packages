@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-rustPlatform.buildRustPackage (finalAttrs: {
+rustPlatform.buildRustPackage {
   pname = "rustdoc-md";
   version = "0-unstable-2025-10-28";
 
@@ -24,4 +24,4 @@ rustPlatform.buildRustPackage (finalAttrs: {
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "rustdoc-md";
   };
-})
+}
