@@ -116,8 +116,6 @@ rec {
     in
     parseReqList requires;
 
-  isOrgFile = file: (lib.hasSuffix ".org" file);
-
   convertOrgToJson = pkgs.writeShellApplication {
     name = "convert-org-to-json";
     runtimeInputs = [ pkgs.emacs ];
@@ -153,4 +151,18 @@ rec {
         --eval "(princ \"\\n\")"
     '';
   };
+
+  isOrgFile = file: (lib.hasSuffix ".org" file);
+
+  importOrg =
+    filename:
+    lib.pipe filename [
+      (
+        it:
+        pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ convertOrgToJson ]; } ''
+          convert-org-to-json ${it} > $out
+        ''
+      )
+      lib.importJSON
+    ];
 }

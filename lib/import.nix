@@ -6,6 +6,11 @@
 let
   self = (import ../. { inherit pkgs; });
   conversionList = [
+    # Org mode
+    {
+      test = self.lib.isOrgFile;
+      importer = self.lib.importOrg;
+    }
     # Rust
     {
       test = self.lib.isRustFile;
