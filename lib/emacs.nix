@@ -42,7 +42,7 @@ rec {
   emacsMakeSingleFilePackage =
     {
       src,
-      pname ? lib.removeSuffix ".el" (lib.baseNameOf src),
+      pname ? lib.removeSuffix ".el" (baseNameOf src),
       version ? "0.0.1",
       epkgs ? pkgs.emacs.pkgs,
       packageRequires ? emacsParsePackageSet { inherit src epkgs; },
@@ -78,7 +78,7 @@ rec {
       elFiles = lib.filter (x: lib.hasSuffix ".el" x) allFiles;
       final = lib.listToAttrs (
         map (filepath: {
-          name = lib.removeSuffix ".el" (lib.baseNameOf filepath);
+          name = lib.removeSuffix ".el" (baseNameOf filepath);
           value = emacsMakeSingleFilePackage {
             src = filepath;
             epkgs = epkgs.overrideScope (_self: _super: final);
