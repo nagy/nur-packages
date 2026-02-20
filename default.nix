@@ -18,18 +18,12 @@
       (lib.filesystem.listFilesRecursive ./lib)
   );
 
-  modules =
-    (lib.listToAttrs (
-      map (x: {
-        name = lib.removeSuffix ".nix" (baseNameOf x);
-        value = x;
-      }) (lib.filesystem.listFilesRecursive ./modules)
-    ))
-    // {
-      all = {
-        imports = lib.filesystem.listFilesRecursive ./modules;
-      };
-    };
+  modules = lib.listToAttrs (
+    map (x: {
+      name = lib.removeSuffix ".nix" (baseNameOf x);
+      value = x;
+    }) (lib.filesystem.listFilesRecursive ./modules)
+  );
 
   qemuImages = lib.recurseIntoAttrs (callPackage ./pkgs/qemu-images { });
 
