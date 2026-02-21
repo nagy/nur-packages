@@ -33,4 +33,18 @@
       exec pdftotext -layout -nopgbrk "$@" -
     '';
   };
+
+  convertPdfToPng = pkgs.writeShellApplication {
+    name = "convert-pdf-to-png";
+    passthru = {
+      fromSuffix = ".pdf";
+      toSuffix = ".png";
+    };
+    runtimeInputs = [ pkgs.poppler-utils ];
+    text = ''
+      FILENAME="$1"
+      shift
+      exec pdftoppm -singlefile -png "$FILENAME" "$FILENAME"
+    '';
+  };
 }
