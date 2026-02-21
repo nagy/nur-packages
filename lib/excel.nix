@@ -8,15 +8,23 @@ rec {
     { filename }:
     pkgs.runCommandLocal "xlsx2json.json"
       {
-        nativeBuildInputs = [ xlsxToJsonWriter ];
+        nativeBuildInputs = [ convertXlsxToJson ];
       }
       ''
-        xlsx2json ${filename} > $out
+        convert-xlsx-to-json ${filename} > $out
       '';
 
-  xlsxToJsonWriter =
-    pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; }
-      ''
+  convertXlsxToJson = pkgs.writeShellApplication {
+    name = "convert-xlsx-to-json";
+    passthru = {
+      fromSuffix = ".xlsx";
+      toSuffix = ".json";
+    };
+    runtimeInputs = [
+      (pkgs.python3.withPackages (ps: [ ps.python-calamine ]))
+    ];
+    runtimeEnv = {
+      WRITER = pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; } ''
         import json
         import sys
         from python_calamine import CalamineWorkbook
@@ -34,6 +42,11 @@ rec {
         json.dump(all_dict, sys.stdout, indent=2)
         print("")  # final newline
       '';
+    };
+    text = ''
+      exec "$WRITER/bin/xlsx2json" "$@"
+    '';
+  };
 
   importXLSX = {
     check = lib.hasSuffix ".xlsx";
