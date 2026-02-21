@@ -22,9 +22,7 @@ rec {
     };
     runtimeInputs = [
       (pkgs.python3.withPackages (ps: [ ps.python-calamine ]))
-    ];
-    runtimeEnv = {
-      WRITER = pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; } ''
+      (pkgs.writers.writePython3Bin "xlsx2json" { libraries = ps: [ ps.python-calamine ]; } ''
         import json
         import sys
         from python_calamine import CalamineWorkbook
@@ -41,10 +39,10 @@ rec {
                 all_dict[sheet_name].append(result_dict)
         json.dump(all_dict, sys.stdout, indent=2)
         print("")  # final newline
-      '';
-    };
+      '')
+    ];
     text = ''
-      exec "$WRITER/bin/xlsx2json" "$@"
+      exec xlsx2json "$@"
     '';
   };
 
