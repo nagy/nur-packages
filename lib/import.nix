@@ -12,10 +12,7 @@ rec {
     (
       it:
       (lib.filterAttrs (
-        name: value:
-        (lib.hasPrefix "import" name)
-        && (lib.stringLength name) > (lib.stringLength "import")
-        && value ? check
+        name: value: (lib.hasPrefix "import" name) && name != "import" && value ? check
       ) it)
     )
     lib.attrValues
