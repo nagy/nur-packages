@@ -33,21 +33,6 @@ in
         log
       }
 
-      # Alfis
-      # https://github.com/Revertron/Alfis
-      anon. btn. conf. index. merch. mirror. mob. screen. srv. ygg. {
-        bind 127.0.0.1
-        hosts /etc/hosts {
-          fallthrough
-        }
-        forward . [324:71e:281a:9ed3::53]:53
-        cache {
-          success 5000 3600 3600
-          denial 2500 1800 1800
-        }
-        log
-      }
-
       meship. {
         bind 127.0.0.1
         meship
@@ -68,6 +53,22 @@ in
         template ANY ANY {
             rcode NXDOMAIN
         }
+      }
+    ''
+    + lib.optionalString config.services.yggdrasil.enable ''
+      # Alfis
+      # https://github.com/Revertron/Alfis
+      anon. btn. conf. index. merch. mirror. mob. screen. srv. ygg. {
+        bind 127.0.0.1
+        hosts /etc/hosts {
+          fallthrough
+        }
+        forward . [324:71e:281a:9ed3::53]:53
+        cache {
+          success 5000 3600 3600
+          denial 2500 1800 1800
+        }
+        log
       }
     '';
   };
