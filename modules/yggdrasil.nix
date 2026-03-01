@@ -43,8 +43,9 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     services.yggdrasil = {
+      enable = lib.mkDefault true;
       group = "wheel";
       package = lib.mkDefault (
         pkgs.yggdrasil.overrideAttrs {
