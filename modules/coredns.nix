@@ -10,6 +10,7 @@ let
 in
 {
   services.coredns = {
+    enable = lib.mkDefault true;
     package = pkgs.coredns.override {
       externalPlugins = [
         {
