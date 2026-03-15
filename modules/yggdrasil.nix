@@ -55,6 +55,9 @@ in
       type = lib.types.nullOr lib.types.path;
       default = null;
     };
+    nagy.yggdrasil.connectToPublicPeers = lib.mkEnableOption ''
+      yggdrasil should connect to some public peers in Europe
+    '';
   };
 
   config = {
@@ -75,9 +78,15 @@ in
         NodeInfo = { };
         NodeInfoPrivacy = true;
         Listen = [ "vsock://host:1234" ];
-        Peers = lib.optionals (
-          config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
-        ) [ "vsock://host:1234" ];
+        Peers =
+          (lib.optionals config.nagy.yggdrasil.connectToPublicPeers [
+            # Hetzner
+            "tls://ygg1.mk16.de:1338"
+            "tls://ygg.mkg20001.io:443"
+          ])
+          ++ (lib.optionals (
+            config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
+          ) [ "vsock://host:1234" ]);
       }
       // (lib.optionalAttrs (config.nagy.yggdrasil.privatekeyEntropy != null) {
         PrivateKeyPath = privateKeyFromEntropy config.nagy.yggdrasil.privatekeyEntropy;
