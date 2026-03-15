@@ -58,6 +58,9 @@ in
     nagy.yggdrasil.connectToPublicPeers = lib.mkEnableOption ''
       yggdrasil should connect to some public peers in Europe
     '';
+    nagy.yggdrasil.listenIpv4All = lib.mkEnableOption ''
+      yggdrasil should listen on all ipv4 addresses
+    '';
   };
 
   config = {
@@ -77,7 +80,12 @@ in
         IfName = "ygg0";
         NodeInfo = { };
         NodeInfoPrivacy = true;
-        Listen = [ "vsock://host:1234" ];
+        Listen = [
+          "vsock://host:1234"
+        ]
+        ++ (lib.optionals config.nagy.yggdrasil.listenIpv4All [
+          "tcp://0.0.0.0:9001"
+        ]);
         Peers =
           (lib.optionals config.nagy.yggdrasil.connectToPublicPeers [
             # Hetzner
@@ -97,6 +105,10 @@ in
         sleep 1
         ${pkgs.iproute2}/bin/ip -6 address flush dev ${cfg.settings.IfName} scope link
       '';
+    };
+
+    networking.firewall = lib.mkIf config.nagy.yggdrasil.listenIpv4All {
+      allowedTCPPorts = [ 9001 ];
     };
 
     environment.etc."yggdrasil-address.txt" =
