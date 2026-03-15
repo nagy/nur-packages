@@ -62,4 +62,26 @@
     modules = [ <nixos-config> ];
   };
 
+  systemBuilderLiveCD = import <nixpkgs/nixos/lib/eval-config.nix> {
+    specialArgs = {
+      nur = import <nur> {
+        nurpkgs = pkgs;
+        pkgs = pkgs;
+        repoOverrides = {
+          nagy = import ./. { pkgs = pkgs; };
+        };
+      };
+    };
+    modules = [
+      (
+        { modulesPath, ... }:
+        {
+          imports = [ "${modulesPath}/installer/cd-dvd/installation-cd-base.nix" ];
+          isoImage.squashfsCompression = "zstd -Xcompression-level 3";
+        }
+      )
+      <nixos-config>
+    ];
+  };
+
 }
