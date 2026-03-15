@@ -17,6 +17,11 @@ in
     # non-root access to the firmware of QMK keyboards
     # hardware.keyboard.qmk.enable = true;
 
+    boot.kernelParams = [
+      # https://github.com/lamikr/rocm_sdk_builder/issues/257#issuecomment-3355223605
+      "amdgpu.cwsr_enable=0"
+    ];
+
     boot.kernel.sysctl = {
       # This allows a special scape key: alt+print+<key>
       # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
@@ -43,7 +48,9 @@ in
           exts.pass-otp
         ])
       )
-      pkgs.passage
+      pkgs.age
+      self.passage-with-otp
+      pkgs.ssh-to-age
       (pkgs.zbar.override {
         withXorg = false;
         enableVideo = false;
@@ -85,15 +92,23 @@ in
       # autoRepeatDelay = 260;
       # autoRepeatInterval = 40;
     };
+
+    environment.sessionVariables = {
+      # Zwingt ROCm die gfx1103 wie eine unterstützte gfx1100 RDNA3 Karte zu behandeln
+      HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+      # https://github.com/ggml-org/llama.cpp/pull/12934/changes
+      GGML_CUDA_ENABLE_UNIFIED_MEMORY = "1";
+    };
+
     # for wayland compositors
     environment.sessionVariables.XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
 
     services.pulseaudio = {
-      enable = true;
+      enable = lib.mkDefault true;
     };
 
     services.pipewire = {
-      enable = false;
+      enable = lib.mkForce false;
     };
 
     programs.wireshark = {
