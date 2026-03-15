@@ -128,6 +128,42 @@ in
     Xcursor.theme: whiteglass
   '';
 
+  environment.extraOutputsToInstall = [
+    "dev"
+    "bin"
+    "info"
+    "man"
+    "devdoc"
+    "out"
+    "lib"
+  ];
+
+  users.users.user.extraGroups = [
+    "video"
+    "render"
+  ];
+
+  environment.etc."X11/xinit/xinitrc".text = ''
+    set -e
+    xset r rate 260 40
+    xsetroot -cursor_name left_ptr # mostly used for Tauri applications
+    [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
+    ${pkgs.unclutter-xfixes}/bin/unclutter &
+    exec emacs
+  '';
+
+  # programs.gnupg = {
+  #   # socket activation does not seem to be used. gnupg is starting an agent itself.
+  #   # more info: https://discourse.nixos.org/t/how-to-make-gpg-use-the-agent-from-programs-gnupg-agent/11834/2
+  #   # but also seems to be used. idk.
+  #   # package = gnupg.override { guiSupport = false; };
+  #   agent.enable = true;
+  #   agent.settings = {
+  #     default-cache-ttl = 34560000;
+  #     max-cache-ttl = 34560000;
+  #   };
+  # };
+
   # Too large closure size
   services.speechd.enable = lib.mkForce false;
 
