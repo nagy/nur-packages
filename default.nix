@@ -48,4 +48,18 @@
       callPackage = pkgs.emacs.pkgs.callPackage;
     }
   );
+
+  systemBuilder = import <nixpkgs/nixos/lib/eval-config.nix> {
+    specialArgs = {
+      nur = import <nur> {
+        nurpkgs = pkgs;
+        pkgs = pkgs;
+        repoOverrides = {
+          nagy = import ./. { pkgs = pkgs; };
+        };
+      };
+    };
+    modules = [ <nixos-config> ];
+  };
+
 }
