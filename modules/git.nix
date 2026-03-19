@@ -268,16 +268,16 @@ in
       "git"
       "tags"
     ];
+    gP = [
+      "git"
+      "push"
+    ];
+    gPf = [
+      "git"
+      "push"
+      "--force-with-lease"
+    ];
     gp = [
-      "git"
-      "push"
-    ];
-    gpf = [
-      "git"
-      "push"
-      "--force"
-    ];
-    gpl = [
       "git"
       "pull"
     ];
