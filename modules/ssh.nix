@@ -27,6 +27,7 @@
     # https://codeberg.org/Codeberg/org/src/branch/main/Imprint.md#ssh-fingerprints
     "codeberg.org".publicKey =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
+
   };
 
 }
