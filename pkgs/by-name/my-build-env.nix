@@ -82,6 +82,10 @@ let
             pkgs.ytt
             pkgs.yamllint
             pkgs.crane
+
+            pkgs.sops
+            pkgs.rbw
+            pkgs.imgpkg
           ];
 
           services.xserver.enable = true;
