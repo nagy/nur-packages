@@ -27,7 +27,7 @@ in
     config = [
       {
         user.name = "Daniel Nagy";
-        user.email = "danielnagy" + "@" + "posteo.de";
+        user.email = "danielnagy@posteo.de";
         user.signingkey = "/home/user/.ssh/id_nagy";
         gpg = {
           format = "ssh";
@@ -227,6 +227,10 @@ in
 
   nagy.shortcommands.commands = lib.mkIf cfg.enable {
     g = [ "git" ];
+    gs = [
+      "git"
+      "status"
+    ];
     gcl = [
       "git"
       "clone"
