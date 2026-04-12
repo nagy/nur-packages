@@ -84,6 +84,11 @@ let
           emacsPackages = self;
         };
       })
+      // (lib.optionalAttrs (lib.pathExists ~/ox-typst) {
+        ox-typst = super.ox-typst.overrideAttrs ({
+          src = lib.cleanSource ~/ox-typst;
+        });
+      })
     )
   );
   mkDirectoryPackagesValues =
