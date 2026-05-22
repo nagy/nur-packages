@@ -176,6 +176,11 @@ in
             textconv = "${pkgs.gnutar}/bin/tar --zstd -tvf";
             binary = true;
           };
+          # https://getsops.io/docs/#showing-diffs-in-cleartext-in-git
+          sopsdiffer = {
+            textconv = "${pkgs.sops}/bin/sops decrypt";
+            binary = true;
+          };
           orgmode = {
             xfuncname = "^(\\*+.*)$";
           };
