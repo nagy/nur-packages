@@ -32,6 +32,7 @@ in
   environment.systemPackages = with pkgs; [
     jq
     yq-go
+    jaq
     socat
     unzip
     pv
@@ -63,11 +64,14 @@ in
     self.all-converters
     glab
     jc
+    eza
 
     # for man pages
     (lib.getMan pkgs.msmtp)
     (lib.getMan pkgs.isync)
     pkgs.darkhttpd
+
+    pkgs.universal-ctags
   ];
 
   # tmpfs on all machines
