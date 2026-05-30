@@ -160,8 +160,6 @@ in
     # Misc
     LESSHISTFILE = "-";
     WATCH_INTERVAL = "1";
-    # zstd auto detect parallel
-    ZSTD_NBTHREADS = "0";
     # https://github.com/denoland/deno/blob/21065797f6dce285e55705007f54abe2bafb611c/cli/tools/upgrade.rs#L184-L187
     DENO_NO_UPDATE_CHECK = "1";
 
