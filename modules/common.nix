@@ -48,12 +48,6 @@ in
     # Networking tools
     mtr
     dnsutils
-    (rclone.overrideAttrs {
-      patches = pkgs.fetchpatch {
-        url = "https://github.com/rclone/rclone/compare/master...nagy:rclone:mount-readonly.patch";
-        hash = "sha256-b9LaD2K8psxCk65+6JH0c2deZUNq6L4YTlaQvxNE04c=";
-      };
-    })
     dool
     doggo
     optipng
