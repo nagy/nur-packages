@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   environment.systemPackages = [
@@ -18,12 +14,18 @@
       ps.pyyaml
       ps.base58
       ps.pyarrow
+      ps.polars
 
       # Banking
       ps.schwifty
 
       # Typst
       ps.typst
+
+      # Misc
+      (ps.callPackage ../pkgs/python3-packages/tvdatafeed.nix { })
+      (ps.callPackage ../pkgs/python3-packages/ta-lib.nix { })
+      (ps.callPackage ../pkgs/python3-packages/mintalib.nix { })
     ]))
     pkgs.black
     pkgs.isort
