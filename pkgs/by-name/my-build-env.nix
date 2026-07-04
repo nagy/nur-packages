@@ -1,7 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
-  nixosEval ? import <nixpkgs/nixos/lib/eval-config.nix>,
 }:
 
 let
@@ -12,26 +11,9 @@ let
     }) builtins.nixPath
   );
   self = import ../.. { inherit pkgs; };
-  specialArgs = {
-    nur = import <nur> {
-      nurpkgs = pkgs;
-      pkgs = pkgs;
-      repoOverrides = {
-        nagy = self;
-      };
-    };
-  };
-  sysEmpty = nixosEval {
-    inherit specialArgs;
-    modules = [
-      {
-        system.stateVersion = "26.05";
-      }
-    ];
-  };
-  sys = nixosEval {
-    inherit specialArgs;
-    modules = [
+  diffResult = self.lib.mkNixosBuildEnv {
+    name = "my-build-env";
+    targetModules = [
       (
         {
           # config,
@@ -119,25 +101,16 @@ let
               <dot/emacs>
             ];
           };
-
-          system.stateVersion = "26.05";
         }
       )
     ];
   };
-  newpkgs = lib.lists.filter (
-    x: !(lib.elem x sysEmpty.config.environment.systemPackages)
-  ) sys.config.environment.systemPackages;
-
-  myBuildEnv = pkgs.buildEnv {
-    name = "my-build-env";
-    paths = newpkgs;
-  };
+  inherit (diffResult) sys buildEnv;
 in
 pkgs.writeText "my-build-env-script" ''
-  export PATH="${myBuildEnv}/bin:$PATH"
-  export MANPATH="${myBuildEnv}/share/man:$MANPATH"
-  export INFOPATH="${myBuildEnv}/share/info:$INFOPATH"
+  export PATH="${buildEnv}/bin:$PATH"
+  export MANPATH="${buildEnv}/share/man:$MANPATH"
+  export INFOPATH="${buildEnv}/share/info:$INFOPATH"
   export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
   export XAUTHORITY="${sys.config.environment.sessionVariables.XAUTHORITY}"
   export OS_CLOUD="${sys.config.environment.sessionVariables.OS_CLOUD}"
