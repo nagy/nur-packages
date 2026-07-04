@@ -53,6 +53,9 @@
           !(sysEmpty.config.environment.sessionVariables ? ${name})
           || sysEmpty.config.environment.sessionVariables.${name} != value
       ) sys.config.environment.sessionVariables;
+      diffedFontPackages = lib.filter (
+        font: !(lib.elem font sysEmpty.config.fonts.packages)
+      ) sys.config.fonts.packages;
     in
     {
       inherit
@@ -61,6 +64,7 @@
         newPkgs
         buildEnv
         diffedSessionVariables
+        diffedFontPackages
         ;
     };
 }

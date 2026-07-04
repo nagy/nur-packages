@@ -100,11 +100,11 @@ let
       )
     ];
   };
-  inherit (diffResult) sys buildEnv diffedSessionVariables;
+  inherit (diffResult) sys buildEnv diffedSessionVariables diffedFontPackages;
 
   sessionVarExports = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
-      lib.filterAttrs (n: _: n != "TERMINFO_DIRS" && n != "NIX_PATH") diffedSessionVariables
+      lib.filterAttrs (n: _: !(lib.elem n [ "TERMINFO_DIRS" "NIX_PATH" ])) diffedSessionVariables
     )
   );
 in
@@ -115,8 +115,7 @@ pkgs.writeText "my-build-env-script" ''
   export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
   ${sessionVarExports}
 
-  # TODO make this dynamic
-  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
+  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" diffedFontPackages}"
 
   # TODO make this dynamic
   export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
