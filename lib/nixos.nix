@@ -48,6 +48,11 @@
         inherit name;
         paths = newPkgs;
       };
+      diffedSessionVariables = lib.filterAttrs (
+        name: value:
+          !(sysEmpty.config.environment.sessionVariables ? ${name})
+          || sysEmpty.config.environment.sessionVariables.${name} != value
+      ) sys.config.environment.sessionVariables;
     in
     {
       inherit
@@ -55,6 +60,7 @@
         sys
         newPkgs
         buildEnv
+        diffedSessionVariables
         ;
     };
 }

@@ -100,25 +100,24 @@ let
       )
     ];
   };
-  inherit (diffResult) sys buildEnv;
+  inherit (diffResult) sys buildEnv diffedSessionVariables;
+
+  sessionVarExports = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
+      lib.filterAttrs (n: _: n != "TERMINFO_DIRS" && n != "NIX_PATH") diffedSessionVariables
+    )
+  );
 in
 pkgs.writeText "my-build-env-script" ''
   export PATH="${buildEnv}/bin:$PATH"
   export MANPATH="${buildEnv}/share/man:$MANPATH"
   export INFOPATH="${buildEnv}/share/info:$INFOPATH"
   export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
-  export XAUTHORITY="${sys.config.environment.sessionVariables.XAUTHORITY}"
-  export OS_CLOUD="${sys.config.environment.sessionVariables.OS_CLOUD}"
-  export HTOPRC="${sys.config.environment.sessionVariables.HTOPRC}"
-  export GOTELEMETRY="${sys.config.environment.sessionVariables.GOTELEMETRY}"
-  export GOPLSCACHE="${sys.config.environment.sessionVariables.GOPLSCACHE}"
-  export GOMODCACHE="${sys.config.environment.sessionVariables.GOMODCACHE}"
-  export GOCACHE="${sys.config.environment.sessionVariables.GOCACHE}"
+  ${sessionVarExports}
 
   # TODO make this dynamic
   export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
 
   # TODO make this dynamic
-  export TERMINFO_DIRS="${pkgs.emacs.pkgs.eat}/share/emacs/site-lisp/elpa/eat-${pkgs.emacs.pkgs.eat.version}/terminfo:$TERMINFO_DIRS"
   export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
 ''
