@@ -79,7 +79,6 @@ let
             self.nanoid-cli
             pkgs.imagemagickBig
             pkgs.ocrmypdf
-            pkgs.chromium
             pkgs.curl # to get newer versions
             pkgs.websocat
             self.ggufmeta
