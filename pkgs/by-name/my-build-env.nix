@@ -73,11 +73,7 @@ let
             pkgs.duf
             pkgs.squashfsTools
             pkgs.qsv
-            pkgs.crane.out # whould not select the "crane" output
-
-            pkgs.sops
             pkgs.rbw
-            pkgs.imgpkg
 
             pkgs.playerctl
             self.nanoid-cli
