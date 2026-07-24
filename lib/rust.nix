@@ -142,40 +142,29 @@ rec {
             documentation   TEXT,
             homepage        TEXT,
             id              TEXT,
-            max_features    TEXT,
-            max_upload_size TEXT,
             name            TEXT,
             repository      TEXT,
             trustpub_only   TEXT,
             updated_at      TEXT
         );
         CREATE TEMP TABLE raw_versions (
-            id            TEXT,
-            crate_id      TEXT,
-            num           TEXT,
-            license       TEXT,
-            edition       TEXT,
-            rust_version  TEXT,
-            yanked        TEXT,
-            downloads     TEXT,
-            created_at    TEXT
+            id      TEXT,
+            num     TEXT,
+            license TEXT
         );
         CREATE TEMP TABLE raw_dv (
-            crate_id      TEXT,
-            num_versions  TEXT,
-            version_id    TEXT
+            crate_id    TEXT,
+            version_id  TEXT
         );
         CREATE TEMP TABLE raw_deps (
-            crate_id          TEXT,
-            default_features  TEXT,
-            explicit_name     TEXT,
-            features          TEXT,
-            id                TEXT,
-            kind              TEXT,
-            optional          TEXT,
-            req               TEXT,
-            target            TEXT,
-            version_id        TEXT
+            crate_id    TEXT,
+            features    TEXT,
+            id          TEXT,
+            kind        TEXT,
+            optional    TEXT,
+            req         TEXT,
+            target      TEXT,
+            version_id  TEXT
         );
         CREATE TEMP TABLE raw_cd (
             crate_id    TEXT,
@@ -183,18 +172,13 @@ rec {
         );
         CREATE TEMP TABLE raw_categories (
             category    TEXT,
-            crates_cnt  TEXT,
-            created_at  TEXT,
             description TEXT,
             id          TEXT,
-            path        TEXT,
             slug        TEXT
         );
         CREATE TEMP TABLE raw_keywords (
-            crates_cnt  TEXT,
-            created_at  TEXT,
-            id          TEXT,
-            keyword     TEXT
+            id      TEXT,
+            keyword TEXT
         );
         CREATE TEMP TABLE raw_cc (
             category_id TEXT,
@@ -397,27 +381,32 @@ rec {
         mkdir csvs
 
         tar -xOf "${file}" --wildcards '*/data/crates.csv' \
-          | csvcut --maxfieldsize $((5*1024*1024)) -C readme \
+          | csvcut --maxfieldsize $((5*1024*1024)) \
+              -c created_at,description,documentation,homepage,id,name,repository,trustpub_only,updated_at \
           > csvs/crates.csv
 
         tar -xOf "${file}" --wildcards '*/data/versions.csv' \
           | csvcut --maxfieldsize $((5*1024*1024)) \
-              -c id,crate_id,num,license,edition,rust_version,yanked,downloads,created_at \
+              -c id,num,license \
           > csvs/versions.csv
 
         tar -xOf "${file}" --wildcards '*/data/default_versions.csv' \
+          | csvcut -c crate_id,version_id \
           > csvs/default_versions.csv
 
         tar -xOf "${file}" --wildcards '*/data/dependencies.csv' \
+          | csvcut -c crate_id,features,id,kind,optional,req,target,version_id \
           > csvs/dependencies.csv
 
         tar -xOf "${file}" --wildcards '*/data/crate_downloads.csv' \
           > csvs/crate_downloads.csv
 
         tar -xOf "${file}" --wildcards '*/data/categories.csv' \
+          | csvcut -c category,description,id,slug \
           > csvs/categories.csv
 
         tar -xOf "${file}" --wildcards '*/data/keywords.csv' \
+          | csvcut -c id,keyword \
           > csvs/keywords.csv
 
         tar -xOf "${file}" --wildcards '*/data/crates_categories.csv' \
