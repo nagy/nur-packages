@@ -93,7 +93,9 @@ in
             "tls://ygg.mkg20001.io:443"
           ])
           ++ (lib.optionals (
-            config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
+            config.virtualisation ? qemu
+            && config.virtualisation.qemu ? guestAgent
+            && config.virtualisation.qemu.guestAgent.enable == true
           ) [ "vsock://host:1234" ]);
       }
       // (lib.optionalAttrs (config.nagy.yggdrasil.privatekeyEntropy != null) {
