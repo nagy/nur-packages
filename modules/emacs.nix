@@ -189,9 +189,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-08-11
+          # updated 2026-08-17
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/f0abc0e49d0e038cf603eaa6dcbd918c32193f1a.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/2e89533df9375c48448ba92d7299c4d16b46e06f.tar.gz";
         }
       ))
     ];
