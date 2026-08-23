@@ -44,7 +44,6 @@ let
             nur.repos.nagy.modules.javascript
             nur.repos.nagy.modules.keyboard_layout
             nur.repos.nagy.modules.kubernetes
-            nur.repos.nagy.modules.llama-cpp
             # nur.repos.nagy.modules.lua
             nur.repos.nagy.modules.ncdu
             nur.repos.nagy.modules.nix
