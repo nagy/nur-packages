@@ -125,6 +125,47 @@ rec {
         cp -- Cargo.toml $out
       '';
 
+  mkRustScript =
+    { file }:
+    let
+      name = lib.removeSuffix ".rs" (lib.baseNameOf file);
+
+      cargoDir =
+        pkgs.runCommandLocal "rust-script-${name}"
+          {
+            nativeBuildInputs = [
+              pkgs.rustc
+              pkgs.cargo
+              pkgs.rust-script
+            ];
+            env = {
+              CARGO_HOME = cargoConfigWithLocalRegistry;
+            };
+          }
+          ''
+            mkdir -p "$out"
+            cp -- "${file}" "$out/${name}.rs"
+            cd "$out"
+            rust-script -p --pkg-path . "${name}.rs"
+            sed -i Cargo.toml \
+              -e 's,^name = .*,name = "${name}",' \
+              -e 's,^path = .*,path = "${name}.rs",'
+            cargo generate-lockfile
+          '';
+    in
+    pkgs.rustPlatform.buildRustPackage {
+      inherit name;
+      src = cargoDir;
+      cargoLock = {
+        lockFile = "${cargoDir}/Cargo.lock";
+      };
+      doCheck = false;
+      meta = {
+        description = "${name} (rust-script)";
+        mainProgram = name;
+      };
+    };
+
   mkCratesIoSqlite =
     let
       buildSql = pkgs.writeText "build-crates-db.sql" ''
