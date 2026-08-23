@@ -7,8 +7,8 @@ rec {
   cargoCratesIoRegistryGit = pkgs.fetchFromGitHub {
     owner = "rust-lang";
     repo = "crates.io-index";
-    rev = "b0be0971bd0fc1a9496da6e44e4391205f26445f";
-    hash = "sha256-mOBKMzftjO6MpGsYqec4nakDJwP1ci0Jb3k2dHQ1t2g=";
+    rev = "c44025494aad713844669dc54394b3e451ccbbc7";
+    hash = "sha256-+/X6U4S7BBBC2iPYXWneD2hkFWnJM6dhWqy9bLhB16c=";
   };
 
   cargoConfigWithLocalRegistry = pkgs.linkFarm "cargo-home" {
