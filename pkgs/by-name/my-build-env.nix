@@ -29,7 +29,7 @@ let
             # nur.repos.nagy.modules.coredns
             nur.repos.nagy.modules.desktop
             nur.repos.nagy.modules.emacs
-            # nur.repos.nagy.modules.firefox
+            nur.repos.nagy.modules.firefox
             nur.repos.nagy.modules.fonts
             nur.repos.nagy.modules.fzf
             nur.repos.nagy.modules.git
