@@ -38,11 +38,11 @@ buildPythonPackage rec {
     rich
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Upload images via APIs";
     homepage = "https://github.com/DeadNews/images-upload-cli";
-    license = licenses.mit;
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ nagy ];
   };
 }
