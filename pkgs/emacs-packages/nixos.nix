@@ -45,13 +45,13 @@ let
 in
 melpaBuild {
   pname = "nixos";
-  version = "0-unstable-2026-08-01";
+  version = "0-unstable-2026-09-04";
 
   src = fetchFromGitHub {
     owner = "nagy";
     repo = "nixos.el";
-    rev = "c0d4757ddbe2d5ec79f2219a5f23a7ce51c8065a";
-    hash = "sha256-8CVapNz5GqIkbhdUCmLTUkEZf/wXCe5NWUZ1ui8yZo4=";
+    rev = "6d820a10ad716fb5785ab9e549b21242674a458f";
+    hash = "sha256-NXYpesfRJ0SLGGb2jovfpvN9Wln027VonCIpVgNG0yU=";
   };
 
   packageRequires = [ nix-mode ];
