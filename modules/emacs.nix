@@ -132,6 +132,17 @@ let
           allowSubstitutes = false;
         });
 
+        naysayer-theme = super.naysayer-theme.overrideAttrs {
+          # prevent warnings
+          postPatch = ''
+            substituteInPlace naysayer-theme.el \
+              --replace-fail '--- The naysayer color theme' \
+              '--- The naysayer color theme -*- lexical-binding: t; -*-'
+          '';
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
       }
       // (builtins.mapAttrs (_name: f: f self super) cfg.extraOverrides)
     )
