@@ -30,5 +30,6 @@ buildPythonApplication rec {
     homepage = "https://projects.blender.org/blender/blender-asset-tracer";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }
