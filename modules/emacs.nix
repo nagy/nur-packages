@@ -45,6 +45,9 @@ let
         derivation =
           (builtins.getFlake "github:nagy/derivation.el").packages.${pkgs.stdenv.hostPlatform.system}.derivation;
 
+        toml-ts-cargo-mode =
+          (builtins.getFlake "github:nagy/toml-ts-cargo-mode").packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
