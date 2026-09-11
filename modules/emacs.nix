@@ -39,6 +39,9 @@ let
         gguf =
           (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
 
+        crate =
+          (builtins.getFlake "github:nagy/crate.el").packages.${pkgs.stdenv.hostPlatform.system}.crate;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
