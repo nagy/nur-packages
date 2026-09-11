@@ -48,6 +48,9 @@ let
         toml-ts-cargo-mode =
           (builtins.getFlake "github:nagy/toml-ts-cargo-mode").packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
 
+        ron-ts-mode =
+          (builtins.getFlake "github:nagy/emacs-ron-ts-mode").packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
