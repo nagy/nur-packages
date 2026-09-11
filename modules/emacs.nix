@@ -42,6 +42,9 @@ let
         crate =
           (builtins.getFlake "github:nagy/crate.el").packages.${pkgs.stdenv.hostPlatform.system}.crate;
 
+        derivation =
+          (builtins.getFlake "github:nagy/derivation.el").packages.${pkgs.stdenv.hostPlatform.system}.derivation;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
