@@ -36,6 +36,9 @@ let
         go-mod-ts-extras-mode =
           (builtins.getFlake "github:nagy/go-mod-ts-extras-mode").packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
 
+        gguf =
+          (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
