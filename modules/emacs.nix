@@ -72,9 +72,12 @@ let
           magit-section = self.magit-section;
         };
 
-        ctags-mode = super.ctags-mode.override {
-          magit-section = self.magit-section;
-        };
+        ctags-mode =
+          (
+            builtins.getFlake "github:nagy/emacs-ctags-mode"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs {
+            packageRequires = [ self.magit-section ];
+          };
 
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
