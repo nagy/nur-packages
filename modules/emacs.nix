@@ -33,6 +33,9 @@ let
         yublin =
           (builtins.getFlake "github:nagy/yublin.el").packages.${pkgs.stdenv.hostPlatform.system}.yublin;
 
+        go-mod-ts-extras-mode =
+          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode").packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
