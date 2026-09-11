@@ -30,6 +30,9 @@ let
         org-jxl-images =
           (builtins.getFlake "github:nagy/org-jxl-images.el").packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
 
+        yublin =
+          (builtins.getFlake "github:nagy/yublin.el").packages.${pkgs.stdenv.hostPlatform.system}.yublin;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
