@@ -110,9 +110,12 @@ let
           }
         );
 
-        nixos = nur.repos.nagy.emacsPackages.nixos.override {
-          nix-mode = self.nix-mode;
-        };
+        nixos =
+          (
+            builtins.getFlake "github:nagy/nixos.el"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs {
+            packageRequires = [ self.nix-mode ];
+          };
 
         lua = super.lua.override {
           lua = pkgs.lua5_4;
