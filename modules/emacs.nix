@@ -24,6 +24,9 @@ let
       nur.repos.nagy.emacsPackages # add all packages from this repository
       // {
 
+        bruvtab =
+          (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
