@@ -54,6 +54,13 @@ let
         openrpc-mode =
           (builtins.getFlake "github:nagy/emacs-openrpc-mode").packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
 
+        cid-mode =
+          (
+            builtins.getFlake "github:nagy/emacs-ipfs-modes"
+          ).packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs {
+            packageRequires = [ self.magit-section ];
+          };
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
@@ -81,10 +88,6 @@ let
 
         magit-difftastic = nur.repos.nagy.emacsPackages.magit-difftastic.override {
           magit = self.magit;
-        };
-
-        cid-mode = super.cid-mode.override {
-          magit-section = self.magit-section;
         };
 
         ctags-mode =
