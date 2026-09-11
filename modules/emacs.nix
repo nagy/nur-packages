@@ -27,6 +27,9 @@ let
         bruvtab =
           (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
 
+        org-jxl-images =
+          (builtins.getFlake "github:nagy/org-jxl-images.el").packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
