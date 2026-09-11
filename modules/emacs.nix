@@ -51,6 +51,9 @@ let
         ron-ts-mode =
           (builtins.getFlake "github:nagy/emacs-ron-ts-mode").packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
 
+        openrpc-mode =
+          (builtins.getFlake "github:nagy/emacs-openrpc-mode").packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
+
         magit = super.magit.overrideAttrs (
           {
             postPatch ? "",
