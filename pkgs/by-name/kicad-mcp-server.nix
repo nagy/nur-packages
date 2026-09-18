@@ -3,7 +3,7 @@
   pkgs,
   buildNpmPackage,
   fetchFromGitHub,
-  nodejs_22,
+  nodejs,
   makeWrapper,
   python3,
   kicad,
@@ -53,8 +53,6 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-LBUZmYzYnaVyuU0/fwy6t3yoIIb8Qbve/mF/Fv6Y6qg=";
 
-  nodejs = nodejs_22;
-
   nativeBuildInputs = [ makeWrapper ];
 
   # `npm pack` honors .gitignore, so the built `dist/` (and the Python /
@@ -66,7 +64,7 @@ buildNpmPackage (finalAttrs: {
     cp -r python "$installDir"
     cp -r config "$installDir"
 
-    makeWrapper ${nodejs_22}/bin/node $out/bin/kicad-mcp-server \
+    makeWrapper ${nodejs}/bin/node $out/bin/kicad-mcp-server \
       --set KICAD_PYTHON ${pythonEnv}/bin/python \
       --set KICAD_CLI ${kicad.base}/bin/kicad-cli \
       --prefix PATH : ${kicad.base}/bin \
