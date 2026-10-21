@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "konnect";
-  version = "0.11.0";
+  version = "0.13.0";
 
   src = fetchFromGitHub {
     owner = "mixelpixx";
     repo = "Konnect";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-6rcfSGqa+SO7bH5a23Q2XpI7UhzNKAowK+IM0xh8LDo=";
+    hash = "sha256-8grXUwq5L25TFBSylB36yAaEPfNV7dos9kf+1UH6xDg=";
   };
 
-  cargoHash = "sha256-+VhPB3/8bCK8GK6ackNt9nprAR266dM+hEb5hDeAN5s=";
+  cargoHash = "sha256-q/cWeNORFjPp3YFoiICGQVGolL7hd+oCu3Fvj+8IhUc=";
 
   nativeBuildInputs = [
     cmake
