@@ -24,7 +24,7 @@ let
         {
           imports = [
             nur.repos.nagy.modules.alacritty
-            nur.repos.nagy.modules.common-lisp
+            # nur.repos.nagy.modules.common-lisp
             nur.repos.nagy.modules.desktop
             nur.repos.nagy.modules.emacs
             nur.repos.nagy.modules.firefox
@@ -75,16 +75,13 @@ let
             pkgs.curl # to get newer versions
             pkgs.websocat
             self.ggufmeta
-            (pkgs.callPackage (builtins.fetchGit {
-              url = "https://github.com/nagy/jsonrpc-httpproxy";
-              ref = "master";
-            }) { })
-            pkgs.ron-lsp
-
+            (builtins.getFlake "github:nagy/jsonrpc-httpproxy")
+            .packages.${pkgs.stdenv.hostPlatform.system}.jsonrpc-httpproxy
             self.pngattach
-            self.pi-acp
-
+            pkgs.libjxl
             pkgs.disko
+            (pkgs.callPackage <dot> { inherit nur; }).bin
+            pkgs.xh
           ];
 
           services.xserver.enable = true;
@@ -106,7 +103,7 @@ let
     fontconfigEtc
     fontsConf
     fontsCheck
-    ;
+  ;
 
   sessionVarExports = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
@@ -149,8 +146,6 @@ in
     export FONTCONFIG_PATH="${fontconfigEtc}"
   ''}
 
-  # TODO make this dynamic
-  export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
 '').overrideAttrs {
   passthru = {
     inherit buildEnv fontsConf fontsCheck;
