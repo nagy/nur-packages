@@ -102,7 +102,10 @@ let
     sys
     buildEnv
     diffedSessionVariables
-    diffedFontPackages
+    fontconfigEnable
+    fontconfigEtc
+    fontsConf
+    fontsCheck
     ;
 
   sessionVarExports = lib.concatStringsSep "\n" (
@@ -140,8 +143,16 @@ in
   ${lib.optionalString (gitConfigSystem != null) "export GIT_CONFIG_SYSTEM=\"${gitConfigSystem}\""}
   ${lib.optionalString (dockerConfigSystem != null) "export DOCKER_CONFIG=\"${dockerConfigSystem}\""}
 
-  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" diffedFontPackages}"
+  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
+  ${lib.optionalString fontconfigEnable ''
+    export FONTCONFIG_FILE="${fontsConf}"
+    export FONTCONFIG_PATH="${fontconfigEtc}"
+  ''}
 
   # TODO make this dynamic
   export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
-'').overrideAttrs {passthru.buildEnv = buildEnv;}
+'').overrideAttrs {
+  passthru = {
+    inherit buildEnv fontsConf fontsCheck;
+  };
+}
