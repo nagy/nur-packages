@@ -36,6 +36,8 @@ in
 
     # Custom tool ../bin/agent.rs
     AGENT_ENVS = lib.concatStringsSep "," [
+      "XDG_CACHE_HOME=/home/user/agent/cache"
+
       "PI_TELEMETRY"
       "PI_OFFLINE"
       "PI_SKIP_VERSION_CHECK"
@@ -48,6 +50,7 @@ in
       "DEEPSEEK_API_KEY"
       "OPENROUTER_API_KEY"
       "CARGO_TARGET_DIR=/tmp/cargo-target"
+
     ];
   };
 
