@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  nur,
   ...
 }:
 
@@ -15,13 +14,14 @@ let
     anything
     package
     ;
+  repo = import ../. { inherit pkgs; };
   cfg = config.nagy.emacs;
   emacs = if config.services.xserver.enable then pkgs.emacs31-gtk3 else pkgs.emacs31-nox;
   emacsPackages = pkgs.emacsPackagesFor emacs;
   customEmacsPackages = emacsPackages.overrideScope (
     self: super:
     (
-      nur.repos.nagy.emacsPackages # add all packages from this repository
+      repo.emacsPackages # add all packages from this repository
       // {
 
         bruvtab =
@@ -91,7 +91,18 @@ let
           allowSubstitutes = false;
         };
 
-        magit-difftastic = nur.repos.nagy.emacsPackages.magit-difftastic.override {
+        ox-typst = super.ox-typst.overrideAttrs {
+          src = pkgs.fetchFromGitHub {
+            owner = "nagy";
+            repo = "ox-typst";
+            rev = "23b065ae230bc8e355c434b80ab37ffcffe72ef1";
+            hash = "sha256-ikHc+KeIRbbooeol8sIm2Z3DlkREVNmtNVy5l3QmVOk=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
+        magit-difftastic = repo.emacsPackages.magit-difftastic.override {
           magit = self.magit;
         };
 
@@ -200,7 +211,7 @@ let
   mkDirectoryPackagesValues =
     paths: epkgs:
     (lib.attrValues (
-      nur.repos.nagy.lib.emacsMakeDirectoryScope {
+      repo.lib.emacsMakeDirectoryScope {
         inherit paths epkgs;
       }
     ));
@@ -264,9 +275,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-10-17
+          # updated 2026-10-31
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/973c6db5f491e8f43da5b9768dee61c94f0b0f98.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/14c5c32cdc5804f17390919e75d05962bc7def09.tar.gz";
         }
       ))
     ];
