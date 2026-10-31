@@ -28,38 +28,43 @@ let
           (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
 
         org-jxl-images =
-          (builtins.getFlake "github:nagy/org-jxl-images.el").packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
+          (builtins.getFlake "github:nagy/org-jxl-images.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
 
         yublin =
           (builtins.getFlake "github:nagy/yublin.el").packages.${pkgs.stdenv.hostPlatform.system}.yublin;
 
         go-mod-ts-extras-mode =
-          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode").packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
+          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
 
-        gguf =
-          (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
+        gguf = (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
 
         crate =
           (builtins.getFlake "github:nagy/crate.el").packages.${pkgs.stdenv.hostPlatform.system}.crate;
 
         derivation =
-          (builtins.getFlake "github:nagy/derivation.el").packages.${pkgs.stdenv.hostPlatform.system}.derivation;
+          (builtins.getFlake "github:nagy/derivation.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.derivation;
 
         toml-ts-cargo-mode =
-          (builtins.getFlake "github:nagy/toml-ts-cargo-mode").packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
+          (builtins.getFlake "github:nagy/toml-ts-cargo-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
 
         ron-ts-mode =
-          (builtins.getFlake "github:nagy/emacs-ron-ts-mode").packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
+          (builtins.getFlake "github:nagy/emacs-ron-ts-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
 
         openrpc-mode =
-          (builtins.getFlake "github:nagy/emacs-openrpc-mode").packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
+          (builtins.getFlake "github:nagy/emacs-openrpc-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
 
         cid-mode =
-          (
-            builtins.getFlake "github:nagy/emacs-ipfs-modes"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs {
-            packageRequires = [ self.magit-section ];
-          };
+          (builtins.getFlake "github:nagy/emacs-ipfs-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs
+            {
+              packageRequires = [ self.magit-section ];
+            };
 
         magit = super.magit.overrideAttrs (
           {
@@ -91,11 +96,11 @@ let
         };
 
         ctags-mode =
-          (
-            builtins.getFlake "github:nagy/emacs-ctags-mode"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs {
-            packageRequires = [ self.magit-section ];
-          };
+          (builtins.getFlake "github:nagy/emacs-ctags-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs
+            {
+              packageRequires = [ self.magit-section ];
+            };
 
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
@@ -138,11 +143,11 @@ let
         );
 
         nixos =
-          (
-            builtins.getFlake "github:nagy/nixos.el"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs {
-            packageRequires = [ self.nix-mode ];
-          };
+          (builtins.getFlake "github:nagy/nixos.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs
+            {
+              packageRequires = [ self.nix-mode ];
+            };
 
         lua = super.lua.override {
           lua = pkgs.lua5_4;
