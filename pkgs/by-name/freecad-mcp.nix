@@ -2,6 +2,7 @@
   lib,
   fetchPypi,
   python3,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
@@ -38,6 +39,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     "freecad_mcp"
     "freecad_mcp.server"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Model Context Protocol server that lets AI assistants control FreeCAD";

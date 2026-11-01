@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   fetchPypi,
   buildPythonPackage,
 
@@ -40,10 +41,15 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     ide = [ websockets ];
     serial = [ pyserial ];
-    cli = [ rich-click click ];
+    cli = [
+      rich-click
+      click
+    ];
   };
 
   pythonImportsCheck = [ "esp_pylib" ];
+
+  passthru.updateScript = pkgs.nix-update-script { };
 
   meta = {
     description = "Python library for logging, utils and constants for Espressif Systems' Python projects";

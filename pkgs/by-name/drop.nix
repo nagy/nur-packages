@@ -4,6 +4,7 @@
   buildGoModule,
   versionCheckHook,
   writableTmpDirAsHomeHook,
+  nix-update-script,
 }:
 
 buildGoModule (finalAttrs: {
@@ -33,6 +34,8 @@ buildGoModule (finalAttrs: {
     "-X"
     "main.Version=${finalAttrs.version}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Linux sandboxing that doesn't get in your way";

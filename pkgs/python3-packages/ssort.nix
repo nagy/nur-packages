@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   pathspec,
   setuptools,
   fetchPypi,
@@ -29,6 +30,8 @@ buildPythonApplication rec {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
+  passthru.updateScript = pkgs.nix-update-script { };
 
   meta = {
     description = "Tool for sorting top level statements in python files";

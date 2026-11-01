@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
@@ -20,6 +21,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   doCheck = true;
 
