@@ -164,17 +164,6 @@ let
           lua = pkgs.lua5_4;
         };
 
-        hledger-mode = super.hledger-mode.overrideAttrs {
-          src = pkgs.fetchFromGitHub {
-            owner = "nagy";
-            repo = "hledger-mode";
-            rev = "03b8c78d448823eade5d2a2ae08d150d00146263";
-            hash = "sha256-G9IHDhy1kdmnusHUQR0F4kLs2DUrawgxDnhloZvV7FM=";
-          };
-          preferLocalBuild = true;
-          allowSubstitutes = false;
-        };
-
         pilish = super.pilish.overrideAttrs (old: {
           pname = "pilish";
           ename = "pilish";
