@@ -164,24 +164,6 @@ let
           lua = pkgs.lua5_4;
         };
 
-        pilish = super.pilish.overrideAttrs (old: {
-          pname = "pilish";
-          ename = "pilish";
-          version = "3.0.0";
-          recipe = "";
-          src = builtins.fetchGit {
-            url = "https://github.com/dnouri/pilish";
-            ref = "master";
-          };
-          packageRequires = [
-            super.magit-section
-            super.md-ts-mode
-            super.markdown-table-wrap
-          ];
-          preferLocalBuild = true;
-          allowSubstitutes = false;
-        });
-
         naysayer-theme = super.naysayer-theme.overrideAttrs {
           # prevent warnings
           postPatch = ''
