@@ -16,6 +16,8 @@
   localModule ?
     if builtins.elem "local-module" (map (x: x.prefix) builtins.nixPath) then <local-module> else null,
   jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
+  # Flake inputs for modules that would otherwise call builtins.getFlake.
+  flakes ? { },
 }:
 
 let
@@ -33,6 +35,7 @@ packages
       dot
       localModule
       jsonrpc-httpproxy
+      flakes
       ;
   };
 

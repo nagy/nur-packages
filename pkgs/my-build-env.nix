@@ -11,12 +11,15 @@
   # Flake or flake-like attrset.  Kept as a whole so this file also works
   # from `nix-build`, where the default fetches the flake itself.
   jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
+  # Flake inputs for the modules, for example flakes.emacs-bruvtab.  Empty
+  # means NIX_PATH-free fallback to builtins.getFlake inside each module.
+  flakes ? { },
 }:
 
 let
   self = import ./.. { inherit pkgs nur; };
   diffResult = self.lib.mkNixosBuildEnv {
-    inherit nur;
+    inherit nur flakes;
     name = "my-build-env";
     targetModules = [
       (

@@ -16,12 +16,13 @@
   mkNixosBuildEnv =
     {
       nur,
+      flakes ? { },
       nixosEval ? import (pkgs.path + "/nixos/lib/eval-config.nix"),
       targetModules ? [ ],
       name ? "nixos-diff-env",
     }:
     let
-      specialArgs = { inherit nur; };
+      specialArgs = { inherit nur flakes; };
       sysEmpty = nixosEval {
         inherit specialArgs;
         system = pkgs.stdenv.hostPlatform.system;
