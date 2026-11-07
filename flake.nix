@@ -132,6 +132,12 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.emacs-map-extras = {
+    url = "github:nagy/emacs-map-extras";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+  };
+
   inputs.emacs-ctags-mode = {
     url = "github:nagy/emacs-ctags-mode";
     inputs.nixpkgs.follows = "nixpkgs";
