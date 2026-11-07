@@ -146,6 +146,22 @@
         "type": "github"
       }
     },
+    "dot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794059563,
+        "narHash": "sha256-MS9YHzWg8X71fRNHoYGUFHX0BwUnEmXWF5kM3Hg0C+E=",
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "rev": "5877eb25ac3886c4827ec8cfdcb5757ec9f94500",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "emacs-bruvtab": {
       "inputs": {
         "bruvtab": "bruvtab_2",
@@ -640,6 +656,24 @@
     "flake-parts_21": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib_19"
+      },
+      "locked": {
+        "lastModified": 1790898470,
+        "narHash": "sha256-zTwuwezD0w3hpga6a6P8emidzAZFyWqlNeRBlpWOOl8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "024633cd702b10285db5cb19b40ad48d2399ba60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_22": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_20"
       },
       "locked": {
         "lastModified": 1790898470,
@@ -1255,6 +1289,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_20": {
+      "locked": {
+        "lastModified": 1790477367,
+        "narHash": "sha256-oujbxmVKDhci2E4EM3KyAbRUgp5/IsCoiA/LfEF7OOk=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "f7cd230690d9fc982d06129f9189b101fddcfa3b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib_3": {
       "locked": {
         "lastModified": 1790477367,
@@ -1440,6 +1489,7 @@
         "bruvtab": "bruvtab",
         "crate": "crate",
         "derivation": "derivation",
+        "dot": "dot",
         "emacs-bruvtab": "emacs-bruvtab",
         "emacs-buffer-url": "emacs-buffer-url",
         "emacs-ctags-mode": "emacs-ctags-mode",
@@ -1459,8 +1509,9 @@
         "nixpkgs": "nixpkgs",
         "nur": "nur",
         "org-jxl-images": "org-jxl-images",
+        "tired": "tired",
         "toml-ts-cargo-mode": "toml-ts-cargo-mode",
-        "treefmt-nix": "treefmt-nix_15",
+        "treefmt-nix": "treefmt-nix_16",
         "yublin": "yublin"
       }
     },
@@ -1479,9 +1530,31 @@
         "type": "github"
       }
     },
-    "toml-ts-cargo-mode": {
+    "tired": {
       "inputs": {
         "flake-parts": "flake-parts_20",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix_15"
+      },
+      "locked": {
+        "lastModified": 1794079253,
+        "narHash": "sha256-OUy41zsdV1vM2v69nYq+USTQDw9jr/Fh4umNnlqPfy0=",
+        "owner": "nagy",
+        "repo": "tired",
+        "rev": "0bacab0d870cafdbe5bb8dfa183816e38c89b2ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nagy",
+        "repo": "tired",
+        "type": "github"
+      }
+    },
+    "toml-ts-cargo-mode": {
+      "inputs": {
+        "flake-parts": "flake-parts_21",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -1627,6 +1700,27 @@
       }
     },
     "treefmt-nix_15": {
+      "inputs": {
+        "nixpkgs": [
+          "tired",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791885023,
+        "narHash": "sha256-C3alQ2MEt0zVrUSho5NUDo3jmhbff72++bfwoqT9Omo=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "0d6d739a833ba9a9c93034862e4a7b061a062a1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_16": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -1816,7 +1910,7 @@
     },
     "yublin": {
       "inputs": {
-        "flake-parts": "flake-parts_21",
+        "flake-parts": "flake-parts_22",
         "nixpkgs": [
           "nixpkgs"
         ]

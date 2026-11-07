@@ -25,6 +25,13 @@ let
       repo.emacsPackages # add all packages from this repository
       // {
 
+        tired =
+          (flakes.tired or (builtins.getFlake "github:nagy/tired"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         bruvtab =
           (flakes.emacs-bruvtab or (builtins.getFlake "github:nagy/emacs-bruvtab"))
           .packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;

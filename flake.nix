@@ -130,6 +130,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.tired = {
+    url = "github:nagy/tired";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs =
     inputs@{
       self,
