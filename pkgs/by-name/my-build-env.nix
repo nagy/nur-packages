@@ -82,6 +82,7 @@ let
             pkgs.disko
             (pkgs.callPackage <dot> { inherit nur; }).bin
             pkgs.xh
+            self.kicad-mcp-server
           ];
 
           services.xserver.enable = true;
