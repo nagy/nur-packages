@@ -1,17 +1,22 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
+  # Full NUR closure.  Required: modules/firefox.nix reads
+  # nur.repos.rycee.firefox-addons.
+  nur,
+  # Private dotfiles tree.  Supplies (pkgs.callPackage dot).bin and dot/emacs.
+  dot,
+  # Optional extra NixOS module, for example a host-specific one.
+  localModule ? null,
+  # Flake or flake-like attrset.  Kept as a whole so this file also works
+  # from `nix-build`, where the default fetches the flake itself.
+  jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
 }:
 
 let
-  nixpaths = builtins.listToAttrs (
-    builtins.map (x: {
-      name = x.prefix;
-      value = x.path;
-    }) builtins.nixPath
-  );
-  self = import ../.. { inherit pkgs; };
+  self = import ./.. { inherit pkgs nur; };
   diffResult = self.lib.mkNixosBuildEnv {
+    inherit nur;
     name = "my-build-env";
     targetModules = [
       (
@@ -58,9 +63,7 @@ let
             nur.repos.nagy.modules.xcompose
             nur.repos.nagy.modules.yggdrasil
           ]
-          ++ (lib.optionals (nixpaths ? "local-module") [
-            <local-module>
-          ]);
+          ++ lib.optional (localModule != null) localModule;
 
           environment.systemPackages = [
             pkgs.sqlite-interactive
@@ -75,12 +78,11 @@ let
             pkgs.curl # to get newer versions
             pkgs.websocat
             self.ggufmeta
-            (builtins.getFlake "github:nagy/jsonrpc-httpproxy")
-            .packages.${pkgs.stdenv.hostPlatform.system}.jsonrpc-httpproxy
+            (jsonrpc-httpproxy.packages.${pkgs.stdenv.hostPlatform.system}.jsonrpc-httpproxy)
             self.pngattach
             pkgs.libjxl
             pkgs.disko
-            (pkgs.callPackage <dot> { inherit nur; }).bin
+            (pkgs.callPackage dot { inherit nur; }).bin
             pkgs.xh
             self.kicad-mcp-server
           ];
@@ -89,7 +91,7 @@ let
 
           nagy.emacs = {
             packageDirectories = [
-              <dot/emacs>
+              (dot + "/emacs")
             ];
           };
         }
