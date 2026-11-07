@@ -148,6 +148,22 @@
         "type": "github"
       }
     },
+    "dot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794059563,
+        "narHash": "sha256-MS9YHzWg8X71fRNHoYGUFHX0BwUnEmXWF5kM3Hg0C+E=",
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "rev": "5877eb25ac3886c4827ec8cfdcb5757ec9f94500",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "emacs-bruvtab": {
       "inputs": {
         "bruvtab": "bruvtab_2",
@@ -1558,6 +1574,7 @@
         "bruvtab": "bruvtab",
         "crate": "crate",
         "derivation": "derivation",
+        "dot": "dot",
         "emacs-bruvtab": "emacs-bruvtab",
         "emacs-buffer-url": "emacs-buffer-url",
         "emacs-ctags-mode": "emacs-ctags-mode",
