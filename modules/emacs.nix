@@ -34,6 +34,20 @@ let
               emacs = self.emacs;
             };
 
+        openstack =
+          (builtins.getFlake "github:nagy/emacs-openstack-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
+        gitlab-modes =
+          (builtins.getFlake "github:nagy/emacs-gitlab-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         org-jxl-images =
           (builtins.getFlake "github:nagy/org-jxl-images.el")
           .packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
