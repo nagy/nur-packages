@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -19,6 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   # For a native build nixpkgs offers stdenv.adapters.impureUseNativeOptimizations.
   makeFlags = [ "cpu" ];
